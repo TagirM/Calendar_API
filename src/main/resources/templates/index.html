@@ -1,0 +1,16 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{blocks/template.html}">
+<th:block layout:fragment="alert-content">
+    <h2 class="text-primary">ДОБРО ПОЖАЛОВАТЬ В СЕРВИС ФОРМИРОВАНИЯ</h2>
+    <h2 class="text-primary">КАЛЕНДАРНЫХ СРОКОВ ДОГОВОРА!</h2>
+    <br>
+    <h3>Выберете ведущий тип объекта проектирования</h3>
+    <br>
+    <a class="btn btn-outline-secondary" href="/oil_pad_object"><h4>Обустройство кустовой площадки</h4></a><br><br>
+    <a class="btn btn-outline-secondary" href="/tech_object"><h4>Технологическая площадка</h4></a><br><br>
+    <a class="btn btn-outline-secondary" href="/linear_object"><h4>Линейный объект</h4></a><br><br>
+    <a class="btn btn-outline-secondary" href="/areaObject"><h4>Инфраструктурный объект</h4></a><br><br>
+    <a class="btn btn-outline-secondary" href="/energy_facility"><h4>Объект энергетики</h4></a><br><br>
+</th:block>
+</html>

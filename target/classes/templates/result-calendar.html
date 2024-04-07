@@ -1,0 +1,139 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{blocks/template.html}">
+<th:block layout:fragment="alert-content">
+    <hr class="my-4">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="text-center">КАЛЕНДАРНЫЕ СРОКИ ПРОЕКТА</h2><br>
+            <h5 class="fst-italic">Шифр договора: [[${codeContract}]]</h5>
+            <h5 class="fst-italic">Основные характеристики проекта</h5>
+            <p class="fst-italic" th:if="${fieldEngineeringSurvey}" >Комплексные инженерные изыскания: Да</p>
+            <p class="fst-italic" th:if="${!fieldEngineeringSurvey}">Полевые инженерные изыскания: Нет</p>
+            <p  class="fst-italic" th:if="${engineeringSurveyReport}">Камеральные инженерные изыскания: Да</p>
+            <p  class="fst-italic">Количество скважин для инженерной подготовки: [[${dataFormOilPad.backfillWell.well}]]</p>
+            <p class="fst-italic" th:if="${dataFormOilPad.road.active}">Автомобильная дорога категории [[${dataFormOilPad.road.category}]]
+                протяженностью [[${dataFormOilPad.road.length}]] км</p>
+            <p class="fst-italic" th:if="${dataFormOilPad.road.bridgeExist}">Дорожные мосты в количестве:
+                [[${dataFormOilPad.road.bridgeRoadCount}]] шт.,
+                общей протяженностью [[${dataFormOilPad.road.bridgeRoadLength}]] м</p>
+            <p class="fst-italic" th:if="${dataFormOilPad.line.active}">ВЛ напряжением [[${dataFormOilPad.line.power}]] кВ протяженностью
+                [[${dataFormOilPad.line.length}]] км</p>
+            <p class="fst-italic" th:if="${dataFormOilPad.mupn.active}">Площадка для МУПН площадью [[${dataFormOilPad.mupn.square}]] га</p>
+            <p class="fst-italic" th:if="${dataFormOilPad.vec.active}">Площадка для ВЭЦ площадью [[${dataFormOilPad.vec.square}]] га</p>
+            <p class="fst-italic" th:if="${dataFormOilPad.vvp.active}">Временная вертолетная площадка для
+                [[${dataFormOilPad.vvp.helicopterModel}]] площадью [[${dataFormOilPad.vvp.square}]] га</p>
+            <p class="fst-italic" th:if="${dataFormOilPad.vvp.hallExist}">с залом ожидания</p>
+            <p class="fst-italic" th:if="${dataFormOilPad.cableRack.active}">Кабельная эстакада протяженностью
+                [[${dataFormOilPad.cableRack.length}]] м</p>
+            <p class="fst-italic" th:if="${dataFormOilPad.vjk.active}">Площадка для ВЖК площадью [[${dataFormOilPad.vjk.square}]] га</p>
+            <hr>
+            <table th:border="1" th:width="700" class="table table-hover table-light text-center">
+                <thead>
+                <tr>
+                    <th>Наименование вида работ</th>
+                    <th>Дата начала</th>
+                    <th>Дата окончания</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="calendar : ${calendars}">
+                    <tr>
+                        <td colspan="3" th:align="center"><b>Этап проектирования (строительства) &nbsp;[[${calendar.stage}]]</b>
+                        </td>
+                    </tr>
+                    <th:block th:if="${fieldEngineeringSurvey}">
+                        <tr>
+                            <td>Инженерные изыскания</td>
+                            <td th:align="center" th:text="${calendar.startContract}"></td>
+                            <td th:align="center" th:text="${calendar.engineeringSurvey}"></td>
+                        </tr>
+                    </th:block>
+                    <th:block th:if="${engineeringSurveyReport}">
+                        <tr>
+                            <td>Отчет по инженерным изысканиям</td>
+                            <td th:align="center" th:text="${calendar.engineeringSurvey}"></td>
+                            <td th:align="center" th:text="${calendar.engineeringSurveyReport}"></td>
+                        </tr>
+                        <tr>
+                            <td>Согласование инженерных изысканий</td>
+                            <td th:align="center" th:text="${calendar.engineeringSurveyReport}"></td>
+                            <td th:align="center" th:text="${calendar.agreementEngineeringSurvey}"></td>
+                        </tr>
+                    </th:block>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Рабочая документация</td>
+                        <td th:align="center" th:text="${calendar.workingStart}"></td>
+                        <td th:align="center" th:text="${calendar.workingFinish}"></td>
+                    </tr>
+                    <tr>
+                        <td>Согласование рабочей документации</td>
+                        <td th:align="center" th:text="${calendar.workingFinish}"></td>
+                        <td th:align="center" th:text="${calendar.agreementWorking}"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Сметная документация</td>
+                        <td th:align="center" th:text="${calendar.workingFinish}"></td>
+                        <td th:align="center" th:text="${calendar.estimatesFinish}"></td>
+                    </tr>
+                    <tr>
+                        <td>Согласование сметной документации</td>
+                        <td th:align="center" th:text="${calendar.estimatesFinish}"></td>
+                        <td th:align="center" th:text="${calendar.agreementEstimates}"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Проектная документация</td>
+                        <td th:align="center" th:text="${calendar.workingFinish}"></td>
+                        <td th:align="center" th:text="${calendar.projectFinish}"></td>
+                    </tr>
+                    <tr>
+                        <td>Согласование проектной документации</td>
+                        <td th:align="center" th:text="${calendar.projectFinish}"></td>
+                        <td th:align="center" th:text="${calendar.agreementProject}"></td>
+                    </tr>
+                    <tr>
+                        <td>Экспертиза проектной документации</td>
+                        <td th:align="center" th:text="${calendar.agreementProject}"></td>
+                        <td th:align="center" th:text="${calendar.examination}"></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Землеустроительная документация</td>
+                        <td th:align="center" th:text="${calendar.projectFinish}"></td>
+                        <td th:align="center" th:text="${calendar.landFinish}"></td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <div class="card" align="center">
+        <a class="btn btn-outline-secondary fw-bolder" href="../backfill-well.html" th:href="@{/oil_pad_object/backfill_well}">Выгрузить в Excel</a><br>
+        <a class="btn btn-outline-secondary fw-bolder" href="../backfill-well.html" th:href="@{/oil_pad_object/backfill_well}">Вернуться
+            на предыдущую страницу</a><br>
+        <a class="btn btn-outline-secondary fw-bolder" href="../index.html" th:href="@{/}">Вернуться на начальную страницу</a>
+</div>
+    <br>
+    <hr class="my-4">
+</th:block>
+</html>
