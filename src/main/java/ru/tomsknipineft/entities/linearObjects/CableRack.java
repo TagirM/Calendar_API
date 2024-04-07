@@ -14,6 +14,8 @@ import ru.tomsknipineft.entities.oilPad.OilPad;
 import ru.tomsknipineft.utils.entityValidator.CableRackGroupSequenceProvider;
 import ru.tomsknipineft.utils.entityValidator.OnActiveCheck;
 
+import java.io.Serializable;
+
 /**
  * Кабельная эстакада
  */
@@ -23,7 +25,7 @@ import ru.tomsknipineft.utils.entityValidator.OnActiveCheck;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "cable_rack")
-public class CableRack implements OilPad, EntityProject {
+public class CableRack implements OilPad, EntityProject, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

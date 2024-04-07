@@ -14,6 +14,8 @@ import ru.tomsknipineft.entities.oilPad.OilPad;
 import ru.tomsknipineft.utils.entityValidator.LineGroupSequenceProvider;
 import ru.tomsknipineft.utils.entityValidator.OnActiveCheck;
 
+import java.io.Serializable;
+
 /**
  * ЛЭП
  */
@@ -23,7 +25,7 @@ import ru.tomsknipineft.utils.entityValidator.OnActiveCheck;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "lines")
-public class Line implements OilPad, EntityProject {
+public class Line implements OilPad, EntityProject, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -15,6 +15,8 @@ import ru.tomsknipineft.entities.oilPad.OilPad;
 import ru.tomsknipineft.utils.entityValidator.OnActiveCheck;
 import ru.tomsknipineft.utils.entityValidator.VvpGroupSequenceProvider;
 
+import java.io.Serializable;
+
 /**
  * Временная вертолетная площадка (ВВП)
  */
@@ -24,7 +26,7 @@ import ru.tomsknipineft.utils.entityValidator.VvpGroupSequenceProvider;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "vvps")
-public class Vvp implements OilPad, EntityProject {
+public class Vvp implements OilPad, EntityProject, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -13,7 +13,7 @@
                 <div id="contractClass" class="container">
                     <h3>Договор</h3>
                     <div class="form-group">
-                        <label for="code">Шифр:</label>
+                        <label for="code">Шифр (от 4 до 10 символов):</label>
                         <input type="text" class="form-control" th:field="*{codeContract}" id="code"/>
                         <span class="text-danger" th:if="${#fields.hasErrors('codeContract')}"
                               th:errors="*{codeContract}">CodeContract error</span><br><br>

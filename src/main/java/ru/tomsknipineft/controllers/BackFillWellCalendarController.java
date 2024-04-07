@@ -65,8 +65,9 @@ public class BackFillWellCalendarController {
             engineeringSurveyReport = true;
         }
         calendarService.createCalendar(durationsProject, codeContract, date, dataFormOilPad.getHumanFactor(),
-                fieldEngineeringSurvey, engineeringSurveyReport, dataFormOilPad.getDrillingRig());
+                fieldEngineeringSurvey, engineeringSurveyReport, dataFormOilPad.getDrillingRig(), dataFormOilPad);
         this.dataFormOilPad = dataFormOilPad;
+
         return "redirect:/oil_pad_object/backfill_well/calendar";
     }
 

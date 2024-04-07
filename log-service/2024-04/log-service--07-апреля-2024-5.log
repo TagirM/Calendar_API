@@ -1,0 +1,53 @@
+2024-04-07T22:42:57.946+0700 INFO info message
+2024-04-07T22:42:57.946+0700 ERROR info message
+2024-04-07T22:42:58.024+0700 INFO info message
+2024-04-07T22:42:58.024+0700 ERROR info message
+2024-04-07T22:42:58.211+0700 INFO HV000001: Hibernate Validator 8.0.1.Final
+2024-04-07T22:42:58.248+0700 INFO Starting Main using Java 19.0.1 with PID 6460 (E:\MyJob\calendar_api\target\classes started by Тагир in E:\MyJob\calendar_api)
+2024-04-07T22:42:58.248+0700 INFO No active profile set, falling back to 1 default profile: "default"
+2024-04-07T22:42:58.462+0700 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-04-07T22:42:58.462+0700 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-04-07T22:42:58.892+0700 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-07T22:42:58.939+0700 INFO Finished Spring Data repository scanning in 54 ms. Found 10 JPA repository interfaces.
+2024-04-07T22:42:59.267+0700 INFO Tomcat initialized with port 8080 (http)
+2024-04-07T22:42:59.283+0700 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-07T22:42:59.283+0700 INFO Starting service [Tomcat]
+2024-04-07T22:42:59.283+0700 INFO Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-04-07T22:42:59.314+0700 INFO Initializing Spring embedded WebApplicationContext
+2024-04-07T22:42:59.314+0700 INFO Root WebApplicationContext: initialization completed in 852 ms
+2024-04-07T22:42:59.329+0700 INFO HikariPool-1 - Starting...
+2024-04-07T22:42:59.423+0700 INFO HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2024-04-07T22:42:59.423+0700 INFO HikariPool-1 - Start completed.
+2024-04-07T22:42:59.439+0700 INFO H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2024-04-07T22:42:59.517+0700 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-07T22:42:59.548+0700 INFO HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-04-07T22:42:59.564+0700 INFO HHH000026: Second-level cache disabled
+2024-04-07T22:42:59.673+0700 INFO No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-07T22:42:59.704+0700 WARN HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-07T22:43:00.423+0700 INFO HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-07T22:43:00.454+0700 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-07T22:43:00.814+0700 WARN Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'startCalendarController' defined in file [E:\MyJob\calendar_api\target\classes\ru\tomsknipineft\controllers\StartCalendarController.class]: Unsatisfied dependency expressed through constructor parameter 1: No qualifying bean of type 'ru.tomsknipineft.services.DataFormProjectService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2024-04-07T22:43:00.814+0700 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-07T22:43:00.829+0700 WARN Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: База данных уже закрыта (чтобы отключить автоматическое закрытие базы данных при останове JVM, добавьте ";DB_CLOSE_ON_EXIT=FALSE" в URL)
+Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-224]
+2024-04-07T22:43:00.829+0700 INFO HikariPool-1 - Shutdown initiated...
+2024-04-07T22:43:00.829+0700 INFO HikariPool-1 - Shutdown completed.
+2024-04-07T22:43:00.829+0700 INFO Stopping service [Tomcat]
+2024-04-07T22:43:00.829+0700 INFO 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-04-07T22:43:00.861+0700 ERROR 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 1 of constructor in ru.tomsknipineft.controllers.StartCalendarController required a bean of type 'ru.tomsknipineft.services.DataFormProjectService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'ru.tomsknipineft.services.DataFormProjectService' in your configuration.
+

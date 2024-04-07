@@ -14,10 +14,14 @@ import ru.tomsknipineft.entities.linearObjects.CableRack;
 import ru.tomsknipineft.entities.linearObjects.Line;
 import ru.tomsknipineft.entities.linearObjects.Road;
 import ru.tomsknipineft.entities.oilPad.BackfillWell;
+import ru.tomsknipineft.entities.oilPad.DataFormOilPad;
 import ru.tomsknipineft.entities.oilPad.Mupn;
 import ru.tomsknipineft.repositories.CalendarRepository;
 import ru.tomsknipineft.utils.exceptions.NoSuchCalendarException;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Period;
@@ -49,6 +53,8 @@ public class CalendarService {
 
     private final VjkService vjkService;
 
+    private final DataFormProjectService dataFormProjectService;
+
     private static final Logger logger = LogManager.getLogger(CalendarService.class);
 
     /**
@@ -73,7 +79,10 @@ public class CalendarService {
      * @param drillingRig количество буровых бригад
      */
     public void createCalendar(List<Integer> getDurationsProject, String codeContract, LocalDate startContract, Integer humanFactor,
-                               boolean fieldEngineeringSurvey, boolean engineeringSurveyReport, Integer drillingRig) {
+                               boolean fieldEngineeringSurvey, boolean engineeringSurveyReport, Integer drillingRig, DataFormOilPad dataFormOilPad) {
+        //  запись в файл данных о проекте
+        this.dataFormProjectService.dataFormOilPadSave(dataFormOilPad);
+        // переменные метода
         int nextStage = 0;
         int engineeringSurveyDuration = 0;
         int engineeringSurveyLaboratoryResearch = 0;
@@ -151,23 +160,28 @@ public class CalendarService {
             finishWorking = workDay(startContract.plusDays(workingDuration + stageOffsetII + stageOffsetPSD));
 
             // формирование календаря проекта
-            calendar.setCodeContract(codeContract).setStartContract(workDay(startContract))
-                    .setStage(i + 1)
-                    .setEngineeringSurvey(workDay(startContract.plusDays(engineeringSurveyDuration)))
-                    .setEngineeringSurveyReport(workDay(startContract.plusDays(engineeringSurveyReportDuration + stageOffsetII)))
-                    .setAgreementEngineeringSurvey(workDay(startContract.plusDays(agreementEngineeringSurveyDuration + stageOffsetII)))
-                    .setWorkingStart(workDay(startContract.plusDays(engineeringSurveyReportDuration + stageOffsetII + stageOffsetPSD)))
-                    .setWorkingFinish(workDay(startContract.plusDays(workingDuration + stageOffsetII + stageOffsetPSD)))
+            try {
+                calendar.setCodeContract(codeContract).setStartContract(workDay(startContract))
+                        .setStage(i + 1)
+                        .setEngineeringSurvey(workDay(startContract.plusDays(engineeringSurveyDuration)))
+                        .setEngineeringSurveyReport(workDay(startContract.plusDays(engineeringSurveyReportDuration + stageOffsetII)))
+                        .setAgreementEngineeringSurvey(workDay(startContract.plusDays(agreementEngineeringSurveyDuration + stageOffsetII)))
+                        .setWorkingStart(workDay(startContract.plusDays(engineeringSurveyReportDuration + stageOffsetII + stageOffsetPSD)))
+                        .setWorkingFinish(workDay(startContract.plusDays(workingDuration + stageOffsetII + stageOffsetPSD)))
 
-                    .setEstimatesFinish(workDay(startContract.plusDays(estimatesDuration + stageOffsetII + stageOffsetPSD)))
-                    .setProjectFinish(workDay(startContract.plusDays(projectDuration + stageOffsetII + stageOffsetPSD)))
-                    .setLandFinish(workDay(startContract.plusDays(landDuration + stageOffsetII + stageOffsetPSD)))
-                    .setAgreementWorking(workDay(startContract.plusDays(agreementWorkingDuration + stageOffsetII + stageOffsetPSD)))
-                    .setAgreementProject(workDay(startContract.plusDays(agreementProjectDuration + stageOffsetII + stageOffsetPSD)))
-                    .setAgreementEstimates(workDay(startContract.plusDays(agreementEstimatesDuration + stageOffsetII + stageOffsetPSD)))
-                    .setExamination(workDay(startContract.plusDays(examinationDuration + stageOffsetII + stageOffsetPSD)))
-                    .setHumanFactor(humanFactor);
-            // проверка налчия в базе предыдущих календарей по данному шифру, если есть, то удалить, чтобы не возникало конфликта календарей
+                        .setEstimatesFinish(workDay(startContract.plusDays(estimatesDuration + stageOffsetII + stageOffsetPSD)))
+                        .setProjectFinish(workDay(startContract.plusDays(projectDuration + stageOffsetII + stageOffsetPSD)))
+                        .setLandFinish(workDay(startContract.plusDays(landDuration + stageOffsetII + stageOffsetPSD)))
+                        .setAgreementWorking(workDay(startContract.plusDays(agreementWorkingDuration + stageOffsetII + stageOffsetPSD)))
+                        .setAgreementProject(workDay(startContract.plusDays(agreementProjectDuration + stageOffsetII + stageOffsetPSD)))
+                        .setAgreementEstimates(workDay(startContract.plusDays(agreementEstimatesDuration + stageOffsetII + stageOffsetPSD)))
+                        .setExamination(workDay(startContract.plusDays(examinationDuration + stageOffsetII + stageOffsetPSD)))
+                        .setHumanFactor(humanFactor)
+                        .setBytesDataProject(Files.readAllBytes(Paths.get(dataFormProjectService.getFilePathSave())));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            // проверка наличия в базе предыдущих календарей по данному шифру, если есть, то удалить, чтобы не возникало конфликта календарей
             if (i == 0 && calendarRepository.findCalendarByCodeContract(codeContract).isPresent()) {
                 calendarRepository.deleteAll(getCalendarByCode(codeContract));
             }

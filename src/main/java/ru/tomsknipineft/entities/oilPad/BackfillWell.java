@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import ru.tomsknipineft.entities.EntityProject;
 import ru.tomsknipineft.entities.ObjectType;
 
+import java.io.Serializable;
+
 /**
  * Инженерная подготовка кустовой площадки
  */
@@ -18,7 +20,7 @@ import ru.tomsknipineft.entities.ObjectType;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "backfill_wells")
-public class BackfillWell implements OilPad, EntityProject {
+public class BackfillWell implements OilPad, EntityProject, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

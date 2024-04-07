@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.hibernate.validator.group.GroupSequenceProvider;
+import ru.tomsknipineft.entities.DataFormProject;
 import ru.tomsknipineft.entities.areaObjects.Vec;
 import ru.tomsknipineft.entities.areaObjects.Vjk;
 import ru.tomsknipineft.entities.areaObjects.Vvp;
@@ -13,6 +14,8 @@ import ru.tomsknipineft.entities.linearObjects.Road;
 import ru.tomsknipineft.utils.entityValidator.EngineeringSurveyGroupSequenceProvider;
 import ru.tomsknipineft.utils.entityValidator.OnActiveEngineeringSurvey;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -20,7 +23,10 @@ import java.time.LocalDate;
  */
 @GroupSequenceProvider(EngineeringSurveyGroupSequenceProvider.class)
 @Data
-public class DataFormOilPad {
+public class DataFormOilPad implements DataFormProject, Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @NotNull(message = "The code should not be empty")
     @Size(min = 4, max = 10, message = "Code should be between 4 and 10 characters")

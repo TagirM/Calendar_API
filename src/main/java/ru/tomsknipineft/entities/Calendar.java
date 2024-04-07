@@ -73,6 +73,11 @@ public class Calendar {
     // человеческий фактор, %
     private Integer humanFactor;
 
+    // сохранение в виде файла данных о проекте
+    @Lob
+    @Column(name = "bytes_data_project", columnDefinition = "LONGBLOB")
+    private byte[] bytesDataProject;
+
     @PrePersist
     private void init(){
         dateOfCreated = LocalDateTime.now();

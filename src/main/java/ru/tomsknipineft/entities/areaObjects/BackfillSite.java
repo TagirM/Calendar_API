@@ -8,6 +8,8 @@ import ru.tomsknipineft.entities.EntityProject;
 import ru.tomsknipineft.entities.ObjectType;
 import ru.tomsknipineft.entities.oilPad.OilPad;
 
+import java.io.Serializable;
+
 /**
  * Инженерная подготовка любого площадочного объекта
  */
@@ -16,7 +18,7 @@ import ru.tomsknipineft.entities.oilPad.OilPad;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "backfill_sites")
-public class BackfillSite implements OilPad, EntityProject {
+public class BackfillSite implements OilPad, EntityProject, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

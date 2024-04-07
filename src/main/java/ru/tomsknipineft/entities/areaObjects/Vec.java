@@ -14,6 +14,8 @@ import ru.tomsknipineft.entities.oilPad.OilPad;
 import ru.tomsknipineft.utils.entityValidator.OnActiveCheck;
 import ru.tomsknipineft.utils.entityValidator.VecGroupSequenceProvider;
 
+import java.io.Serializable;
+
 /**
  * ВЭЦ (Временный энергоцентр)
  */
@@ -23,7 +25,7 @@ import ru.tomsknipineft.utils.entityValidator.VecGroupSequenceProvider;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "vecs")
-public class Vec  implements OilPad, EntityProject {
+public class Vec  implements OilPad, EntityProject, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

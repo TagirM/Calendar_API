@@ -1,0 +1,52 @@
+2024-04-07T11:41:22.617+0700 INFO info message
+2024-04-07T11:41:22.617+0700 ERROR info message
+2024-04-07T11:41:22.695+0700 INFO info message
+2024-04-07T11:41:22.695+0700 ERROR info message
+2024-04-07T11:41:22.981+0700 INFO HV000001: Hibernate Validator 8.0.1.Final
+2024-04-07T11:41:23.003+0700 INFO Starting Main using Java 19.0.1 with PID 3116 (E:\MyJob\calendar_api\target\classes started by Тагир in E:\MyJob\calendar_api)
+2024-04-07T11:41:23.003+0700 INFO No active profile set, falling back to 1 default profile: "default"
+2024-04-07T11:41:23.208+0700 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-04-07T11:41:23.208+0700 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-04-07T11:41:23.718+0700 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-07T11:41:23.765+0700 INFO Finished Spring Data repository scanning in 50 ms. Found 10 JPA repository interfaces.
+2024-04-07T11:41:24.093+0700 INFO Tomcat initialized with port 8080 (http)
+2024-04-07T11:41:24.109+0700 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2024-04-07T11:41:24.109+0700 INFO Starting service [Tomcat]
+2024-04-07T11:41:24.109+0700 INFO Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-04-07T11:41:24.140+0700 INFO Initializing Spring embedded WebApplicationContext
+2024-04-07T11:41:24.140+0700 INFO Root WebApplicationContext: initialization completed in 932 ms
+2024-04-07T11:41:24.187+0700 INFO HikariPool-1 - Starting...
+2024-04-07T11:41:24.250+0700 INFO HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2024-04-07T11:41:24.250+0700 INFO HikariPool-1 - Start completed.
+2024-04-07T11:41:24.250+0700 INFO H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2024-04-07T11:41:24.328+0700 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-07T11:41:24.359+0700 INFO HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-04-07T11:41:24.375+0700 INFO HHH000026: Second-level cache disabled
+2024-04-07T11:41:24.484+0700 INFO No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-07T11:41:24.500+0700 WARN HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-07T11:41:25.250+0700 INFO HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-07T11:41:25.296+0700 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-07T11:41:25.734+0700 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-07T11:41:25.750+0700 INFO Adding welcome page template: index
+2024-04-07T11:41:26.093+0700 INFO LiveReload server is running on port 35729
+2024-04-07T11:41:26.109+0700 INFO Starting ProtocolHandler ["http-nio-8080"]
+2024-04-07T11:41:26.125+0700 INFO Tomcat started on port 8080 (http) with context path ''
+2024-04-07T11:41:26.140+0700 INFO Started Main in 3.445 seconds (process running for 4.328)
+2024-04-07T11:41:39.055+0700 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-07T11:41:39.055+0700 INFO Initializing Servlet 'dispatcherServlet'
+2024-04-07T11:41:39.055+0700 INFO Completed initialization in 0 ms
+2024-04-07T11:42:40.828+0700 INFO Количество этапов в проекте определено и равно 2
+2024-04-07T11:42:41.033+0700 INFO Создан новый календарь Calendar(id=1, codeContract=8322, startContract=2024-04-08, stage=1, engineeringSurvey=2024-05-07, engineeringSurveyReport=2024-08-05, agreementEngineeringSurvey=2024-10-04, workingStart=2024-08-05, workingFinish=2024-08-29, agreementWorking=2024-10-28, estimatesFinish=2024-09-30, agreementEstimates=2024-11-27, projectFinish=2024-09-30, agreementProject=2024-11-27, examination=2025-03-27, landFinish=2025-02-25, dateOfCreated=2024-04-07T11:42:40.992695900, humanFactor=50)
+2024-04-07T11:42:41.041+0700 INFO Создан новый календарь Calendar(id=2, codeContract=8322, startContract=2024-05-07, stage=2, engineeringSurvey=2024-06-06, engineeringSurveyReport=2024-09-19, agreementEngineeringSurvey=2024-11-18, workingStart=2024-09-19, workingFinish=2024-10-18, agreementWorking=2024-12-17, estimatesFinish=2024-11-18, agreementEstimates=2025-01-16, projectFinish=2024-11-18, agreementProject=2025-01-16, examination=2025-05-16, landFinish=2025-04-16, dateOfCreated=2024-04-07T11:42:41.041148500, humanFactor=50)
+2024-04-07T11:42:41.065+0700 INFO Календарь найденный по шифру 8322 - [Calendar(id=1, codeContract=8322, startContract=2024-04-08, stage=1, engineeringSurvey=2024-05-07, engineeringSurveyReport=2024-08-05, agreementEngineeringSurvey=2024-10-04, workingStart=2024-08-05, workingFinish=2024-08-29, agreementWorking=2024-10-28, estimatesFinish=2024-09-30, agreementEstimates=2024-11-27, projectFinish=2024-09-30, agreementProject=2024-11-27, examination=2025-03-27, landFinish=2025-02-25, dateOfCreated=2024-04-07T11:42:40.992696, humanFactor=50), Calendar(id=2, codeContract=8322, startContract=2024-05-07, stage=2, engineeringSurvey=2024-06-06, engineeringSurveyReport=2024-09-19, agreementEngineeringSurvey=2024-11-18, workingStart=2024-09-19, workingFinish=2024-10-18, agreementWorking=2024-12-17, estimatesFinish=2024-11-18, agreementEstimates=2025-01-16, projectFinish=2024-11-18, agreementProject=2025-01-16, examination=2025-05-16, landFinish=2025-04-16, dateOfCreated=2024-04-07T11:42:41.041149, humanFactor=50)]
+2024-04-07T11:43:15.497+0700 INFO Количество этапов в проекте определено и равно 2
+2024-04-07T11:43:15.562+0700 WARN Resolved [ru.tomsknipineft.utils.exceptions.NoSuchEntityException: Введено некорректное значение площади 2.0 и/или модель вертолета hhh]
+2024-04-07T11:43:59.920+0700 INFO Количество этапов в проекте определено и равно 2
+2024-04-07T11:43:59.959+0700 INFO Создан новый календарь Calendar(id=3, codeContract=8322, startContract=2024-04-08, stage=1, engineeringSurvey=2024-05-07, engineeringSurveyReport=2024-08-05, agreementEngineeringSurvey=2024-10-04, workingStart=2024-08-05, workingFinish=2024-09-12, agreementWorking=2024-11-11, estimatesFinish=2024-10-14, agreementEstimates=2024-12-11, projectFinish=2024-10-14, agreementProject=2024-12-11, examination=2025-04-10, landFinish=2025-03-11, dateOfCreated=2024-04-07T11:43:59.951477100, humanFactor=50)
+2024-04-07T11:43:59.959+0700 INFO Создан новый календарь Calendar(id=4, codeContract=8322, startContract=2024-05-07, stage=2, engineeringSurvey=2024-06-06, engineeringSurveyReport=2024-09-19, agreementEngineeringSurvey=2024-11-18, workingStart=2024-09-19, workingFinish=2024-10-18, agreementWorking=2024-12-17, estimatesFinish=2024-11-18, agreementEstimates=2025-01-16, projectFinish=2024-11-18, agreementProject=2025-01-16, examination=2025-05-16, landFinish=2025-04-16, dateOfCreated=2024-04-07T11:43:59.959546700, humanFactor=50)
+2024-04-07T11:43:59.975+0700 INFO Календарь найденный по шифру 8322 - [Calendar(id=3, codeContract=8322, startContract=2024-04-08, stage=1, engineeringSurvey=2024-05-07, engineeringSurveyReport=2024-08-05, agreementEngineeringSurvey=2024-10-04, workingStart=2024-08-05, workingFinish=2024-09-12, agreementWorking=2024-11-11, estimatesFinish=2024-10-14, agreementEstimates=2024-12-11, projectFinish=2024-10-14, agreementProject=2024-12-11, examination=2025-04-10, landFinish=2025-03-11, dateOfCreated=2024-04-07T11:43:59.951477, humanFactor=50), Calendar(id=4, codeContract=8322, startContract=2024-05-07, stage=2, engineeringSurvey=2024-06-06, engineeringSurveyReport=2024-09-19, agreementEngineeringSurvey=2024-11-18, workingStart=2024-09-19, workingFinish=2024-10-18, agreementWorking=2024-12-17, estimatesFinish=2024-11-18, agreementEstimates=2025-01-16, projectFinish=2024-11-18, agreementProject=2025-01-16, examination=2025-05-16, landFinish=2025-04-16, dateOfCreated=2024-04-07T11:43:59.959547, humanFactor=50)]
+2024-04-07T11:54:54.804+0700 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-07T11:54:54.835+0700 WARN Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: База данных уже закрыта (чтобы отключить автоматическое закрытие базы данных при останове JVM, добавьте ";DB_CLOSE_ON_EXIT=FALSE" в URL)
+Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-224]
+2024-04-07T11:54:54.835+0700 INFO HikariPool-1 - Shutdown initiated...
+2024-04-07T11:54:54.835+0700 INFO HikariPool-1 - Shutdown completed.

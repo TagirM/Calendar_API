@@ -14,6 +14,8 @@ import ru.tomsknipineft.entities.oilPad.OilPad;
 import ru.tomsknipineft.utils.entityValidator.OnActiveCheck;
 import ru.tomsknipineft.utils.entityValidator.VjkGroupSequenceProvider;
 
+import java.io.Serializable;
+
 /**
  * ВЖК (вахтовый жилой комплекс)
  */
@@ -23,7 +25,7 @@ import ru.tomsknipineft.utils.entityValidator.VjkGroupSequenceProvider;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "vjks")
-public class Vjk implements OilPad, EntityProject {
+public class Vjk implements OilPad, EntityProject, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

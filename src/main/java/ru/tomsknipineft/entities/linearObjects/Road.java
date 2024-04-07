@@ -13,6 +13,8 @@ import ru.tomsknipineft.utils.entityValidator.OnActiveBridgeRoad;
 import ru.tomsknipineft.utils.entityValidator.OnActiveCheck;
 import ru.tomsknipineft.utils.entityValidator.RoadGroupSequenceProvider;
 
+import java.io.Serializable;
+
 /**
  * Автомобильная дорога
  */
@@ -22,7 +24,7 @@ import ru.tomsknipineft.utils.entityValidator.RoadGroupSequenceProvider;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "roads")
-public class Road implements OilPad, EntityProject {
+public class Road implements OilPad, EntityProject, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

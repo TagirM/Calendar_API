@@ -13,6 +13,8 @@ import ru.tomsknipineft.entities.ObjectType;
 import ru.tomsknipineft.utils.entityValidator.MupnGroupSequenceProvider;
 import ru.tomsknipineft.utils.entityValidator.OnActiveCheck;
 
+import java.io.Serializable;
+
 /**
  * Площадка МУПН (мобильная установка подготовки нефти)
  */
@@ -22,7 +24,7 @@ import ru.tomsknipineft.utils.entityValidator.OnActiveCheck;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "mupns")
-public class Mupn implements OilPad, EntityProject {
+public class Mupn implements OilPad, EntityProject, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
