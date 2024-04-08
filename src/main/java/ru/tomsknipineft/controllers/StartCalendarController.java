@@ -15,8 +15,6 @@ import ru.tomsknipineft.services.CalendarService;
 import ru.tomsknipineft.services.DataFormProjectService;
 import ru.tomsknipineft.utils.exceptions.NoSuchCalendarException;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -87,14 +85,7 @@ public class StartCalendarController {
             throw new  NoSuchCalendarException("Календарь по указанному шифру " + code + " отсутствует в базе данных");
         }
         codeContract = code;
-        try {
-            FileOutputStream f = new FileOutputStream(dataFormProjectService.getFilePathRecover());
-            f.write(calendars.get(0).getBytesDataProject());
-            f.close();
-            dataFormOilPad = (DataFormOilPad) dataFormProjectService.dataFormOilPadRecover();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        dataFormOilPad = (DataFormOilPad) calendarService.getDataFormProject(calendars);
         return "redirect:/calendar";
     }
 

@@ -12,18 +12,18 @@ import java.io.*;
 @RequiredArgsConstructor
 public class DataFormProjectService {
 
-    private final String filePathSave = "dataFormOilPadSave/save.ser";
-    private final String filePathRecover = "dataFormOilPadSave/recover.ser";
+    private final String filePathSave = "dataFormProjectSave/save.ser";
+    private final String filePathRecover = "dataFormProjectSave/recover.ser";
 
     /**
      * Метод сохранения в файл данных проекта
-     * @param dataFormOilPad данные проекта
+     * @param dataFormProject данные проекта
      */
-    public void dataFormOilPadSave(DataFormProject dataFormOilPad){
+    public void dataFormProjectSave(DataFormProject dataFormProject){
         try {
             FileOutputStream outputStream = new FileOutputStream(filePathSave);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-            objectOutputStream.writeObject(dataFormOilPad);
+            objectOutputStream.writeObject(dataFormProject);
             objectOutputStream.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -34,16 +34,16 @@ public class DataFormProjectService {
      * Метод восстановления из файла данных проекта
      * @return данные проекта
      */
-    public DataFormProject dataFormOilPadRecover(){
-        DataFormProject dataFormOilPad;
+    public DataFormProject dataFormProjectRecover(){
+        DataFormProject dataFormProject;
         try {
             FileInputStream fileInputStream = new FileInputStream(filePathRecover);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            dataFormOilPad = (DataFormOilPad) objectInputStream.readObject();
+            dataFormProject = (DataFormOilPad) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        return dataFormOilPad;
+        return dataFormProject;
     }
 
     public String getFilePathSave(){

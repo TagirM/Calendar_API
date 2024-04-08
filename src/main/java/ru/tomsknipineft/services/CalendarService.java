@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import ru.tomsknipineft.entities.Calendar;
+import ru.tomsknipineft.entities.DataFormProject;
 import ru.tomsknipineft.entities.EntityProject;
 import ru.tomsknipineft.entities.ObjectType;
 import ru.tomsknipineft.entities.areaObjects.Vec;
@@ -19,6 +20,7 @@ import ru.tomsknipineft.entities.oilPad.Mupn;
 import ru.tomsknipineft.repositories.CalendarRepository;
 import ru.tomsknipineft.utils.exceptions.NoSuchCalendarException;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -59,13 +61,30 @@ public class CalendarService {
 
     /**
      * Получение всего списка календарных планов (различных этапов строительства) по шифру договора
-     *
      * @param code шифр договора
      * @return список календарных планов по различным этапам строительства
      */
     public List<Calendar> getCalendarByCode(String code) {
         return calendarRepository.findCalendarByCodeContract(code)
                 .orElseThrow(() -> new NoSuchCalendarException("Календарь по указанному шифру " + code + " отсутствует в базе данных"));
+    }
+
+    /**
+     * Метод получения данных проекта из базы данных
+     * @param calendars календарь проекта
+     * @return данные проекта
+     */
+    public DataFormProject getDataFormProject(List<Calendar> calendars){
+        DataFormProject dataFormProject;
+        try {
+            FileOutputStream f = new FileOutputStream(dataFormProjectService.getFilePathRecover());
+            f.write(calendars.get(0).getBytesDataProject());
+            f.close();
+            dataFormProject = dataFormProjectService.dataFormProjectRecover();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return dataFormProject;
     }
 
     /**
@@ -81,7 +100,7 @@ public class CalendarService {
     public void createCalendar(List<Integer> getDurationsProject, String codeContract, LocalDate startContract, Integer humanFactor,
                                boolean fieldEngineeringSurvey, boolean engineeringSurveyReport, Integer drillingRig, DataFormOilPad dataFormOilPad) {
         //  запись в файл данных о проекте
-        this.dataFormProjectService.dataFormOilPadSave(dataFormOilPad);
+        this.dataFormProjectService.dataFormProjectSave(dataFormOilPad);
         // переменные метода
         int nextStage = 0;
         int engineeringSurveyDuration = 0;
@@ -205,7 +224,6 @@ public class CalendarService {
 
     /**
      * Получение списка сроков проектирования объекта по этапам его строительства
-     *
      * @param backfillWell Кустовая площадка
      * @param road         Автодорога
      * @param line         ЛЭП
@@ -251,7 +269,6 @@ public class CalendarService {
 
     /**
      * Получение общего количества этапов строительства всего объекта проектирования по договору
-     *
      * @param entityProjects сооружение (сущность) объекта проектирования
      * @return общее количество этапов строительства объекта
      */
@@ -269,7 +286,6 @@ public class CalendarService {
 
     /**
      * Получение количества ресурса, необходимого для проектирования сущности (сооружения) всего объекта проектирования
-     *
      * @param oilPad сущность объекта кустовой площадки
      * @return количество ресурса, необходимого для проектирования сущности
      */
@@ -297,7 +313,6 @@ public class CalendarService {
 
     /**
      * Получение списка только активных сущностей (сооружений) объекта проектирования из представления
-     *
      * @param entityProjects сущность (сооружение) объекта проектирования
      * @return список активных сущностей (сооружений)
      */
@@ -342,7 +357,6 @@ public class CalendarService {
 
     /**
      * Метод, учитывающий выходные и праздничные дни. При попадании даты на выходной, производится перенос на будний день
-     *
      * @param date исходная дата
      * @return будний день
      */
@@ -367,6 +381,18 @@ public class CalendarService {
         while (weekends.contains(date.getDayOfWeek()) || holidays.contains(date)) {
             date = date.plusDays(1);
         }
+        return date;
+    }
+
+    /**
+     * Метод, учитывающий крайний день календаря 10е число в декабре и 20е число в остальных месяцах.
+     * Так как сроки актирования этапа работ с 1 по 10 число в декабре, с 1 по 20 - в другие месяцы.
+     * Если дата выходит за рамка указанных дат, то перенос на следующий месяц (если 21 - то на 1е число, если 22 - на 2е число и т.д.)
+     * @param date исходная дата
+     * @return валидный день для актирования
+     */
+    public LocalDate checkDeadlineForActivation(LocalDate date) {
+
         return date;
     }
 }

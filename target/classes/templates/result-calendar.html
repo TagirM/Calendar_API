@@ -8,25 +8,31 @@
             <h2 class="text-center">КАЛЕНДАРНЫЕ СРОКИ ПРОЕКТА</h2><br>
             <h5 class="fst-italic">Шифр договора: [[${codeContract}]]</h5>
             <h5 class="fst-italic">Основные характеристики проекта</h5>
-            <p class="fst-italic" th:if="${fieldEngineeringSurvey}" >Комплексные инженерные изыскания: Да</p>
+            <p class="fst-italic" th:if="${fieldEngineeringSurvey}">Комплексные инженерные изыскания: Да</p>
             <p class="fst-italic" th:if="${!fieldEngineeringSurvey}">Полевые инженерные изыскания: Нет</p>
-            <p  class="fst-italic" th:if="${engineeringSurveyReport}">Камеральные инженерные изыскания: Да</p>
-            <p  class="fst-italic">Количество скважин для инженерной подготовки: [[${dataFormOilPad.backfillWell.well}]]</p>
-            <p class="fst-italic" th:if="${dataFormOilPad.road.active}">Автомобильная дорога категории [[${dataFormOilPad.road.category}]]
+            <p class="fst-italic" th:if="${engineeringSurveyReport}">Камеральные инженерные изыскания: Да</p>
+            <p class="fst-italic">Количество скважин для инженерной подготовки:
+                [[${dataFormOilPad.backfillWell.well}]]</p>
+            <p class="fst-italic" th:if="${dataFormOilPad.road.active}">Автомобильная дорога категории
+                [[${dataFormOilPad.road.category}]]
                 протяженностью [[${dataFormOilPad.road.length}]] км</p>
             <p class="fst-italic" th:if="${dataFormOilPad.road.bridgeExist}">Дорожные мосты в количестве:
                 [[${dataFormOilPad.road.bridgeRoadCount}]] шт.,
                 общей протяженностью [[${dataFormOilPad.road.bridgeRoadLength}]] м</p>
-            <p class="fst-italic" th:if="${dataFormOilPad.line.active}">ВЛ напряжением [[${dataFormOilPad.line.power}]] кВ протяженностью
+            <p class="fst-italic" th:if="${dataFormOilPad.line.active}">ВЛ напряжением [[${dataFormOilPad.line.power}]]
+                кВ протяженностью
                 [[${dataFormOilPad.line.length}]] км</p>
-            <p class="fst-italic" th:if="${dataFormOilPad.mupn.active}">Площадка для МУПН площадью [[${dataFormOilPad.mupn.square}]] га</p>
-            <p class="fst-italic" th:if="${dataFormOilPad.vec.active}">Площадка для ВЭЦ площадью [[${dataFormOilPad.vec.square}]] га</p>
+            <p class="fst-italic" th:if="${dataFormOilPad.mupn.active}">Площадка для МУПН площадью
+                [[${dataFormOilPad.mupn.square}]] га</p>
+            <p class="fst-italic" th:if="${dataFormOilPad.vec.active}">Площадка для ВЭЦ площадью
+                [[${dataFormOilPad.vec.square}]] га</p>
             <p class="fst-italic" th:if="${dataFormOilPad.vvp.active}">Временная вертолетная площадка для
                 [[${dataFormOilPad.vvp.helicopterModel}]] площадью [[${dataFormOilPad.vvp.square}]] га</p>
             <p class="fst-italic" th:if="${dataFormOilPad.vvp.hallExist}">с залом ожидания</p>
             <p class="fst-italic" th:if="${dataFormOilPad.cableRack.active}">Кабельная эстакада протяженностью
                 [[${dataFormOilPad.cableRack.length}]] м</p>
-            <p class="fst-italic" th:if="${dataFormOilPad.vjk.active}">Площадка для ВЖК площадью [[${dataFormOilPad.vjk.square}]] га</p>
+            <p class="fst-italic" th:if="${dataFormOilPad.vjk.active}">Площадка для ВЖК площадью
+                [[${dataFormOilPad.vjk.square}]] га</p>
             <hr>
             <table th:border="1" th:width="700" class="table table-hover table-light text-center">
                 <thead>
@@ -128,11 +134,22 @@
     </div>
     <br>
     <div class="card" align="center">
-        <a class="btn btn-outline-secondary fw-bolder" href="../backfill-well.html" th:href="@{/oil_pad_object/backfill_well}">Выгрузить в Excel</a><br>
-<!--        <a class="btn btn-outline-secondary fw-bolder" href="../backfill-well.html" th:href="@{/oil_pad_object/backfill_well}">Перейти -->
-<!--            на страницу ввода данных нового проекта</a><br>-->
-        <a class="btn btn-outline-secondary fw-bolder" href="../index.html" th:href="@{/}">Вернуться на начальную страницу</a>
-</div>
+        <a class="btn btn-outline-secondary fw-bolder" href="../backfill-well.html"
+           th:href="@{/oil_pad_object/backfill_well}">Выгрузить в Excel</a><br style="line-height: 20px;">
+        <a id="goToBackfillWell" class="btn btn-outline-secondary fw-bolder" href="../backfill-well.html"
+           th:href="@{/oil_pad_object/backfill_well}">Перейти
+            на страницу ввода данных нового проекта</a><br style="line-height: 10px;">
+        <a class="btn btn-outline-secondary fw-bolder " href="../index.html" th:href="@{/}">
+            Вернуться на начальную страницу</a><br style="line-height: 50px;">
+    </div>
+    <script>
+        // Проверка, откуда пришел пользователь
+        if (document.referrer && document.referrer.endsWith('/oil_pad_object/backfill_well')) {
+            document.getElementById('goToBackfillWell').style.display = 'block';
+        } else {
+            document.getElementById('goToBackfillWell').style.display = 'none';
+        }
+    </script>
     <br>
     <hr class="my-4">
 </th:block>
