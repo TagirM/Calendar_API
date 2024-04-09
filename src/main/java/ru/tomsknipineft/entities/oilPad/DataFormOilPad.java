@@ -2,6 +2,7 @@ package ru.tomsknipineft.entities.oilPad;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.hibernate.validator.group.GroupSequenceProvider;
 import ru.tomsknipineft.entities.DataFormProject;

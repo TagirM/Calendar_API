@@ -1,0 +1,26 @@
+2024-04-09T22:39:53.244+0700 INFO Could not detect default configuration classes for test class [ru.tomsknipineft.CalendarServiceTest]: CalendarServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-04-09T22:39:53.349+0700 INFO Found @SpringBootConfiguration ru.tomsknipineft.Main for test class ru.tomsknipineft.CalendarServiceTest
+2024-04-09T22:39:53.515+0700 INFO Restart disabled due to context in which it is running
+2024-04-09T22:39:53.783+0700 INFO HV000001: Hibernate Validator 8.0.1.Final
+2024-04-09T22:39:53.814+0700 INFO Starting CalendarServiceTest using Java 19.0.1 with PID 9872 (started by Тагир in E:\MyJob\calendar_api)
+2024-04-09T22:39:53.824+0700 INFO No active profile set, falling back to 1 default profile: "default"
+2024-04-09T22:39:55.455+0700 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-09T22:39:55.564+0700 INFO Finished Spring Data repository scanning in 105 ms. Found 10 JPA repository interfaces.
+2024-04-09T22:39:56.634+0700 INFO HikariPool-1 - Starting...
+2024-04-09T22:39:56.934+0700 INFO HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2024-04-09T22:39:56.945+0700 INFO HikariPool-1 - Start completed.
+2024-04-09T22:39:57.054+0700 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-09T22:39:57.234+0700 INFO HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-04-09T22:39:57.334+0700 INFO HHH000026: Second-level cache disabled
+2024-04-09T22:39:57.644+0700 INFO No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-09T22:39:57.685+0700 WARN HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-04-09T22:39:58.934+0700 INFO HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-09T22:39:58.974+0700 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-09T22:40:00.844+0700 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-09T22:40:00.914+0700 INFO Adding welcome page template: index
+2024-04-09T22:40:02.134+0700 INFO H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2024-04-09T22:40:02.354+0700 INFO Started CalendarServiceTest in 8.85 seconds (process running for 11.821)
+2024-04-09T22:43:26.211+0700 WARN HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m29s148ms443µs500ns).
+2024-04-09T22:43:26.326+0700 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-09T22:43:26.348+0700 INFO HikariPool-1 - Shutdown initiated...
+2024-04-09T22:43:26.352+0700 INFO HikariPool-1 - Shutdown completed.
