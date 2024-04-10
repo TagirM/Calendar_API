@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.tomsknipineft.entities.Calendar;
 import ru.tomsknipineft.entities.oilPad.DataFormOilPad;
-import ru.tomsknipineft.services.CalendarService;
+import ru.tomsknipineft.services.BackFillWellCalendarService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/oil_pad_object/backfill_well")
 public class BackFillWellCalendarController {
 
-    private final CalendarService calendarService;
+    private final BackFillWellCalendarService backFillWellCalendarService;
 
     private String codeContract;
 
@@ -54,7 +54,7 @@ public class BackFillWellCalendarController {
         if (bindingResult.hasErrors()){
             return "backfill-well";
         }
-        List<Integer> durationsProject = calendarService.getDurationOilPad(dataFormOilPad.getBackfillWell(),
+        List<Integer> durationsProject = backFillWellCalendarService.getDurationOilPad(dataFormOilPad.getBackfillWell(),
                 dataFormOilPad.getRoad(), dataFormOilPad.getLine(),
                 dataFormOilPad.getMupn(), dataFormOilPad.getVec(), dataFormOilPad.getVvp(), dataFormOilPad.getCableRack(), dataFormOilPad.getVjk());
         LocalDate date = dataFormOilPad.getStartContract();
@@ -64,7 +64,7 @@ public class BackFillWellCalendarController {
         if (fieldEngineeringSurvey){
             engineeringSurveyReport = true;
         }
-        calendarService.createCalendar(durationsProject, codeContract, date, dataFormOilPad.getHumanFactor(),
+        backFillWellCalendarService.createCalendar(durationsProject, codeContract, date, dataFormOilPad.getHumanFactor(),
                 fieldEngineeringSurvey, engineeringSurveyReport, dataFormOilPad.getDrillingRig(), dataFormOilPad);
         this.dataFormOilPad = dataFormOilPad;
 
@@ -76,7 +76,7 @@ public class BackFillWellCalendarController {
      */
     @GetMapping("/calendar")
     public String resultCalendar(Model model){
-        List<Calendar> calendars = calendarService.getCalendarByCode(codeContract);
+        List<Calendar> calendars = backFillWellCalendarService.getCalendarByCode(codeContract);
         logger.info("Календарь найденный по шифру " + codeContract + " - " + calendars);
         model.addAttribute("calendars", calendars);
         model.addAttribute("codeContract", codeContract);

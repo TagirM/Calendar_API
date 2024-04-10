@@ -44,7 +44,7 @@ APPLICATION FAILED TO START
 
 Description:
 
-Parameter 9 of constructor in ru.tomsknipineft.services.CalendarService required a bean of type 'ru.tomsknipineft.services.DataFormProjectService' that could not be found.
+Parameter 9 of constructor in ru.tomsknipineft.services.BackFillWellCalendarService required a bean of type 'ru.tomsknipineft.services.DataFormProjectService' that could not be found.
 
 
 Action:

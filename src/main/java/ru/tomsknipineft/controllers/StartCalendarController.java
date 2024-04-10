@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.tomsknipineft.entities.Calendar;
 import ru.tomsknipineft.entities.oilPad.DataFormOilPad;
-import ru.tomsknipineft.services.CalendarService;
+import ru.tomsknipineft.services.BackFillWellCalendarService;
 import ru.tomsknipineft.services.DataFormProjectService;
 import ru.tomsknipineft.utils.exceptions.NoSuchCalendarException;
 
@@ -21,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StartCalendarController {
 
-    private final CalendarService calendarService;
+    private final BackFillWellCalendarService backFillWellCalendarService;
 
     private List <Calendar> calendars;
 
@@ -80,12 +80,12 @@ public class StartCalendarController {
      */
     @PostMapping("/code")
     public String outputCalendar(@RequestParam String code){
-        calendars = calendarService.getCalendarByCode(code);
+        calendars = backFillWellCalendarService.getCalendarByCode(code);
         if (calendars.size() == 0){
             throw new  NoSuchCalendarException("Календарь по указанному шифру " + code + " отсутствует в базе данных");
         }
         codeContract = code;
-        dataFormOilPad = (DataFormOilPad) calendarService.getDataFormProject(calendars);
+        dataFormOilPad = (DataFormOilPad) backFillWellCalendarService.getDataFormProject(calendars);
         return "redirect:/calendar";
     }
 

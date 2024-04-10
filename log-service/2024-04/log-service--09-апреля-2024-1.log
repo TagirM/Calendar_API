@@ -1,5 +1,5 @@
-2024-04-09T20:12:01.460+0700 INFO Could not detect default configuration classes for test class [ru.tomsknipineft.CalendarServiceTest]: CalendarServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-04-09T20:12:01.573+0700 INFO Found @SpringBootConfiguration ru.tomsknipineft.Main for test class ru.tomsknipineft.CalendarServiceTest
+2024-04-09T20:12:01.460+0700 INFO Could not detect default configuration classes for test class [ru.tomsknipineft.BackFillWellCalendarServiceTest]: CalendarServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-04-09T20:12:01.573+0700 INFO Found @SpringBootConfiguration ru.tomsknipineft.Main for test class ru.tomsknipineft.BackFillWellCalendarServiceTest
 2024-04-09T20:12:01.754+0700 INFO Restart disabled due to context in which it is running
 2024-04-09T20:12:01.998+0700 INFO HV000001: Hibernate Validator 8.0.1.Final
 2024-04-09T20:12:02.036+0700 INFO Starting CalendarServiceTest using Java 19.0.1 with PID 14288 (started by Тагир in E:\MyJob\calendar_api)
