@@ -26,6 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.Period;
 import java.util.*;
 
@@ -54,6 +55,8 @@ public class BackFillWellCalendarService {
     private final CableRackService cableRackService;
 
     private final VjkService vjkService;
+
+    private final DateService dateService;
 
     private final DataFormProjectService dataFormProjectService;
 
@@ -157,7 +160,7 @@ public class BackFillWellCalendarService {
             int examinationDuration = agreementProjectDuration + 120;
 
             // дата начала отчета ИИ текущего этапа строительства
-            LocalDate startEngineeringSurveyReport = workDay(startContract.plusDays(engineeringSurveyDuration));
+            LocalDate startEngineeringSurveyReport = dateService.workDay(startContract.plusDays(engineeringSurveyDuration));
             // проверка условия пересечения выполнения отчета ИИ текущего этапа строительства с предыдущим, если пересечение есть, то срок сместить
             if (finishEngineeringSurveyReport != null && startEngineeringSurveyReport.plusDays(engineeringSurveyLaboratoryResearch).isBefore(finishEngineeringSurveyReport)) {
                 Period period = Period.between(startEngineeringSurveyReport.plusDays(engineeringSurveyLaboratoryResearch), finishEngineeringSurveyReport);
@@ -165,10 +168,10 @@ public class BackFillWellCalendarService {
                 stageOffsetII = period.getDays() + period.getMonths() * 30;
             }
             // дата окончания отчета ИИ текущего этапа строительства
-            finishEngineeringSurveyReport = workDay(startContract.plusDays(engineeringSurveyReportDuration + stageOffsetII));
+            finishEngineeringSurveyReport = dateService.workDay(startContract.plusDays(engineeringSurveyReportDuration + stageOffsetII));
 
             // дата начала РД текущего этапа строительства
-            LocalDate startWorking = workDay(startContract.plusDays(engineeringSurveyReportDuration+ stageOffsetII));
+            LocalDate startWorking = dateService.workDay(startContract.plusDays(engineeringSurveyReportDuration+ stageOffsetII));
             // проверка условия пересечения выполнения РД текущего этапа строительства с предыдущим, если пересечение есть, то срок сместить
             if (finishWorking != null && startWorking.isBefore(finishWorking)) {
                 Period period = Period.between(startWorking, finishWorking);
@@ -176,25 +179,26 @@ public class BackFillWellCalendarService {
                 stageOffsetPSD = stageOffsetPSD + period.getDays() + period.getMonths() * 30;
             }
             // дата окончания РД текущего этапа строительства
-            finishWorking = workDay(startContract.plusDays(workingDuration + stageOffsetII + stageOffsetPSD));
+            finishWorking = dateService.workDay(startContract.plusDays(workingDuration + stageOffsetII + stageOffsetPSD));
 
-            // формирование календаря проекта
+            // формирование календаря проекта с проверкой условия попадания даты окончания этапа календарного плана на праздничный,
+            //  или выходной день, а также проверкой попадания даты позже 10го числа в декабре и 20го числа - в остальных месяцах
             try {
-                calendar.setCodeContract(codeContract).setStartContract(workDay(startContract))
+                calendar.setCodeContract(codeContract).setStartContract(dateService.workDay(startContract))
                         .setStage(i + 1)
-                        .setEngineeringSurvey(workDay(startContract.plusDays(engineeringSurveyDuration)))
-                        .setEngineeringSurveyReport(workDay(startContract.plusDays(engineeringSurveyReportDuration + stageOffsetII)))
-                        .setAgreementEngineeringSurvey(workDay(startContract.plusDays(agreementEngineeringSurveyDuration + stageOffsetII)))
-                        .setWorkingStart(workDay(startContract.plusDays(engineeringSurveyReportDuration + stageOffsetII + stageOffsetPSD)))
-                        .setWorkingFinish(workDay(startContract.plusDays(workingDuration + stageOffsetII + stageOffsetPSD)))
+                        .setEngineeringSurvey(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(engineeringSurveyDuration))))
+                        .setEngineeringSurveyReport(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(engineeringSurveyReportDuration + stageOffsetII))))
+                        .setAgreementEngineeringSurvey(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(agreementEngineeringSurveyDuration + stageOffsetII))))
+                        .setWorkingStart(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(engineeringSurveyReportDuration + stageOffsetII + stageOffsetPSD))))
+                        .setWorkingFinish(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(workingDuration + stageOffsetII + stageOffsetPSD))))
 
-                        .setEstimatesFinish(workDay(startContract.plusDays(estimatesDuration + stageOffsetII + stageOffsetPSD)))
-                        .setProjectFinish(workDay(startContract.plusDays(projectDuration + stageOffsetII + stageOffsetPSD)))
-                        .setLandFinish(workDay(startContract.plusDays(landDuration + stageOffsetII + stageOffsetPSD)))
-                        .setAgreementWorking(workDay(startContract.plusDays(agreementWorkingDuration + stageOffsetII + stageOffsetPSD)))
-                        .setAgreementProject(workDay(startContract.plusDays(agreementProjectDuration + stageOffsetII + stageOffsetPSD)))
-                        .setAgreementEstimates(workDay(startContract.plusDays(agreementEstimatesDuration + stageOffsetII + stageOffsetPSD)))
-                        .setExamination(workDay(startContract.plusDays(examinationDuration + stageOffsetII + stageOffsetPSD)))
+                        .setEstimatesFinish(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(estimatesDuration + stageOffsetII + stageOffsetPSD))))
+                        .setProjectFinish(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(projectDuration + stageOffsetII + stageOffsetPSD))))
+                        .setLandFinish(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(landDuration + stageOffsetII + stageOffsetPSD))))
+                        .setAgreementWorking(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(agreementWorkingDuration + stageOffsetII + stageOffsetPSD))))
+                        .setAgreementProject(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(agreementProjectDuration + stageOffsetII + stageOffsetPSD))))
+                        .setAgreementEstimates(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(agreementEstimatesDuration + stageOffsetII + stageOffsetPSD))))
+                        .setExamination(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(examinationDuration + stageOffsetII + stageOffsetPSD))))
                         .setHumanFactor(humanFactor)
                         .setBytesDataProject(Files.readAllBytes(Paths.get(dataFormProjectService.getFilePathSave())));
             } catch (IOException e) {
@@ -353,46 +357,5 @@ public class BackFillWellCalendarService {
             }
         }
         return objects;
-    }
-
-    /**
-     * Метод, учитывающий выходные и праздничные дни. При попадании даты на выходной, производится перенос на будний день
-     * @param date исходная дата
-     * @return будний день
-     */
-    public LocalDate workDay(LocalDate date) {
-        Collection<DayOfWeek> weekends = Arrays.asList(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
-        Collection<LocalDate> holidays = new HashSet<>(List.of(
-                LocalDate.of(date.getYear(), 1, 1),
-                LocalDate.of(date.getYear(), 1, 2),
-                LocalDate.of(date.getYear(), 1, 3),
-                LocalDate.of(date.getYear(), 1, 4),
-                LocalDate.of(date.getYear(), 1, 5),
-                LocalDate.of(date.getYear(), 1, 6),
-                LocalDate.of(date.getYear(), 1, 7),
-                LocalDate.of(date.getYear(), 1, 8),
-                LocalDate.of(date.getYear(), 2, 23),
-                LocalDate.of(date.getYear(), 3, 8),
-                LocalDate.of(date.getYear(), 5, 1),
-                LocalDate.of(date.getYear(), 5, 9),
-                LocalDate.of(date.getYear(), 6, 12),
-                LocalDate.of(date.getYear(), 11, 4)));
-
-        while (weekends.contains(date.getDayOfWeek()) || holidays.contains(date)) {
-            date = date.plusDays(1);
-        }
-        return date;
-    }
-
-    /**
-     * Метод, учитывающий крайний день календаря 10е число в декабре и 20е число в остальных месяцах.
-     * Так как сроки актирования этапа работ с 1 по 10 число в декабре, с 1 по 20 - в другие месяцы.
-     * Если дата выходит за рамка указанных дат, то перенос на следующий месяц (если 21 - то на 1е число, если 22 - на 2е число и т.д.)
-     * @param date исходная дата
-     * @return валидный день для актирования
-     */
-    public LocalDate checkDeadlineForActivation(LocalDate date) {
-
-        return date;
     }
 }
