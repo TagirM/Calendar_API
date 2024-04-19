@@ -8,13 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.tomsknipineft.entities.oilPad.DataFormOilPad;
-import ru.tomsknipineft.services.BackFillWellCalendarService;
+import ru.tomsknipineft.services.BackfillWellCalendarService;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/oil_pad_object")
 public class OilWellPadCalendarController {
-    private final BackFillWellCalendarService backFillWellCalendarService;
+    private final BackfillWellCalendarService backFillWellCalendarService;
 
     private String codeContract;
 

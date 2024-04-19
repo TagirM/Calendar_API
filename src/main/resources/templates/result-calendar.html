@@ -11,6 +11,7 @@
             <p class="fst-italic" th:if="${fieldEngineeringSurvey}">Комплексные инженерные изыскания: Да</p>
             <p class="fst-italic" th:if="${!fieldEngineeringSurvey}">Полевые инженерные изыскания: Нет</p>
             <p class="fst-italic" th:if="${engineeringSurveyReport}">Камеральные инженерные изыскания: Да</p>
+            <p class="fst-italic" th:if="${!engineeringSurveyReport}">Камеральные инженерные изыскания: Нет</p>
             <p class="fst-italic">Количество скважин для инженерной подготовки:
                 [[${dataFormOilPad.backfillWell.well}]]</p>
             <p class="fst-italic" th:if="${dataFormOilPad.road.active}">Автомобильная дорога категории
@@ -37,6 +38,7 @@
             <table th:border="1" th:width="700" class="table table-hover table-light text-center">
                 <thead>
                 <tr>
+                    <th>№</th>
                     <th>Наименование вида работ</th>
                     <th>Дата начала</th>
                     <th>Дата окончания</th>
@@ -45,33 +47,25 @@
                 <tbody>
                 <th:block th:each="calendar : ${calendars}">
                     <tr>
-                        <td colspan="3" th:align="center"><b>Этап проектирования (строительства) &nbsp;[[${calendar.stage}]]</b>
+                        <td colspan="4" th:align="center"><div id="projectStage"><b>Этап проектирования (строительства) &nbsp;[[${calendar.stage}]]</b></div>
                         </td>
                     </tr>
-                    <th:block th:if="${fieldEngineeringSurvey}">
-                        <tr>
-                            <td>Инженерные изыскания</td>
-                            <td th:align="center" th:text="${calendar.startContract}"></td>
-                            <td th:align="center" th:text="${calendar.engineeringSurvey}"></td>
-                        </tr>
-                    </th:block>
-                    <th:block th:if="${engineeringSurveyReport}">
-                        <tr>
-                            <td>Отчет по инженерным изысканиям</td>
-                            <td th:align="center" th:text="${calendar.engineeringSurvey}"></td>
-                            <td th:align="center" th:text="${calendar.engineeringSurveyReport}"></td>
-                        </tr>
-                        <tr>
-                            <td>Согласование инженерных изысканий</td>
-                            <td th:align="center" th:text="${calendar.engineeringSurveyReport}"></td>
-                            <td th:align="center" th:text="${calendar.agreementEngineeringSurvey}"></td>
-                        </tr>
-                    </th:block>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
+                    <tr th:if="${fieldEngineeringSurvey}">
+                        <td>Полевые инженерные изыскания</td>
+                        <td th:align="center" th:text="${calendar.startContract}"></td>
+                        <td th:align="center" th:text="${calendar.engineeringSurvey}"></td>
                     </tr>
+                    <tr th:if="${engineeringSurveyReport}">
+                        <td>Отчет по инженерным изысканиям</td>
+                        <td th:align="center" th:text="${calendar.engineeringSurvey}"></td>
+                        <td th:align="center" th:text="${calendar.engineeringSurveyReport}"></td>
+                    </tr>
+                    <tr th:if="${engineeringSurveyReport}">
+                        <td style="padding-bottom: 35px">Согласование инженерных изысканий</td>
+                        <td th:align="center" th:text="${calendar.engineeringSurveyReport}"></td>
+                        <td th:align="center" th:text="${calendar.agreementEngineeringSurvey}"></td>
+                    </tr>
+                    <tr></tr>
                     <tr>
                         <td>Рабочая документация</td>
                         <td th:align="center" th:text="${calendar.workingStart}"></td>
@@ -83,25 +77,16 @@
                         <td th:align="center" th:text="${calendar.agreementWorking}"></td>
                     </tr>
                     <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
                         <td>Сметная документация</td>
                         <td th:align="center" th:text="${calendar.workingFinish}"></td>
                         <td th:align="center" th:text="${calendar.estimatesFinish}"></td>
                     </tr>
                     <tr>
-                        <td>Согласование сметной документации</td>
+                        <td style="padding-bottom: 35px">Согласование сметной документации</td>
                         <td th:align="center" th:text="${calendar.estimatesFinish}"></td>
                         <td th:align="center" th:text="${calendar.agreementEstimates}"></td>
                     </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
+                    <tr></tr>
                     <tr>
                         <td>Проектная документация</td>
                         <td th:align="center" th:text="${calendar.workingFinish}"></td>
@@ -113,44 +98,68 @@
                         <td th:align="center" th:text="${calendar.agreementProject}"></td>
                     </tr>
                     <tr>
-                        <td>Экспертиза проектной документации</td>
+                        <td style="padding-bottom: 35px">Экспертиза проектной документации</td>
                         <td th:align="center" th:text="${calendar.agreementProject}"></td>
                         <td th:align="center" th:text="${calendar.examination}"></td>
                     </tr>
+                    <tr></tr>
                     <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>Землеустроительная документация</td>
+                        <td style="padding-bottom: 35px">Землеустроительная документация</td>
                         <td th:align="center" th:text="${calendar.projectFinish}"></td>
                         <td th:align="center" th:text="${calendar.landFinish}"></td>
                     </tr>
+                    <br>
                 </th:block>
                 </tbody>
             </table>
         </div>
     </div>
     <br>
-    <div class="card" align="center">
-        <a class="btn btn-outline-secondary fw-bolder" href="../backfill-well.html"
-           th:href="@{/oil_pad_object/backfill_well}">Выгрузить в Excel</a><br>
+    <div class="card text-center">
+        <form class="card" id="goToBackfillWell1" method="GET" th:action="@{/calendar/to_desktop}">
+            <div class="card text-center">
+                <input type="hidden" name="codeContract" th:value="${codeContract}"/>
+                <button type="submit" class="btn btn-outline-secondary fw-bolder">Выгрузить в Excel</button>
+            </div>
+        </form>
+        <br>
         <a class="btn btn-outline-secondary fw-bolder " href="../index.html" th:href="@{/}">
             Вернуться на начальную страницу</a><br>
-        <a id="goToBackfillWell" class="btn btn-outline-secondary fw-bolder" href="../backfill-well.html"
+        <a id="goToBackfillWell3" class="btn btn-outline-secondary fw-bolder" href="../backfill-well.html"
            th:href="@{/oil_pad_object/backfill_well}">Перейти
-            на страницу ввода данных нового проекта</a><br>
+            на страницу ввода данных нового проекта</a>
     </div>
     <script>
-        // Проверка, откуда пришел пользователь
-        if (document.referrer && document.referrer.endsWith('/oil_pad_object/backfill_well')) {
-            document.getElementById('goToBackfillWell').style.display = 'block';
+        // Проверка, откуда пришел пользователь для формирования кнопок
+        if (document.referrer && document.referrer.endsWith('/oil_pad_object/backfill_well') ||
+            document.referrer && document.referrer.endsWith('/oil_pad_object/backfill_well/calendar')) {
+            document.getElementById('goToBackfillWell3').style.display = 'block';
         } else {
-            document.getElementById('goToBackfillWell').style.display = 'none';
+            document.getElementById('goToBackfillWell3').style.display = 'none';
         }
     </script>
-    <br>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let group = -1;
+            let counter = 1;
+            // Проходимся по каждой строке таблицы
+            document.querySelectorAll('tr').forEach(function (row) {
+                // Проверяем, пустая ли строка и содержит ли строка текст "Этап проектирования"
+                if (row.querySelectorAll('td').length > 0 && !row.textContent.includes('Этап проектирования')) {
+                    // Проверяем, что строка видима (с учётом условий th:if)
+                        if (!row.hasAttribute('th:if')) {
+                            let numbering = document.createElement('td');
+                            numbering.textContent = group + '.' + counter;
+                            row.insertBefore(numbering, row.firstElementChild);
+                            counter++;
+                        }
+                } else {
+                    group++;
+                    counter = 1;
+                }
+            });
+        });
+    </script>
     <hr class="my-4">
 </th:block>
 </html>

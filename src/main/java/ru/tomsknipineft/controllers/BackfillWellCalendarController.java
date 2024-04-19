@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.tomsknipineft.entities.Calendar;
 import ru.tomsknipineft.entities.oilPad.DataFormOilPad;
-import ru.tomsknipineft.services.BackFillWellCalendarService;
+import ru.tomsknipineft.services.BackfillWellCalendarService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,9 +21,9 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/oil_pad_object/backfill_well")
-public class BackFillWellCalendarController {
+public class BackfillWellCalendarController {
 
-    private final BackFillWellCalendarService backFillWellCalendarService;
+    private final BackfillWellCalendarService backFillWellCalendarService;
 
     private String codeContract;
 
@@ -33,13 +33,17 @@ public class BackFillWellCalendarController {
 
     private DataFormOilPad dataFormOilPad;
 
-    private static final Logger logger = LogManager.getLogger(BackFillWellCalendarController.class);
+
+    protected List <Calendar> calendars;
+
+    private static final Logger logger = LogManager.getLogger(BackfillWellCalendarController.class);
 
     /**
      * Страница с вводом данных по инженерной подготовке куста для формирования календарного плана договора
      */
     @GetMapping
     public String backfillWellPage(Model model){
+        calendars =null;
         model.addAttribute("dataFormOilPad", new DataFormOilPad());
         return "backfill-well";
     }
@@ -76,8 +80,10 @@ public class BackFillWellCalendarController {
      */
     @GetMapping("/calendar")
     public String resultCalendar(Model model){
-        List<Calendar> calendars = backFillWellCalendarService.getCalendarByCode(codeContract);
-        logger.info("Календарь найденный по шифру " + codeContract + " - " + calendars);
+        if (calendars == null){
+            calendars = backFillWellCalendarService.getCalendarByCode(codeContract);
+            logger.info("Календарь найденный по шифру " + codeContract + " - " + calendars);
+        }
         model.addAttribute("calendars", calendars);
         model.addAttribute("codeContract", codeContract);
         model.addAttribute("dataFormOilPad", dataFormOilPad);

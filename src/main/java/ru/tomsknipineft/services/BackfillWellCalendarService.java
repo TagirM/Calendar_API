@@ -24,11 +24,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.Period;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Класс с бизнес-логикой расчета сроков календарного плана договора из входных данных
@@ -36,7 +37,7 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class BackFillWellCalendarService {
+public class BackfillWellCalendarService {
 
     private final CalendarRepository calendarRepository;
 
@@ -60,7 +61,7 @@ public class BackFillWellCalendarService {
 
     private final DataFormProjectService dataFormProjectService;
 
-    private static final Logger logger = LogManager.getLogger(BackFillWellCalendarService.class);
+    private static final Logger logger = LogManager.getLogger(BackfillWellCalendarService.class);
 
     /**
      * Получение всего списка календарных планов (различных этапов строительства) по шифру договора
