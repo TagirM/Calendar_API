@@ -99,11 +99,11 @@ public class ExcelCreatedService {
         headerStyle.setFont(font);
 
         Cell headerCell = header.createCell(1);
-        headerCell.setCellValue("№");
+        headerCell.setCellValue("№ этапа");
         headerCell.setCellStyle(headerStyle);
 
         headerCell = header.createCell(2);
-        headerCell.setCellValue("Наименование вида работ");
+        headerCell.setCellValue("Наименование этапа работ");
         headerCell.setCellStyle(headerStyle);
 
         headerCell = header.createCell(3);
@@ -151,7 +151,7 @@ public class ExcelCreatedService {
 
             row = sheet.createRow(y);
             cell = row.createCell(1);
-            cell.setCellValue("Этап проектирования (строительства) " + calendar.getStage());
+            cell.setCellValue("Этап строительства " + calendar.getStage());
             cell.setCellStyle(stageStyle);
             cell = row.createCell(2);
             cell.setCellStyle(stageStyle);

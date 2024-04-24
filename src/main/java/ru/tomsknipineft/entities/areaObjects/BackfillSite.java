@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.tomsknipineft.entities.EntityProject;
-import ru.tomsknipineft.entities.ObjectType;
+import ru.tomsknipineft.entities.enumEntities.ObjectType;
 import ru.tomsknipineft.entities.oilPad.OilPad;
 
 import java.io.Serializable;

@@ -106,7 +106,7 @@ Caused by: java.lang.NoClassDefFoundError: ru/tomsknipineft/services/CalendarSer
 	at java.base/java.lang.Class.getDeclaredConstructors(Class.java:2608) ~[?:?]
 	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:378) ~[spring-beans-6.1.3.jar:6.1.3]
 	... 21 more
-Caused by: java.lang.ClassNotFoundException: ru.tomsknipineft.services.BackfillWellCalendarService
+Caused by: java.lang.ClassNotFoundException: ru.tomsknipineft.services.OilPadGroupCalendarServiceImpl
 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[?:?]
 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[?:?]
 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521) ~[?:?]

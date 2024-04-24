@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface LineRepository extends JpaRepository<Line, Long> {
-    Optional<Line> findByPowerAndLength(Integer power, Integer length);
+    Optional<Line> findByPowerAndLength(Integer power, Double length);
     /**
     Поиск сущности с мощностью и протяженностью, соответствующих заданным или ближайшими большими
      */

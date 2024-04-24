@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.group.GroupSequenceProvider;
 import ru.tomsknipineft.entities.EntityProject;
-import ru.tomsknipineft.entities.ObjectType;
+import ru.tomsknipineft.entities.enumEntities.ObjectType;
 import ru.tomsknipineft.entities.oilPad.OilPad;
 import ru.tomsknipineft.utils.entityValidator.OnActiveBridgeRoad;
 import ru.tomsknipineft.utils.entityValidator.OnActiveCheck;
@@ -36,7 +36,7 @@ public class Road implements OilPad, EntityProject, Serializable {
     @Enumerated(EnumType.STRING)
     private ObjectType objectType;
 
-    //    есть ли мост у дороги
+    // наличие мостов у дороги
     @Column(name = "bridge_exist")
     private boolean bridgeExist;
 

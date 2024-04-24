@@ -29,12 +29,12 @@ public class DataFormOilPad implements DataFormProject, Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @NotNull(message = "The code should not be empty")
-    @Size(min = 4, max = 10, message = "Code should be between 4 and 10 characters")
+    @NotNull(message = "ифр не может быть пустым")
+    @Size(min = 4, max = 10, message = "Шифр должен иметь количество символов от 4 до 10")
     String codeContract;
 
-    @NotNull(message = "The date should not be empty")
-    @FutureOrPresent(message = "The date can not be past")
+    @NotNull(message = "Дата не может быть пустой")
+    @FutureOrPresent(message = "Указана прошедшая дата")
     LocalDate startContract;
 
     @Valid

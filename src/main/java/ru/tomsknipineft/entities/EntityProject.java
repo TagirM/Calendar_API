@@ -1,5 +1,7 @@
 package ru.tomsknipineft.entities;
 
+import ru.tomsknipineft.entities.enumEntities.ObjectType;
+
 /**
  * Интерефейс всех объектов проектирования
  */

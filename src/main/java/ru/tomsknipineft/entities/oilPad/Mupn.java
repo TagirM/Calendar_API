@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.group.GroupSequenceProvider;
 import ru.tomsknipineft.entities.EntityProject;
-import ru.tomsknipineft.entities.ObjectType;
+import ru.tomsknipineft.entities.enumEntities.ObjectType;
 import ru.tomsknipineft.utils.entityValidator.MupnGroupSequenceProvider;
 import ru.tomsknipineft.utils.entityValidator.OnActiveCheck;
 

@@ -7,15 +7,14 @@ import org.springframework.stereotype.Service;
 import ru.tomsknipineft.entities.Calendar;
 import ru.tomsknipineft.entities.DataFormProject;
 import ru.tomsknipineft.entities.EntityProject;
-import ru.tomsknipineft.entities.ObjectType;
 import ru.tomsknipineft.entities.areaObjects.Vec;
 import ru.tomsknipineft.entities.areaObjects.Vjk;
 import ru.tomsknipineft.entities.areaObjects.Vvp;
+import ru.tomsknipineft.entities.enumEntities.ObjectType;
 import ru.tomsknipineft.entities.linearObjects.CableRack;
 import ru.tomsknipineft.entities.linearObjects.Line;
 import ru.tomsknipineft.entities.linearObjects.Road;
 import ru.tomsknipineft.entities.oilPad.BackfillWell;
-import ru.tomsknipineft.entities.oilPad.DataFormOilPad;
 import ru.tomsknipineft.entities.oilPad.Mupn;
 import ru.tomsknipineft.repositories.CalendarRepository;
 import ru.tomsknipineft.utils.exceptions.NoSuchCalendarException;
@@ -31,13 +30,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Класс с бизнес-логикой расчета сроков календарного плана договора из входных данных
- */
-
 @Service
 @RequiredArgsConstructor
-public class BackfillWellCalendarService {
+public class CalendarService {
 
     private final CalendarRepository calendarRepository;
 
@@ -61,7 +56,7 @@ public class BackfillWellCalendarService {
 
     private final DataFormProjectService dataFormProjectService;
 
-    private static final Logger logger = LogManager.getLogger(BackfillWellCalendarService.class);
+    private static final Logger logger = LogManager.getLogger(OilPadGroupCalendarServiceImpl.class);
 
     /**
      * Получение всего списка календарных планов (различных этапов строительства) по шифру договора
@@ -100,11 +95,12 @@ public class BackfillWellCalendarService {
      * @param fieldEngineeringSurvey наличие полевых ИИ
      * @param engineeringSurveyReport наличие камеральных ИИ
      * @param drillingRig количество буровых бригад
+     * @param dataFormProject исходные данные проекта
      */
     public void createCalendar(List<Integer> getDurationsProject, String codeContract, LocalDate startContract, Integer humanFactor,
-                               boolean fieldEngineeringSurvey, boolean engineeringSurveyReport, Integer drillingRig, DataFormOilPad dataFormOilPad) {
+                               boolean fieldEngineeringSurvey, boolean engineeringSurveyReport, Integer drillingRig, DataFormProject dataFormProject) {
         //  запись в файл данных о проекте
-        this.dataFormProjectService.dataFormProjectSave(dataFormOilPad);
+        this.dataFormProjectService.dataFormProjectSave(dataFormProject);
         // переменные метода
         int nextStage = 0;
         int engineeringSurveyDuration = 0;
@@ -227,52 +223,7 @@ public class BackfillWellCalendarService {
         }
     }
 
-    /**
-     * Получение списка сроков проектирования объекта по этапам его строительства
-     * @param backfillWell Кустовая площадка
-     * @param road         Автодорога
-     * @param line         ЛЭП
-     * @param mupn         площадка МУПН
-     * @param vec          ВЭЦ
-     * @param vvp          Временная вертолетная площадка
-     * @return список сроков проектирования объекта по этапам его строительства
-     */
-    public List<Integer> getDurationOilPad(BackfillWell backfillWell, Road road, Line line, Mupn mupn, Vec vec, Vvp vvp, CableRack cableRack, Vjk vjk) {
-        List<EntityProject> objects = listActiveEntityProject(List.of(backfillWell, road, line, mupn, vec, vvp, cableRack, vjk));
-
-        List<Integer> durationsProject = new ArrayList<>();
-
-        int stage = defineStageProject(objects);
-        Map<Integer, Integer> divisionDurationByStage = new HashMap<>();
-        for (EntityProject oilPad :
-                objects) {
-            if (oilPad.getObjectType().equals(ObjectType.AREA)) {
-                if (divisionDurationByStage.containsKey(oilPad.getStage())) {
-                    divisionDurationByStage.put(oilPad.getStage(), divisionDurationByStage.get(oilPad.getStage()) + resourceStageOilPad(oilPad));
-                } else {
-                    divisionDurationByStage.put(oilPad.getStage(), resourceStageOilPad(oilPad));
-                }
-            }
-        }
-        for (EntityProject oilPad :
-                objects) {
-            if (oilPad.getObjectType().equals(ObjectType.LINEAR)) {
-                if (!divisionDurationByStage.containsKey(oilPad.getStage())) {
-                    divisionDurationByStage.put(oilPad.getStage(), resourceStageOilPad(oilPad));
-                } else {
-                    if (divisionDurationByStage.get(oilPad.getStage()) < resourceStageOilPad(oilPad)) {
-                        divisionDurationByStage.put(oilPad.getStage(), resourceStageOilPad(oilPad));
-                    }
-                }
-            }
-        }
-        for (int i = 1; i <= stage; i++) {
-            durationsProject.add(divisionDurationByStage.get(i));
-        }
-        return durationsProject;
-    }
-
-    /**
+        /**
      * Получение общего количества этапов строительства всего объекта проектирования по договору
      * @param entityProjects сооружение (сущность) объекта проектирования
      * @return общее количество этапов строительства объекта
@@ -285,78 +236,7 @@ public class BackfillWellCalendarService {
                 stage = entity.getStage();
             }
         }
-        logger.info("Количество этапов в проекте определено и равно " + stage);
+        logger.info("Количество этапов строительства в проекте определено и равно " + stage);
         return stage;
-    }
-
-    /**
-     * Получение количества ресурса, необходимого для проектирования сущности (сооружения) всего объекта проектирования
-     * @param oilPad сущность объекта кустовой площадки
-     * @return количество ресурса, необходимого для проектирования сущности
-     */
-    public Integer resourceStageOilPad(EntityProject oilPad) {
-        int durationStage = 0;
-        if (oilPad.getClass() == BackfillWell.class) {
-            durationStage += backfillWellService.getResourceBackfillWell((BackfillWell) oilPad);
-
-        } else if (oilPad.getClass() == Road.class) {
-            durationStage += roadService.getResourceRoad((Road) oilPad);
-
-        } else if (oilPad.getClass() == Line.class) {
-            durationStage += lineService.getResourceLine((Line) oilPad);
-
-        } else if (oilPad.getClass() == Mupn.class) {
-            durationStage += mupnService.getResourceMupn((Mupn) oilPad);
-
-        } else if (oilPad.getClass() == Vec.class) {
-            durationStage += vecService.getResourceVec((Vec) oilPad);
-        } else if (oilPad.getClass() == Vvp.class) {
-            durationStage += vvpService.getResourceVvp((Vvp) oilPad);
-        }
-        return durationStage;
-    }
-
-    /**
-     * Получение списка только активных сущностей (сооружений) объекта проектирования из представления
-     * @param entityProjects сущность (сооружение) объекта проектирования
-     * @return список активных сущностей (сооружений)
-     */
-    public List<EntityProject> listActiveEntityProject(List<EntityProject> entityProjects) {
-        List<EntityProject> objects = new ArrayList<>();
-        for (EntityProject entity :
-                entityProjects) {
-            if (entity.isActive()) {
-                if (entity.getStage() == null) {
-                    entity.setStage(1);
-                }
-                if (entity.getClass() == BackfillWell.class) {
-                    entity.setObjectType(backfillWellService.getFirst().getObjectType());
-                    objects.add(entity);
-                } else if (entity.getClass() == Road.class) {
-                    entity.setObjectType(roadService.getFirst().getObjectType());
-                    objects.add(entity);
-                } else if (entity.getClass() == Line.class) {
-                    entity.setObjectType(lineService.getFirst().getObjectType());
-                    objects.add(entity);
-                } else if (entity.getClass() == Mupn.class) {
-                    entity.setObjectType(mupnService.getFirst().getObjectType());
-                    objects.add(entity);
-                } else if (entity.getClass() == Vec.class) {
-                    entity.setObjectType(vecService.getFirst().getObjectType());
-                    ((Vec) entity).setPower(vecService.getFirst().getPower());
-                    objects.add(entity);
-                } else if (entity.getClass() == Vvp.class) {
-                    entity.setObjectType(vvpService.getFirst().getObjectType());
-                    objects.add(entity);
-                } else if (entity.getClass() == CableRack.class) {
-                    entity.setObjectType(cableRackService.getFirst().getObjectType());
-                    objects.add(entity);
-                } else if (entity.getClass() == Vjk.class) {
-                    entity.setObjectType(vjkService.getFirst().getObjectType());
-                    objects.add(entity);
-                }
-            }
-        }
-        return objects;
     }
 }

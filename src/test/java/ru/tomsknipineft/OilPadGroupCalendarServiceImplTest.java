@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import ru.tomsknipineft.entities.Calendar;
 import ru.tomsknipineft.entities.oilPad.DataFormOilPad;
 import ru.tomsknipineft.repositories.CalendarRepository;
-import ru.tomsknipineft.services.BackfillWellCalendarService;
+import ru.tomsknipineft.services.OilPadGroupCalendarServiceImpl;
 import ru.tomsknipineft.services.DataFormProjectService;
 import ru.tomsknipineft.services.DateService;
 
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-class BackfillWellCalendarServiceTest {
+class OilPadGroupCalendarServiceImplTest {
 
   @Mock
   private CalendarRepository calendarRepository;
@@ -32,12 +32,12 @@ class BackfillWellCalendarServiceTest {
   @Mock
   private DateService dateService;
 
-  private BackfillWellCalendarService backfillWellCalendarService;
+  private OilPadGroupCalendarServiceImpl oilPadGroupCalendarServiceImpl;
 
   @BeforeEach
   void setUp() {
     MockitoAnnotations.initMocks(this);
-    backfillWellCalendarService = new BackfillWellCalendarService(calendarRepository, null, null, null, null, null, null, null,
+    oilPadGroupCalendarServiceImpl = new OilPadGroupCalendarServiceImpl(calendarRepository, null, null, null, null, null, null, null,
             null, dateService, dataFormProjectService);
   }
 
@@ -46,7 +46,7 @@ class BackfillWellCalendarServiceTest {
     String code = "ABC123";
     when(calendarRepository.findCalendarByCodeContract(code)).thenReturn(Optional.of(List.of(new Calendar())));
 
-    List<Calendar> result = backfillWellCalendarService.getCalendarByCode(code);
+    List<Calendar> result = oilPadGroupCalendarServiceImpl.getCalendarByCode(code);
 
     assertNotNull(result);
     assertEquals(1, result.size());
@@ -63,7 +63,7 @@ class BackfillWellCalendarServiceTest {
     Integer drillingRig = 5;
     when(dataFormProjectService.getFilePathSave()).thenReturn("dataFormProjectSave/recover.ser");
     assertDoesNotThrow(() -> {
-      backfillWellCalendarService.createCalendar(durations, code, start, humanFactor, fieldEngineeringSurvey,
+      oilPadGroupCalendarServiceImpl.createCalendar(durations, code, start, humanFactor, fieldEngineeringSurvey,
               engineeringSurveyReport, drillingRig, new DataFormOilPad());
     });
   }

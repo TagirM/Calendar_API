@@ -54,7 +54,7 @@
                         <input type="number" class="form-control" step="any" th:field="*{backfillWell.well}" id="well"/>
                         <span class="text-danger" th:if="${#fields.hasErrors('backfillWell.well')}"
                               th:errors="*{backfillWell.well}">Well error</span><br>
-                        <label for="stageBackfillWell">Этап проектирования (строительства): </label>
+                        <label for="stageBackfillWell">Этап строительства: </label>
                         <input type="number" class="form-control" step="any" th:field="*{backfillWell.stage}"
                                id="stageBackfillWell"/>
                         <span class="text-danger" th:if="${#fields.hasErrors('backfillWell.stage')}"
@@ -99,7 +99,7 @@
                               th:errors="*{road.bridgeRoadLength}"></span><br>
                     </div>
                     <div class="form-group">
-                        <label for="stageRoad">Этап проектирования (строительства):</label>
+                        <label for="stageRoad">Этап строительства: </label>
                         <input type="number" step="any" class="form-control" th:field="*{road.stage}" id="stageRoad">
                         <span class="text-danger" th:if="${#fields.hasErrors('road.stage')}"
                               th:errors="*{road.stage}"></span><br><br>
@@ -124,7 +124,7 @@
                               th:errors="*{line.length}">Well error</span><br>
                     </div>
                     <div class="form-group">
-                        <label for="stageLine">Этап проектирования (строительства): </label>
+                        <label for="stageLine">Этап строительства: </label>
                         <input type="number" step="any" class="form-control" th:field="*{line.stage}" id="stageLine"/>
                         <span class="text-danger" th:if="${#fields.hasErrors('line.stage')}"
                               th:errors="*{line.stage}">Well error</span><br><br>
@@ -143,7 +143,7 @@
                               th:errors="*{mupn.square}">Well error</span><br>
                     </div>
                     <div class="form-group">
-                        <label for="stageMupn">Этап проектирования (строительства): </label>
+                        <label for="stageMupn">Этап строительства: </label>
                         <input type="number" step="any" class="form-control" th:field="*{mupn.stage}" id="stageMupn"/>
                         <span class="text-danger" th:if="${#fields.hasErrors('mupn.stage')}"
                               th:errors="*{mupn.stage}">Well error</span><br><br>
@@ -162,7 +162,7 @@
                               th:errors="*{vec.square}">Well error</span><br>
                     </div>
                     <div class="form-group">
-                        <label for="stageVec">Этап проектирования (строительства): </label>
+                        <label for="stageVec">Этап строительства: </label>
                         <input type="number" step="any" class="form-control" th:field="*{vec.stage}" id="stageVec"/>
                         <span class="text-danger" th:if="${#fields.hasErrors('vec.stage')}"
                               th:errors="*{vec.stage}">Well error</span><br><br>
@@ -193,7 +193,7 @@
                                id="activeHallExist"/><br><br>
                     </div>
                     <div class="form-group">
-                        <label for="stageVvp">Этап проектирования (строительства): </label>
+                        <label for="stageVvp">Этап строительства: </label>
                         <input type="number" step="any" class="form-control" th:field="*{vvp.stage}" id="stageVvp"/>
                         <span class="text-danger" th:if="${#fields.hasErrors('vvp.stage')}"
                               th:errors="*{vvp.stage}">Well error</span><br><br>
@@ -214,7 +214,7 @@
                               th:errors="*{cableRack.length}">Well error</span><br>
                     </div>
                     <div class="form-group">
-                        <label for="stageCableRack">Этап проектирования (строительства): </label>
+                        <label for="stageCableRack">Этап строительства: </label>
                         <input type="number" step="any" class="form-control" th:field="*{cableRack.stage}"
                                id="stageCableRack"/>
                         <span class="text-danger" th:if="${#fields.hasErrors('cableRack.stage')}"
@@ -234,7 +234,7 @@
                               th:errors="*{vjk.square}">Well error</span><br>
                     </div>
                     <div class="form-group">
-                        <label for="stageVjk">Этап проектирования (строительства): </label>
+                        <label for="stageVjk">Этап строительства: </label>
                         <input type="number" step="any" class="form-control" th:field="*{vjk.stage}" id="stageVjk"/>
                         <span class="text-danger" th:if="${#fields.hasErrors('vjk.stage')}"
                               th:errors="*{vjk.stage}">Well error</span><br><br>

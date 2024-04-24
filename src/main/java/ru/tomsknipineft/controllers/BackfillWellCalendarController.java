@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.tomsknipineft.entities.Calendar;
 import ru.tomsknipineft.entities.oilPad.DataFormOilPad;
-import ru.tomsknipineft.services.BackfillWellCalendarService;
+import ru.tomsknipineft.services.OilPadGroupCalendarServiceImpl;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/oil_pad_object/backfill_well")
 public class BackfillWellCalendarController {
 
-    private final BackfillWellCalendarService backFillWellCalendarService;
+    private final OilPadGroupCalendarServiceImpl backFillWellCalendarServiceImpl;
 
     private String codeContract;
 
@@ -58,7 +58,7 @@ public class BackfillWellCalendarController {
         if (bindingResult.hasErrors()){
             return "backfill-well";
         }
-        List<Integer> durationsProject = backFillWellCalendarService.getDurationOilPad(dataFormOilPad.getBackfillWell(),
+        List<Integer> durationsProject = backFillWellCalendarServiceImpl.getDurationOilPad(dataFormOilPad.getBackfillWell(),
                 dataFormOilPad.getRoad(), dataFormOilPad.getLine(),
                 dataFormOilPad.getMupn(), dataFormOilPad.getVec(), dataFormOilPad.getVvp(), dataFormOilPad.getCableRack(), dataFormOilPad.getVjk());
         LocalDate date = dataFormOilPad.getStartContract();
@@ -68,7 +68,7 @@ public class BackfillWellCalendarController {
         if (fieldEngineeringSurvey){
             engineeringSurveyReport = true;
         }
-        backFillWellCalendarService.createCalendar(durationsProject, codeContract, date, dataFormOilPad.getHumanFactor(),
+        backFillWellCalendarServiceImpl.createCalendar(durationsProject, codeContract, date, dataFormOilPad.getHumanFactor(),
                 fieldEngineeringSurvey, engineeringSurveyReport, dataFormOilPad.getDrillingRig(), dataFormOilPad);
         this.dataFormOilPad = dataFormOilPad;
 
@@ -81,7 +81,7 @@ public class BackfillWellCalendarController {
     @GetMapping("/calendar")
     public String resultCalendar(Model model){
         if (calendars == null){
-            calendars = backFillWellCalendarService.getCalendarByCode(codeContract);
+            calendars = backFillWellCalendarServiceImpl.getCalendarByCode(codeContract);
             logger.info("Календарь найденный по шифру " + codeContract + " - " + calendars);
         }
         model.addAttribute("calendars", calendars);

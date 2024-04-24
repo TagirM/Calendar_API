@@ -1,7 +1,7 @@
 package ru.tomsknipineft.entities.oilPad;
 
 
-import ru.tomsknipineft.entities.ObjectType;
+import ru.tomsknipineft.entities.enumEntities.ObjectType;
 
 /**
  * Интерфейс для сооружений инженерной подготовки кустовой площадки

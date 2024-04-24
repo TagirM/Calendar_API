@@ -9,14 +9,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.group.GroupSequenceProvider;
 import ru.tomsknipineft.entities.EntityProject;
-import ru.tomsknipineft.entities.ObjectType;
+import ru.tomsknipineft.entities.enumEntities.ComplexityOfLaying;
+import ru.tomsknipineft.entities.enumEntities.ObjectType;
+import ru.tomsknipineft.entities.enumEntities.PipelineLayingMethod;
 import ru.tomsknipineft.entities.oilPad.OilPad;
-import ru.tomsknipineft.utils.entityValidator.CableRackGroupSequenceProvider;
 import ru.tomsknipineft.utils.entityValidator.OnActiveCheck;
+import ru.tomsknipineft.utils.entityValidator.PipelineGroupSequenceProvider;
 
 import java.io.Serializable;
 
-@GroupSequenceProvider(CableRackGroupSequenceProvider.class)
+/**
+ * Линейный трубопровод
+ */
+@GroupSequenceProvider(PipelineGroupSequenceProvider.class)
 @Entity
 @Data
 @NoArgsConstructor
@@ -30,14 +35,35 @@ public class Pipeline  implements OilPad, EntityProject, Serializable {
 
     private boolean active;
 
+    // тип объекта проектирования
     @Column(name = "object_type")
     @Enumerated(EnumType.STRING)
     private ObjectType objectType;
 
-    //    протяженность трубпровода, м
+//    способ прокладки трубопровода
+    @NotNull(message = "Способ прокладки не указан", groups = OnActiveCheck.class)
+    @Column(name = "pipeline_laying_method")
+    @Enumerated(EnumType.STRING)
+    private PipelineLayingMethod pipelineLayingMethod;
+
+    //    протяженность трубпровода, км
     @NotNull(message = "Длина не заполнена", groups = OnActiveCheck.class)
     @Positive(message = "Длина не может быть 0 или отрицательной", groups = OnActiveCheck.class)
-    private Integer length;
+    private Double length;
+
+//    сложность прокладки
+    @NotNull(message = "Сложность прокладки не указана", groups = OnActiveCheck.class)
+    @Column(name = "complexity_of_laying")
+    @Enumerated(EnumType.STRING)
+    private ComplexityOfLaying complexityOfLaying;
+
+    // Количество узлов запорной арматуры
+    @Min(value = 0, message = "Не может быть меньше 0", groups = OnActiveCheck.class)
+    private Integer unitsValve;
+
+    // Количество узлов средств очистки и диагностики (СОД)
+    @Min(value = 0, message = "Не может быть меньше 0", groups = OnActiveCheck.class)
+    private Integer unitsSOD;
 
     //    этап строительства
     @Min(value = 1, message = "Не может быть меньше 1", groups = OnActiveCheck.class)

@@ -38,8 +38,8 @@
             <table th:border="1" th:width="700" class="table table-hover table-light text-center">
                 <thead>
                 <tr>
-                    <th>№</th>
-                    <th>Наименование вида работ</th>
+                    <th>№ этапа</th>
+                    <th>Наименование этапа работ</th>
                     <th>Дата начала</th>
                     <th>Дата окончания</th>
                 </tr>
@@ -47,7 +47,9 @@
                 <tbody>
                 <th:block th:each="calendar : ${calendars}">
                     <tr>
-                        <td colspan="4" th:align="center"><div id="projectStage"><b>Этап проектирования (строительства) &nbsp;[[${calendar.stage}]]</b></div>
+                        <td colspan="4" th:align="center">
+                            <div id="projectStage"><b>Этап строительства
+                                &nbsp;[[${calendar.stage}]]</b></div>
                         </td>
                     </tr>
                     <tr th:if="${fieldEngineeringSurvey}">
@@ -140,22 +142,33 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            let group = -1;
+            let group = 0;
             let counter = 1;
+            var engineeringSurvey = Boolean().valueOf("${fieldEngineeringSurvey}");
+            var surveyReport = Boolean().valueOf("${engineeringSurveyReport}");
             // Проходимся по каждой строке таблицы
             document.querySelectorAll('tr').forEach(function (row) {
-                // Проверяем, пустая ли строка и содержит ли строка текст "Этап проектирования"
-                if (row.querySelectorAll('td').length > 0 && !row.textContent.includes('Этап проектирования')) {
-                    // Проверяем, что строка видима (с учётом условий th:if)
-                        if (!row.hasAttribute('th:if')) {
+                // Проверяем, что строка не является заголовком
+                if (!row.querySelector('th')) {
+                    // Проверяем, содержит ли строка текст "Этап проектирования"
+                    if (!row.textContent.includes('Этап строительства')) {
+                        // Проверяем, не пустая ли строка
+                        if (row.querySelectorAll('td').length > 0) {
                             let numbering = document.createElement('td');
                             numbering.textContent = group + '.' + counter;
                             row.insertBefore(numbering, row.firstElementChild);
                             counter++;
+                        } else {
+                            group++;
+                            counter = 1;
                         }
-                } else {
-                    group++;
-                    counter = 1;
+                    } else {
+                        group++;
+                        counter = 1;
+                        if (!engineeringSurvey && !surveyReport) {
+                            group--;
+                        }
+                    }
                 }
             });
         });
