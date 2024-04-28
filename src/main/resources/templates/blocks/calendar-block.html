@@ -1,0 +1,189 @@
+<th:block lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="calendar-content">
+    <table style="vertical-align: top;" th:border="1" th:width="700"
+           class="table table-hover table-light text-center">
+        <thead>
+        <tr>
+            <th>№ этапа</th>
+            <th>Наименование этапа работ</th>
+            <th>Дата начала</th>
+            <th>Дата окончания</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="calendar : ${calendars}">
+            <tr>
+                <td colspan="4" th:align="center">
+                    <div id="projectStage"><b>Этап строительства
+                        &nbsp;[[${calendar.stage}]]</b></div>
+                </td>
+            </tr>
+            <tr th:if="${fieldEngineeringSurvey}">
+                <td>Полевые инженерные изыскания</td>
+                <td th:align="center" th:text="${calendar.startContract}"></td>
+                <td th:align="center" th:text="${calendar.engineeringSurvey}"></td>
+            </tr>
+            <tr th:if="${engineeringSurveyReport}">
+                <td>Отчет по инженерным изысканиям</td>
+                <td th:align="center" th:text="${calendar.engineeringSurvey}"></td>
+                <td th:align="center" th:text="${calendar.engineeringSurveyReport}"></td>
+            </tr>
+            <tr th:if="${engineeringSurveyReport}">
+                <td style="padding-bottom: 35px">Согласование инженерных изысканий</td>
+                <td th:align="center" th:text="${calendar.engineeringSurveyReport}"></td>
+                <td th:align="center" th:text="${calendar.agreementEngineeringSurvey}"></td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td>Рабочая документация</td>
+                <td th:align="center" th:text="${calendar.workingStart}"></td>
+                <td th:align="center" th:text="${calendar.workingFinish}"></td>
+            </tr>
+            <tr>
+                <td>Согласование рабочей документации</td>
+                <td th:align="center" th:text="${calendar.workingFinish}"></td>
+                <td th:align="center" th:text="${calendar.agreementWorking}"></td>
+            </tr>
+            <tr>
+                <td>Сметная документация</td>
+                <td th:align="center" th:text="${calendar.workingFinish}"></td>
+                <td th:align="center" th:text="${calendar.estimatesFinish}"></td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 35px">Согласование сметной документации</td>
+                <td th:align="center" th:text="${calendar.estimatesFinish}"></td>
+                <td th:align="center" th:text="${calendar.agreementEstimates}"></td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td>Проектная документация</td>
+                <td th:align="center" th:text="${calendar.workingFinish}"></td>
+                <td th:align="center" th:text="${calendar.projectFinish}"></td>
+            </tr>
+            <tr>
+                <td>Согласование проектной документации</td>
+                <td th:align="center" th:text="${calendar.projectFinish}"></td>
+                <td th:align="center" th:text="${calendar.agreementProject}"></td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 35px">Экспертиза проектной документации</td>
+                <td th:align="center" th:text="${calendar.agreementProject}"></td>
+                <td th:align="center" th:text="${calendar.examination}"></td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td style="padding-bottom: 35px">Землеустроительная документация</td>
+                <td th:align="center" th:text="${calendar.projectFinish}"></td>
+                <td th:align="center" th:text="${calendar.landFinish}"></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</th:block>
+<!--<!doctype html>-->
+<!--<html  lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="calendar-content">-->
+<!--&lt;!&ndash;         &ndash;&gt;-->
+<!--&lt;!&ndash;      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"&ndash;&gt;-->
+
+<!--<head>-->
+<!--    &lt;!&ndash; Required meta tags &ndash;&gt;-->
+<!--    &lt;!&ndash;    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">&ndash;&gt;-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <link rel="stylesheet" href="/css/style.css">-->
+
+<!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">-->
+
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container mt-4">-->
+<!--&lt;!&ndash;    <th:block layout:fragment="calendar-content">&ndash;&gt;-->
+<!--    <div th:fragment="calendar-content">-->
+<!--        <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula...</p>-->
+<!--&lt;!&ndash;        <table style="vertical-align: top;" th:border="1" th:width="700"&ndash;&gt;-->
+<!--&lt;!&ndash;               class="table table-hover table-light text-center">&ndash;&gt;-->
+<!--&lt;!&ndash;            <thead>&ndash;&gt;-->
+<!--&lt;!&ndash;            <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                <th>№ этапа</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                <th>Наименование этапа работ</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                <th>Дата начала</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                <th>Дата окончания</th>&ndash;&gt;-->
+<!--&lt;!&ndash;            </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;            </thead>&ndash;&gt;-->
+<!--&lt;!&ndash;            <tbody>&ndash;&gt;-->
+<!--&lt;!&ndash;            <th:block th:each="calendar : ${calendars}">&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td colspan="4" th:align="center">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div id="projectStage"><b>Этап строительства&ndash;&gt;-->
+<!--&lt;!&ndash;                            &nbsp;[[${calendar.stage}]]</b></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr th:if="${fieldEngineeringSurvey}">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td>Полевые инженерные изыскания</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.startContract}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.engineeringSurvey}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr th:if="${engineeringSurveyReport}">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td>Отчет по инженерным изысканиям</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.engineeringSurvey}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.engineeringSurveyReport}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr th:if="${engineeringSurveyReport}">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td style="padding-bottom: 35px">Согласование инженерных изысканий</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.engineeringSurveyReport}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.agreementEngineeringSurvey}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr></tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td>Рабочая документация</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.workingStart}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.workingFinish}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td>Согласование рабочей документации</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.workingFinish}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.agreementWorking}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td>Сметная документация</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.workingFinish}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.estimatesFinish}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td style="padding-bottom: 35px">Согласование сметной документации</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.estimatesFinish}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.agreementEstimates}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr></tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td>Проектная документация</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.workingFinish}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.projectFinish}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td>Согласование проектной документации</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.projectFinish}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.agreementProject}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td style="padding-bottom: 35px">Экспертиза проектной документации</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.agreementProject}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.examination}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr></tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td style="padding-bottom: 35px">Землеустроительная документация</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.projectFinish}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td th:align="center" th:text="${calendar.landFinish}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;            </th:block>&ndash;&gt;-->
+<!--&lt;!&ndash;            </tbody>&ndash;&gt;-->
+<!--&lt;!&ndash;        </table>&ndash;&gt;-->
+<!--&lt;!&ndash;    </th:block>&ndash;&gt;-->
+<!--    </div>-->
+<!--</div>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>-->
+<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->

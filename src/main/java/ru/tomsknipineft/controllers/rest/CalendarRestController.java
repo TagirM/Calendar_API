@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.tomsknipineft.entities.Calendar;
-import ru.tomsknipineft.services.OilPadGroupCalendarServiceImpl;
+import ru.tomsknipineft.services.CalendarService;
 import ru.tomsknipineft.services.excelCreated.ExcelCreatedService;
 import ru.tomsknipineft.utils.exceptions.NoSuchCalendarException;
 
@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CalendarRestController {
 
-    private final OilPadGroupCalendarServiceImpl backFillWellCalendarServiceImpl;
+    private final CalendarService calendarService;
 
     private final ExcelCreatedService excelCreatedService;
 
@@ -28,7 +28,7 @@ public class CalendarRestController {
 
     @GetMapping("/calendar/to_desktop")
     public ResponseEntity<Resource> uploadingCalendar(@RequestParam("codeContract") String codeContract){
-        List<Calendar> calendars = backFillWellCalendarServiceImpl.getCalendarByCode(codeContract);
+        List<Calendar> calendars = calendarService.getCalendarByCode(codeContract);
         excelCreatedService.setCalendars(calendars);
         if (calendars.size() == 0){
             throw new NoSuchCalendarException("Ошибка выгрузки календаря, проверьте корректность введенных данных");

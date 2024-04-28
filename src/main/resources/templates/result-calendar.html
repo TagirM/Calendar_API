@@ -23,97 +23,27 @@
             <p class="fst-italic" th:if="${dataFormOilPad.line.active}">ВЛ напряжением [[${dataFormOilPad.line.power}]]
                 кВ протяженностью
                 [[${dataFormOilPad.line.length}]] км</p>
-            <p class="fst-italic" th:if="${dataFormOilPad.mupn.active}">Площадка для МУПН площадью
-                [[${dataFormOilPad.mupn.square}]] га</p>
-            <p class="fst-italic" th:if="${dataFormOilPad.vec.active}">Площадка для ВЭЦ площадью
-                [[${dataFormOilPad.vec.square}]] га</p>
+            <p class="fst-italic" th:if="${dataFormOilPad.backfillSites[0].active}">Площадка под МУПН площадью
+                [[${dataFormOilPad.backfillSites[0].square}]] га</p>
+            <p class="fst-italic" th:if="${dataFormOilPad.backfillSites[1].active}">Площадка под ВЭЦ площадью
+                [[${dataFormOilPad.backfillSites[1].square}]] га</p>
             <p class="fst-italic" th:if="${dataFormOilPad.vvp.active}">Временная вертолетная площадка для
                 [[${dataFormOilPad.vvp.helicopterModel}]] площадью [[${dataFormOilPad.vvp.square}]] га</p>
             <p class="fst-italic" th:if="${dataFormOilPad.vvp.hallExist}">с залом ожидания</p>
             <p class="fst-italic" th:if="${dataFormOilPad.cableRack.active}">Кабельная эстакада протяженностью
                 [[${dataFormOilPad.cableRack.length}]] м</p>
-            <p class="fst-italic" th:if="${dataFormOilPad.vjk.active}">Площадка для ВЖК площадью
-                [[${dataFormOilPad.vjk.square}]] га</p>
-            <hr>
-            <table th:border="1" th:width="700" class="table table-hover table-light text-center">
-                <thead>
-                <tr>
-                    <th>№ этапа</th>
-                    <th>Наименование этапа работ</th>
-                    <th>Дата начала</th>
-                    <th>Дата окончания</th>
-                </tr>
-                </thead>
-                <tbody>
-                <th:block th:each="calendar : ${calendars}">
-                    <tr>
-                        <td colspan="4" th:align="center">
-                            <div id="projectStage"><b>Этап строительства
-                                &nbsp;[[${calendar.stage}]]</b></div>
-                        </td>
-                    </tr>
-                    <tr th:if="${fieldEngineeringSurvey}">
-                        <td>Полевые инженерные изыскания</td>
-                        <td th:align="center" th:text="${calendar.startContract}"></td>
-                        <td th:align="center" th:text="${calendar.engineeringSurvey}"></td>
-                    </tr>
-                    <tr th:if="${engineeringSurveyReport}">
-                        <td>Отчет по инженерным изысканиям</td>
-                        <td th:align="center" th:text="${calendar.engineeringSurvey}"></td>
-                        <td th:align="center" th:text="${calendar.engineeringSurveyReport}"></td>
-                    </tr>
-                    <tr th:if="${engineeringSurveyReport}">
-                        <td style="padding-bottom: 35px">Согласование инженерных изысканий</td>
-                        <td th:align="center" th:text="${calendar.engineeringSurveyReport}"></td>
-                        <td th:align="center" th:text="${calendar.agreementEngineeringSurvey}"></td>
-                    </tr>
-                    <tr></tr>
-                    <tr>
-                        <td>Рабочая документация</td>
-                        <td th:align="center" th:text="${calendar.workingStart}"></td>
-                        <td th:align="center" th:text="${calendar.workingFinish}"></td>
-                    </tr>
-                    <tr>
-                        <td>Согласование рабочей документации</td>
-                        <td th:align="center" th:text="${calendar.workingFinish}"></td>
-                        <td th:align="center" th:text="${calendar.agreementWorking}"></td>
-                    </tr>
-                    <tr>
-                        <td>Сметная документация</td>
-                        <td th:align="center" th:text="${calendar.workingFinish}"></td>
-                        <td th:align="center" th:text="${calendar.estimatesFinish}"></td>
-                    </tr>
-                    <tr>
-                        <td style="padding-bottom: 35px">Согласование сметной документации</td>
-                        <td th:align="center" th:text="${calendar.estimatesFinish}"></td>
-                        <td th:align="center" th:text="${calendar.agreementEstimates}"></td>
-                    </tr>
-                    <tr></tr>
-                    <tr>
-                        <td>Проектная документация</td>
-                        <td th:align="center" th:text="${calendar.workingFinish}"></td>
-                        <td th:align="center" th:text="${calendar.projectFinish}"></td>
-                    </tr>
-                    <tr>
-                        <td>Согласование проектной документации</td>
-                        <td th:align="center" th:text="${calendar.projectFinish}"></td>
-                        <td th:align="center" th:text="${calendar.agreementProject}"></td>
-                    </tr>
-                    <tr>
-                        <td style="padding-bottom: 35px">Экспертиза проектной документации</td>
-                        <td th:align="center" th:text="${calendar.agreementProject}"></td>
-                        <td th:align="center" th:text="${calendar.examination}"></td>
-                    </tr>
-                    <tr></tr>
-                    <tr>
-                        <td style="padding-bottom: 35px">Землеустроительная документация</td>
-                        <td th:align="center" th:text="${calendar.projectFinish}"></td>
-                        <td th:align="center" th:text="${calendar.landFinish}"></td>
-                    </tr>
-                    <br>
-                </th:block>
-                </tbody>
-            </table>
+            <p class="fst-italic" th:if="${dataFormOilPad.backfillSites[2].active}">Площадка под ВЖК площадью
+                [[${dataFormOilPad.backfillSites[2].square}]] га</p>
+            <p class="fst-italic" th:if="${dataFormOilPad.backfillSites[3].active}">Площадка под модульную подстанцию
+                площадью [[${dataFormOilPad.backfillSites[3].square}]] га</p>
+            <hr class="my-4">
+<!--            <div layout:insert="~{blocks/calendar-block.html :: calendar-content}">-->
+<!--                :: calendar-content-->
+<!--                th:remove="tag"-->
+            <div th:insert="~{blocks/calendar-block.html :: calendar-content}">
+<!--                <th:block layout:fragment="calendar-content">-->
+<!--                </th:block>-->
+            </div>
         </div>
     </div>
     <br>
@@ -134,18 +64,19 @@
     <script>
         // Проверка, откуда пришел пользователь для формирования кнопок
         if (document.referrer && document.referrer.endsWith('/oil_pad_object/backfill_well') ||
-            document.referrer && document.referrer.endsWith('/oil_pad_object/backfill_well/calendar')) {
+            document.referrer && document.referrer.endsWith('/oil_pad_object/backfill_well/calendar') ||
+            document.referrer && document.referrer.endsWith('/oil_pad_object/backfill_well/create')) {
             document.getElementById('goToBackfillWell3').style.display = 'block';
         } else {
             document.getElementById('goToBackfillWell3').style.display = 'none';
         }
     </script>
-    <script>
+    <script th:inline="javascript">
         document.addEventListener('DOMContentLoaded', function () {
             let group = 0;
             let counter = 1;
-            var engineeringSurvey = Boolean().valueOf("${fieldEngineeringSurvey}");
-            var surveyReport = Boolean().valueOf("${engineeringSurveyReport}");
+            var engineeringSurvey = [[${fieldEngineeringSurvey}]];
+            var surveyReport = [[${engineeringSurveyReport}]];
             // Проходимся по каждой строке таблицы
             document.querySelectorAll('tr').forEach(function (row) {
                 // Проверяем, что строка не является заголовком

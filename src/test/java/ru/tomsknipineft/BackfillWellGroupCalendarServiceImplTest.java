@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import ru.tomsknipineft.entities.Calendar;
 import ru.tomsknipineft.entities.oilPad.DataFormOilPad;
 import ru.tomsknipineft.repositories.CalendarRepository;
-import ru.tomsknipineft.services.OilPadGroupCalendarServiceImpl;
+import ru.tomsknipineft.services.CalendarService;
 import ru.tomsknipineft.services.DataFormProjectService;
 import ru.tomsknipineft.services.DateService;
 
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-class OilPadGroupCalendarServiceImplTest {
+class BackfillWellGroupCalendarServiceImplTest {
 
   @Mock
   private CalendarRepository calendarRepository;
@@ -32,13 +32,12 @@ class OilPadGroupCalendarServiceImplTest {
   @Mock
   private DateService dateService;
 
-  private OilPadGroupCalendarServiceImpl oilPadGroupCalendarServiceImpl;
+  private CalendarService calendarService;
 
   @BeforeEach
   void setUp() {
     MockitoAnnotations.initMocks(this);
-    oilPadGroupCalendarServiceImpl = new OilPadGroupCalendarServiceImpl(calendarRepository, null, null, null, null, null, null, null,
-            null, dateService, dataFormProjectService);
+    calendarService = new CalendarService(calendarRepository, dateService, dataFormProjectService);
   }
 
   @Test
@@ -46,7 +45,7 @@ class OilPadGroupCalendarServiceImplTest {
     String code = "ABC123";
     when(calendarRepository.findCalendarByCodeContract(code)).thenReturn(Optional.of(List.of(new Calendar())));
 
-    List<Calendar> result = oilPadGroupCalendarServiceImpl.getCalendarByCode(code);
+    List<Calendar> result = calendarService.getCalendarByCode(code);
 
     assertNotNull(result);
     assertEquals(1, result.size());
@@ -63,7 +62,7 @@ class OilPadGroupCalendarServiceImplTest {
     Integer drillingRig = 5;
     when(dataFormProjectService.getFilePathSave()).thenReturn("dataFormProjectSave/recover.ser");
     assertDoesNotThrow(() -> {
-      oilPadGroupCalendarServiceImpl.createCalendar(durations, code, start, humanFactor, fieldEngineeringSurvey,
+      calendarService.createCalendar(durations, code, start, humanFactor, fieldEngineeringSurvey,
               engineeringSurveyReport, drillingRig, new DataFormOilPad());
     });
   }

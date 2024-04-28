@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.tomsknipineft.entities.Calendar;
+import ru.tomsknipineft.entities.EntityProject;
 import ru.tomsknipineft.entities.linearObjects.DataFormLinearObjects;
-import ru.tomsknipineft.entities.oilPad.DataFormOilPad;
+import ru.tomsknipineft.services.CalendarService;
+import ru.tomsknipineft.services.LinearPipelineGroupCalendarServiceImpl;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,6 +25,8 @@ import java.util.List;
 @RequestMapping("/linear_object/linear_pipeline")
 public class LinearPipelineCalendarController {
 
+    private final LinearPipelineGroupCalendarServiceImpl linearObjectGroupCalendarService;
+    private final CalendarService calendarService;
     private String codeContract;
 
     private boolean fieldEngineeringSurvey;
@@ -55,10 +59,12 @@ public class LinearPipelineCalendarController {
         if (bindingResult.hasErrors()){
             return "linear-pipeline";
         }
-        List<Integer> durationsProject = backFillWellCalendarService.getDurationOilPad(dataFormLinearObjects.getBackfillWell(),
-                dataFormLinearObjects.getRoad(), dataFormLinearObjects.getLine(),
-                dataFormLinearObjects.getMupn(), dataFormLinearObjects.getVec(), dataFormLinearObjects.getVvp(), dataFormLinearObjects.getCableRack(),
-                dataFormLinearObjects.getVjk());
+        List<EntityProject> entityProjects = List.of(dataFormLinearObjects.getPipeline(),
+                dataFormLinearObjects.getRoad(), dataFormLinearObjects.getBridge(), dataFormLinearObjects.getLine(),
+                dataFormLinearObjects.getSikn(), dataFormLinearObjects.getMps(), dataFormLinearObjects.getKtplp(),
+                dataFormLinearObjects.getVvp(), dataFormLinearObjects.getCableRack());
+        List<Integer> durationsProject = linearObjectGroupCalendarService.getDuration(entityProjects); // поправить
+
         LocalDate date = dataFormLinearObjects.getStartContract();
         this.codeContract = dataFormLinearObjects.getCodeContract();
         this.fieldEngineeringSurvey = dataFormLinearObjects.isFieldEngineeringSurvey();
@@ -66,7 +72,7 @@ public class LinearPipelineCalendarController {
         if (fieldEngineeringSurvey){
             engineeringSurveyReport = true;
         }
-        backFillWellCalendarService.createCalendar(durationsProject, codeContract, date, dataFormLinearObjects.getHumanFactor(),
+        calendarService.createCalendar(durationsProject, codeContract, date, dataFormLinearObjects.getHumanFactor(),
                 fieldEngineeringSurvey, engineeringSurveyReport, dataFormLinearObjects.getDrillingRig(), dataFormLinearObjects);
         this.dataFormLinearObjects = dataFormLinearObjects;
 
@@ -79,7 +85,7 @@ public class LinearPipelineCalendarController {
     @GetMapping("/calendar")
     public String resultCalendar(Model model){
         if (calendars == null){
-            calendars = backFillWellCalendarService.getCalendarByCode(codeContract);
+            calendars = calendarService.getCalendarByCode(codeContract);
             logger.info("Календарь найденный по шифру " + codeContract + " - " + calendars);
         }
         model.addAttribute("calendars", calendars);

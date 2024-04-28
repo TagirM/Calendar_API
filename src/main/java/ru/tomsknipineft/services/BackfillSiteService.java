@@ -8,7 +8,7 @@ import ru.tomsknipineft.utils.exceptions.NoSuchEntityException;
 
 @Service
 @RequiredArgsConstructor
-public class BackfillSiteService {
+public class BackfillSiteService implements EntityProjectService{
 
     private final BackfillSiteRepository backfillSiteRepository;
 

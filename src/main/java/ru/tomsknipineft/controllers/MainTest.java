@@ -1,10 +1,8 @@
 package ru.tomsknipineft.controllers;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.*;
 
-public class MainM {
+public class MainTest {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Input work days:");

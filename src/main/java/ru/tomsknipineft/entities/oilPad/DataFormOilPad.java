@@ -2,12 +2,10 @@ package ru.tomsknipineft.entities.oilPad;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.hibernate.validator.group.GroupSequenceProvider;
 import ru.tomsknipineft.entities.DataFormProject;
-import ru.tomsknipineft.entities.areaObjects.Vec;
-import ru.tomsknipineft.entities.areaObjects.Vjk;
+import ru.tomsknipineft.entities.areaObjects.BackfillSite;
 import ru.tomsknipineft.entities.areaObjects.Vvp;
 import ru.tomsknipineft.entities.linearObjects.CableRack;
 import ru.tomsknipineft.entities.linearObjects.Line;
@@ -18,6 +16,8 @@ import ru.tomsknipineft.utils.entityValidator.OnActiveEngineeringSurvey;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
 Объект, который включает в себя все сооружения инженерной подготовки кустовой площадки
@@ -47,19 +47,13 @@ public class DataFormOilPad implements DataFormProject, Serializable {
     private Line line = new Line();
 
     @Valid
-    private Mupn mupn = new Mupn();
-
-    @Valid
-    private Vec vec = new Vec();
+    private List<BackfillSite> backfillSites = new ArrayList<>();
 
     @Valid
     private Vvp vvp = new Vvp();
 
     @Valid
     private CableRack cableRack = new CableRack();
-
-    @Valid
-    private Vjk vjk = new Vjk();
 
     private boolean fieldEngineeringSurvey;
 

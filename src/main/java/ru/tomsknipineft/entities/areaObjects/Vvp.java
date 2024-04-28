@@ -43,6 +43,10 @@ public class Vvp implements OilPad, EntityProject, Serializable {
     @Size(min = 3, max = 10, message = "наименование модели находится в интервале 3-10 символов", groups = OnActiveCheck.class)
     private String helicopterModel;
 
+    //    необходимость светосигнального оборудования
+    @Column(name = "lighting_equipment")
+    private boolean lightingEquipment;
+
     //    наличие зала ожидания
     @Column(name = "hall_exist")
     private boolean hallExist;

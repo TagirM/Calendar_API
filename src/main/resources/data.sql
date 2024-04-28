@@ -59,14 +59,18 @@ VALUES (14, 'true', 'LINEAR', 110, 15, 1, 30);
 INSERT INTO lines (id, active, object_type, power, length, stage, resource)
 VALUES (15, 'true', 'LINEAR', 110, 20, 1, 34);
 
-INSERT INTO mupns (id, active, object_type, square, stage, resource)
+INSERT INTO backfill_sites (id, active, object_type, square, stage, resource)
 VALUES (1, 'true', 'AREA', 1, 1, 5);
-INSERT INTO mupns (id, active, object_type, square, stage, resource)
+INSERT INTO backfill_sites (id, active, object_type, square, stage, resource)
 VALUES (2, 'true', 'AREA', 2, 1, 7);
-INSERT INTO mupns (id, active, object_type, square, stage, resource)
+INSERT INTO backfill_sites (id, active, object_type, square, stage, resource)
 VALUES (3, 'true', 'AREA', 3, 1, 9);
-INSERT INTO mupns (id, active, object_type, square, stage, resource)
-VALUES (4, 'true', 'AREA', 4, 1, 11);
+INSERT INTO backfill_sites (id, active, object_type, square, stage, resource)
+VALUES (4, 'true', 'AREA', 4, 1, 10);
+INSERT INTO backfill_sites (id, active, object_type, square, stage, resource)
+VALUES (5, 'true', 'AREA', 5, 1, 11);
+INSERT INTO backfill_sites (id, active, object_type, square, stage, resource)
+VALUES (6, 'true', 'AREA', 6, 1, 12);
 
 INSERT INTO vecs (id, active, object_type, power, stock_exist, square, stage, resource)
 VALUES (1, 'true', 'AREA', 0, 'false', 1, 1, 5);
@@ -77,14 +81,14 @@ VALUES (3, 'true', 'AREA', 0, 'false', 3, 1, 9);
 INSERT INTO vecs (id, active, object_type, power, stock_exist, square, stage, resource)
 VALUES (4, 'true', 'AREA', 0, 'false', 4, 1, 11);
 
-INSERT INTO vvps (id, active, object_type, helicopter_model, hall_exist, square, stage, resource)
-VALUES (1, 'true', 'AREA', 'МИ-8', 'false', 1, 1, 5);
-INSERT INTO vvps (id, active, object_type, helicopter_model, hall_exist, square, stage, resource)
-VALUES (2, 'true', 'AREA', 'МИ-8', 'false', 2, 1, 7);
-INSERT INTO vvps (id, active, object_type, helicopter_model, hall_exist, square, stage, resource)
-VALUES (3, 'true', 'AREA', 'МИ-16', 'false', 3, 1, 9);
-INSERT INTO vvps (id, active, object_type, helicopter_model, hall_exist, square, stage, resource)
-VALUES (4, 'true', 'AREA', 'МИ-16', 'false', 4, 1, 11);
+INSERT INTO vvps (id, active, object_type, helicopter_model, lighting_equipment, hall_exist, square, stage, resource)
+VALUES (1, 'true', 'AREA', 'МИ-8', 'false', 'false', 1, 1, 5);
+INSERT INTO vvps (id, active, object_type, helicopter_model, lighting_equipment, hall_exist, square, stage, resource)
+VALUES (2, 'true', 'AREA', 'МИ-8', 'false', 'false', 2, 1, 7);
+INSERT INTO vvps (id, active, object_type, helicopter_model, lighting_equipment, hall_exist, square, stage, resource)
+VALUES (3, 'true', 'AREA', 'МИ-16', 'false', 'false', 3, 1, 9);
+INSERT INTO vvps (id, active, object_type, helicopter_model, lighting_equipment, hall_exist, square, stage, resource)
+VALUES (4, 'true', 'AREA', 'МИ-16', 'false', 'false', 4, 1, 11);
 
 INSERT INTO cable_rack (id, active, object_type, length, stage, resource)
 VALUES (1, 'true', 'LINEAR', 100, 1, 8);

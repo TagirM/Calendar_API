@@ -45,6 +45,11 @@ public class Mps implements OilPad, EntityProject, Serializable {
     @Enumerated(EnumType.STRING)
     private MpsType mpsType;
 
+    // предусмотрена ли отсыпка для МПС в данном проекте
+    @NotNull(message = "Площадь не заполнена", groups = OnActiveCheck.class)
+    @Column(name = "backfill_site")
+    private boolean backfillSite;
+
     //    площадь отсыпки, га
     @NotNull(message = "Площадь не заполнена", groups = OnActiveCheck.class)
     @Positive(message = "Площадь не может быть отрицательной", groups = OnActiveCheck.class)

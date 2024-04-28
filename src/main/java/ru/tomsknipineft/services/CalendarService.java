@@ -7,15 +7,6 @@ import org.springframework.stereotype.Service;
 import ru.tomsknipineft.entities.Calendar;
 import ru.tomsknipineft.entities.DataFormProject;
 import ru.tomsknipineft.entities.EntityProject;
-import ru.tomsknipineft.entities.areaObjects.Vec;
-import ru.tomsknipineft.entities.areaObjects.Vjk;
-import ru.tomsknipineft.entities.areaObjects.Vvp;
-import ru.tomsknipineft.entities.enumEntities.ObjectType;
-import ru.tomsknipineft.entities.linearObjects.CableRack;
-import ru.tomsknipineft.entities.linearObjects.Line;
-import ru.tomsknipineft.entities.linearObjects.Road;
-import ru.tomsknipineft.entities.oilPad.BackfillWell;
-import ru.tomsknipineft.entities.oilPad.Mupn;
 import ru.tomsknipineft.repositories.CalendarRepository;
 import ru.tomsknipineft.utils.exceptions.NoSuchCalendarException;
 
@@ -25,10 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -36,27 +24,11 @@ public class CalendarService {
 
     private final CalendarRepository calendarRepository;
 
-    private final BackfillWellService backfillWellService;
-
-    private final MupnService mupnService;
-
-    private final VecService vecService;
-
-    private final VvpService vvpService;
-
-    private final RoadService roadService;
-
-    private final LineService lineService;
-
-    private final CableRackService cableRackService;
-
-    private final VjkService vjkService;
-
     private final DateService dateService;
 
     private final DataFormProjectService dataFormProjectService;
 
-    private static final Logger logger = LogManager.getLogger(OilPadGroupCalendarServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(BackfillWellGroupCalendarServiceImpl.class);
 
     /**
      * Получение всего списка календарных планов (различных этапов строительства) по шифру договора
@@ -131,16 +103,17 @@ public class CalendarService {
             // расчет количества рабочих дней РД с учетом человеческого фактора
             int durationsProjectWithHumanFactor = (getDurationsProject.get(i) * (humanFactor + 100)) / 100 + projectOfficeDays;
 
-            // расчет календарных дней РД из рабочих дней в каждом этапе строительства
+            // перерасчет рабочих дней в календарные дни РД в каждом этапе строительства
             int calendarDaysDurationsProject = durationsProjectWithHumanFactor + (durationsProjectWithHumanFactor / 5) * 2;
 
             Calendar calendar = new Calendar();
-            // смещение начала текущего этапа строительства на срок полевых ИИ предыдущего этапа строительства
-            startContract = startContract.plusDays(nextStage);
+            // смещение начала текущего этапа строительства на срок полевых ИИ предыдущего этапа строительства при этом
+            // приводим дату начала работ к рабочему дню (если выпал праздничный или выходной день)
+            startContract = dateService.workDay(startContract.plusDays(nextStage));
 
             //  расчет продолжительности стадий проекта
             //  срок выдачи РД от начала работ
-            int workingDuration = calendarDaysDurationsProject + engineeringSurveyReportDuration;
+            int workingDuration = calendarDaysDurationsProject + engineeringSurveyReportDuration;// неверная строчка
             // срок выдачи ПД от начала работ
             int projectDuration = workingDuration + 30;
             // срок выдачи СД от начала работ
@@ -157,10 +130,10 @@ public class CalendarService {
             int examinationDuration = agreementProjectDuration + 120;
 
             // дата начала отчета ИИ текущего этапа строительства
-            LocalDate startEngineeringSurveyReport = dateService.workDay(startContract.plusDays(engineeringSurveyDuration));
+            LocalDate startEngineeringSurveyReport = dateService.workDay(startContract.plusDays(engineeringSurveyDuration + engineeringSurveyLaboratoryResearch));
             // проверка условия пересечения выполнения отчета ИИ текущего этапа строительства с предыдущим, если пересечение есть, то срок сместить
-            if (finishEngineeringSurveyReport != null && startEngineeringSurveyReport.plusDays(engineeringSurveyLaboratoryResearch).isBefore(finishEngineeringSurveyReport)) {
-                Period period = Period.between(startEngineeringSurveyReport.plusDays(engineeringSurveyLaboratoryResearch), finishEngineeringSurveyReport);
+            if (finishEngineeringSurveyReport != null && startEngineeringSurveyReport.isBefore(finishEngineeringSurveyReport)) {
+                Period period = Period.between(startEngineeringSurveyReport, finishEngineeringSurveyReport);
                 // количество дней смещения
                 stageOffsetII = period.getDays() + period.getMonths() * 30;
             }
