@@ -1,5 +1,6 @@
 package ru.tomsknipineft.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -28,10 +29,6 @@ public class LinearPipelineCalendarController {
     private final LinearPipelineGroupCalendarServiceImpl linearObjectGroupCalendarService;
     private final CalendarService calendarService;
     private String codeContract;
-
-    private boolean fieldEngineeringSurvey;
-
-    private boolean engineeringSurveyReport;
 
     private DataFormLinearObjects dataFormLinearObjects;
 
@@ -63,17 +60,16 @@ public class LinearPipelineCalendarController {
                 dataFormLinearObjects.getRoad(), dataFormLinearObjects.getBridge(), dataFormLinearObjects.getLine(),
                 dataFormLinearObjects.getSikn(), dataFormLinearObjects.getMps(), dataFormLinearObjects.getKtplp(),
                 dataFormLinearObjects.getVvp(), dataFormLinearObjects.getCableRack());
-        List<Integer> durationsProject = linearObjectGroupCalendarService.getDuration(entityProjects); // поправить
+        List<Integer> durationsProject = linearObjectGroupCalendarService.getDuration(entityProjects);
 
         LocalDate date = dataFormLinearObjects.getStartContract();
         this.codeContract = dataFormLinearObjects.getCodeContract();
-        this.fieldEngineeringSurvey = dataFormLinearObjects.isFieldEngineeringSurvey();
-        this.engineeringSurveyReport = dataFormLinearObjects.isEngineeringSurveyReport();
-        if (fieldEngineeringSurvey){
-            engineeringSurveyReport = true;
+        if (dataFormLinearObjects.isFieldEngineeringSurvey()){
+            dataFormLinearObjects.setEngineeringSurveyReport(true);
         }
-        calendarService.createCalendar(durationsProject, codeContract, date, dataFormLinearObjects.getHumanFactor(),
-                fieldEngineeringSurvey, engineeringSurveyReport, dataFormLinearObjects.getDrillingRig(), dataFormLinearObjects);
+        calendars = calendarService.createCalendar(durationsProject, codeContract, date, dataFormLinearObjects.getHumanFactor(),
+                dataFormLinearObjects.isFieldEngineeringSurvey(), dataFormLinearObjects.isEngineeringSurveyReport(),
+                dataFormLinearObjects.getDrillingRig(), dataFormLinearObjects);
         this.dataFormLinearObjects = dataFormLinearObjects;
 
         return "redirect:/linear_object/linear_pipeline/calendar";
@@ -83,16 +79,19 @@ public class LinearPipelineCalendarController {
      * Страница с выводом календарного плана договора
      */
     @GetMapping("/calendar")
-    public String resultCalendar(Model model){
-        if (calendars == null){
+    public String resultCalendar(Model model, HttpServletRequest request){
+        String codeFromRequest = (String) request.getAttribute("codeContract");
+        if (codeFromRequest != null){
+            codeContract = codeFromRequest;
             calendars = calendarService.getCalendarByCode(codeContract);
-            logger.info("Календарь найденный по шифру " + codeContract + " - " + calendars);
+            dataFormLinearObjects = (DataFormLinearObjects) calendarService.getDataFormProject(calendars);
         }
+        logger.info("Календарь по шифру " + codeContract + " выведен - " + calendars);
         model.addAttribute("calendars", calendars);
         model.addAttribute("codeContract", codeContract);
         model.addAttribute("dataFormLinearObjects", dataFormLinearObjects);
-        model.addAttribute("fieldEngineeringSurvey", fieldEngineeringSurvey);
-        model.addAttribute("engineeringSurveyReport", engineeringSurveyReport);
+        model.addAttribute("fieldEngineeringSurvey", dataFormLinearObjects.isFieldEngineeringSurvey());
+        model.addAttribute("engineeringSurveyReport", dataFormLinearObjects.isEngineeringSurveyReport());
         return "result-calendar";
     }
 }

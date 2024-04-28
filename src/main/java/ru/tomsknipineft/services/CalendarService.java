@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -69,8 +70,9 @@ public class CalendarService {
      * @param drillingRig количество буровых бригад
      * @param dataFormProject исходные данные проекта
      */
-    public void createCalendar(List<Integer> getDurationsProject, String codeContract, LocalDate startContract, Integer humanFactor,
+    public List<Calendar> createCalendar(List<Integer> getDurationsProject, String codeContract, LocalDate startContract, Integer humanFactor,
                                boolean fieldEngineeringSurvey, boolean engineeringSurveyReport, Integer drillingRig, DataFormProject dataFormProject) {
+        List<Calendar> calendars =new ArrayList<>();
         //  запись в файл данных о проекте
         this.dataFormProjectService.dataFormProjectSave(dataFormProject);
         // переменные метода
@@ -90,13 +92,13 @@ public class CalendarService {
         if (fieldEngineeringSurvey) {
             engineeringSurveyDuration = 10 + 20 / drillingRig;
             engineeringSurveyLaboratoryResearch = 45;
-            engineeringSurveyReportDuration = engineeringSurveyDuration + engineeringSurveyLaboratoryResearch + 45;
-            agreementEngineeringSurveyDuration = engineeringSurveyReportDuration + 60;
+            engineeringSurveyReportDuration = 45;
+            agreementEngineeringSurveyDuration = 60;
         }
         // проверка условия что полевые ИИ не выполняются, а камеральные ИИ выполняются
         if (!fieldEngineeringSurvey && engineeringSurveyReport) {
             engineeringSurveyReportDuration = 45;
-            agreementEngineeringSurveyDuration = engineeringSurveyReportDuration + 60;
+            agreementEngineeringSurveyDuration = 60;
         }
 
         for (int i = 0; i < getDurationsProject.size(); i++) {
@@ -112,63 +114,80 @@ public class CalendarService {
             startContract = dateService.workDay(startContract.plusDays(nextStage));
 
             //  расчет продолжительности стадий проекта
-            //  срок выдачи РД от начала работ
-            int workingDuration = calendarDaysDurationsProject + engineeringSurveyReportDuration;// неверная строчка
-            // срок выдачи ПД от начала работ
-            int projectDuration = workingDuration + 30;
-            // срок выдачи СД от начала работ
-            int estimatesDuration = workingDuration + 30;
-            // срок выдачи ЗУР от начала работ
-            int landDuration = projectDuration + 150;
-            // срок согласования РД от начала работ
-            int agreementWorkingDuration = workingDuration + 60;
-            // срок согласования ПД от начала работ
-            int agreementProjectDuration = projectDuration + 60;
-            // срок согласования СД от начала работ
-            int agreementEstimatesDuration = estimatesDuration + 60;
-            // срок ГГЭ ПД от начала работ
-            int examinationDuration = agreementProjectDuration + 120;
-
+            //  срок разработки РД
+            int workingDuration = calendarDaysDurationsProject;
+            // срок разработки ПД
+            int projectDuration = 30;
+            // срок разработки СД
+            int estimatesDuration = 30;
+            // срок разработки ЗУР
+            int landDuration = 120;
+            // срок согласования РД
+            int agreementWorkingDuration = 60;
+            // срок согласования ПД
+            int agreementProjectDuration = 60;
+            // срок согласования СД
+            int agreementEstimatesDuration = 60;
+            // срок ГГЭ ПД
+            int examinationProjectDuration = 120;
+            // дата окончания полевых ИИ текущего этапа строительства
+            LocalDate finishEngineeringSurvey = dateService.workDay(startContract.plusDays(engineeringSurveyDuration));
             // дата начала отчета ИИ текущего этапа строительства
-            LocalDate startEngineeringSurveyReport = dateService.workDay(startContract.plusDays(engineeringSurveyDuration + engineeringSurveyLaboratoryResearch));
+            LocalDate startEngineeringSurveyReport = finishEngineeringSurvey;
             // проверка условия пересечения выполнения отчета ИИ текущего этапа строительства с предыдущим, если пересечение есть, то срок сместить
-            if (finishEngineeringSurveyReport != null && startEngineeringSurveyReport.isBefore(finishEngineeringSurveyReport)) {
-                Period period = Period.between(startEngineeringSurveyReport, finishEngineeringSurveyReport);
+            if (finishEngineeringSurveyReport != null && startEngineeringSurveyReport.plusDays(engineeringSurveyLaboratoryResearch).isBefore(finishEngineeringSurveyReport)) {
+                Period period = Period.between(startEngineeringSurveyReport.plusDays(engineeringSurveyLaboratoryResearch), finishEngineeringSurveyReport);
                 // количество дней смещения
                 stageOffsetII = period.getDays() + period.getMonths() * 30;
             }
             // дата окончания отчета ИИ текущего этапа строительства
-            finishEngineeringSurveyReport = dateService.workDay(startContract.plusDays(engineeringSurveyReportDuration + stageOffsetII));
+            finishEngineeringSurveyReport = dateService.workDay(startEngineeringSurveyReport.plusDays(engineeringSurveyLaboratoryResearch +
+                    engineeringSurveyReportDuration + stageOffsetII));
+            // дата окончания согласования отчета ИИ текущего этапа строительства
+            LocalDate finishAgreementEngineeringSurveyReport = dateService.workDay(finishEngineeringSurveyReport.plusDays(agreementEngineeringSurveyDuration));
 
             // дата начала РД текущего этапа строительства
-            LocalDate startWorking = dateService.workDay(startContract.plusDays(engineeringSurveyReportDuration+ stageOffsetII));
+            LocalDate startWorking = finishEngineeringSurveyReport;
             // проверка условия пересечения выполнения РД текущего этапа строительства с предыдущим, если пересечение есть, то срок сместить
             if (finishWorking != null && startWorking.isBefore(finishWorking)) {
                 Period period = Period.between(startWorking, finishWorking);
                 // количество дней смещения
-                stageOffsetPSD = stageOffsetPSD + period.getDays() + period.getMonths() * 30;
+                stageOffsetPSD = period.getDays() + period.getMonths() * 30;
             }
-            // дата окончания РД текущего этапа строительства
-            finishWorking = dateService.workDay(startContract.plusDays(workingDuration + stageOffsetII + stageOffsetPSD));
+            // дата окончания РД текущего этапа строительства = дате начала разработки смет и дате начала проектной документации
+            finishWorking = dateService.workDay(startWorking.plusDays(workingDuration + stageOffsetPSD));
+            // дата окончания согласования РД текущего этапа строительства
+            LocalDate finishAgreementWorking = dateService.workDay(finishWorking.plusDays(agreementWorkingDuration));
+            // дата окончания разработки СД текущего этапа строительства
+            LocalDate estimatesFinish = dateService.workDay(finishWorking.plusDays(estimatesDuration));
+            // дата окончания согласования СД текущего этапа строительства
+            LocalDate agreementEstimatesFinish = dateService.workDay(estimatesFinish.plusDays(agreementEstimatesDuration));
+            // дата окончания разработки ПД текущего этапа строительства
+            LocalDate projectFinish = dateService.workDay(finishWorking.plusDays(projectDuration));
+            // дата окончания согласования ПД текущего этапа строительства
+            LocalDate agreementProjectFinish = dateService.workDay(projectFinish.plusDays(agreementProjectDuration));
+            // дата окончания разработки ЗУР текущего этапа строительства
+            LocalDate landFinish =  dateService.workDay(projectFinish.plusDays(landDuration));
+            // дата окончания ГГЭ ПД текущего этапа строительства
+            LocalDate examinationProjectFinish = dateService.workDay(agreementProjectFinish.plusDays(examinationProjectDuration));
 
-            // формирование календаря проекта с проверкой условия попадания даты окончания этапа календарного плана на праздничный,
-            //  или выходной день, а также проверкой попадания даты позже 10го числа в декабре и 20го числа - в остальных месяцах
+            // формирование календаря проекта с проверкой попадания даты позже 10го числа в декабре и 20го числа - в остальных месяцах
             try {
-                calendar.setCodeContract(codeContract).setStartContract(dateService.workDay(startContract))
+                calendar.setCodeContract(codeContract).setStartContract(startContract)
                         .setStage(i + 1)
-                        .setEngineeringSurvey(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(engineeringSurveyDuration))))
-                        .setEngineeringSurveyReport(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(engineeringSurveyReportDuration + stageOffsetII))))
-                        .setAgreementEngineeringSurvey(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(agreementEngineeringSurveyDuration + stageOffsetII))))
-                        .setWorkingStart(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(engineeringSurveyReportDuration + stageOffsetII + stageOffsetPSD))))
-                        .setWorkingFinish(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(workingDuration + stageOffsetII + stageOffsetPSD))))
+                        .setEngineeringSurvey(dateService.checkDeadlineForActivation(finishEngineeringSurvey))
+                        .setEngineeringSurveyReport(dateService.checkDeadlineForActivation(finishEngineeringSurveyReport))
+                        .setAgreementEngineeringSurvey(dateService.checkDeadlineForActivation(finishAgreementEngineeringSurveyReport))
+                        .setWorkingStart(dateService.checkDeadlineForActivation(startWorking))
+                        .setWorkingFinish(dateService.checkDeadlineForActivation(finishWorking))
 
-                        .setEstimatesFinish(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(estimatesDuration + stageOffsetII + stageOffsetPSD))))
-                        .setProjectFinish(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(projectDuration + stageOffsetII + stageOffsetPSD))))
-                        .setLandFinish(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(landDuration + stageOffsetII + stageOffsetPSD))))
-                        .setAgreementWorking(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(agreementWorkingDuration + stageOffsetII + stageOffsetPSD))))
-                        .setAgreementProject(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(agreementProjectDuration + stageOffsetII + stageOffsetPSD))))
-                        .setAgreementEstimates(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(agreementEstimatesDuration + stageOffsetII + stageOffsetPSD))))
-                        .setExamination(dateService.checkDeadlineForActivation(dateService.workDay(startContract.plusDays(examinationDuration + stageOffsetII + stageOffsetPSD))))
+                        .setEstimatesFinish(dateService.checkDeadlineForActivation(estimatesFinish))
+                        .setProjectFinish(dateService.checkDeadlineForActivation(projectFinish))
+                        .setLandFinish(dateService.checkDeadlineForActivation(landFinish))
+                        .setAgreementWorking(dateService.checkDeadlineForActivation(finishAgreementWorking))
+                        .setAgreementProject(dateService.checkDeadlineForActivation(agreementProjectFinish))
+                        .setAgreementEstimates(dateService.checkDeadlineForActivation(agreementEstimatesFinish))
+                        .setExamination(dateService.checkDeadlineForActivation(examinationProjectFinish))
                         .setHumanFactor(humanFactor)
                         .setBytesDataProject(Files.readAllBytes(Paths.get(dataFormProjectService.getFilePathSave())));
             } catch (IOException e) {
@@ -178,7 +197,7 @@ public class CalendarService {
             if (i == 0 && calendarRepository.findCalendarByCodeContract(codeContract).isPresent()) {
                 calendarRepository.deleteAll(getCalendarByCode(codeContract));
             }
-            calendarRepository.save(calendar);
+            calendars.add(calendarRepository.save(calendar));
             logger.info("Создан новый календарь " + calendar);
             // обнуление смещения начала работ для следующего этапа строительтсва, чтобы для следующего этапа расчет смещения начался заново
             nextStage = 0;
@@ -194,6 +213,7 @@ public class CalendarService {
             stageOffsetII = 0;
             stageOffsetPSD = 0;
         }
+        return calendars;
     }
 
         /**

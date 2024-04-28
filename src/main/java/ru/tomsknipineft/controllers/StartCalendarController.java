@@ -1,15 +1,14 @@
 package ru.tomsknipineft.controllers;
 
-
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.tomsknipineft.entities.Calendar;
+import ru.tomsknipineft.entities.linearObjects.DataFormLinearObjects;
 import ru.tomsknipineft.entities.oilPad.DataFormOilPad;
 import ru.tomsknipineft.services.CalendarService;
 import ru.tomsknipineft.utils.exceptions.NoSuchCalendarException;
@@ -21,12 +20,6 @@ import java.util.List;
 public class StartCalendarController {
 
     private final CalendarService calendarService;
-
-    private List <Calendar> calendars;
-
-    private String codeContract;
-
-    private DataFormOilPad dataFormOilPad;
 
     private static final Logger logger = LogManager.getLogger(StartCalendarController.class);
 
@@ -71,32 +64,23 @@ public class StartCalendarController {
     }
 
     /**
-     * Получение данных из страницы ввода данных для формирования календарного плана
-     * @param code искомый шифр договора для вывода календаря
+     * Получение шифра договора из страницы ввода данных для формирования календарного плана и проверка его наличия в БД
+     * @param codeContract искомый шифр договора для вывода календаря
      * @return перенаправление на страницу вывода календарного плана договора
      */
-    @PostMapping("/code")
-    public String outputCalendar(@RequestParam String code){
-        calendars = calendarService.getCalendarByCode(code);
+    @GetMapping("/codeContract")
+    public String outputCalendar(@RequestParam String codeContract, HttpServletRequest request){
+        List<Calendar> calendars = calendarService.getCalendarByCode(codeContract);
         if (calendars.size() == 0){
-            throw new  NoSuchCalendarException("Календарь по указанному шифру " + code + " отсутствует в базе данных");
+            throw new  NoSuchCalendarException("Календарь по указанному шифру " + codeContract + " отсутствует в базе данных");
         }
-        codeContract = code;
-        dataFormOilPad = (DataFormOilPad) calendarService.getDataFormProject(calendars);
-        return "redirect:/calendar";
-    }
-
-    /**
-     * Страница с выводом календарного плана договора по шифру
-     */
-    @GetMapping("/calendar")
-    public String findCalendar(Model model){
-        logger.info("Календарь, найденный по шифру " + codeContract + " - " + calendars);
-        model.addAttribute("calendars", calendars);
-        model.addAttribute("codeContract", codeContract);
-        model.addAttribute("dataFormOilPad", dataFormOilPad);
-        model.addAttribute("fieldEngineeringSurvey", dataFormOilPad.isFieldEngineeringSurvey());
-        model.addAttribute("engineeringSurveyReport", dataFormOilPad.isEngineeringSurveyReport());
-        return "result-calendar";
+        request.setAttribute("codeContract", codeContract);
+        if (calendarService.getDataFormProject(calendars).getClass() == DataFormOilPad.class){
+            return "forward:/oil_pad_object/backfill_well/calendar";
+        }
+        else if (calendarService.getDataFormProject(calendars).getClass() == DataFormLinearObjects.class){
+            return "forward:/linear_object/linear_pipeline/calendar";
+        }
+        return null;
     }
 }

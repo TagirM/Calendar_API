@@ -1,0 +1,38 @@
+<th:block lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="input-content">
+    <div id="contractClass" class="container">
+        <h3>Договор</h3>
+        <div class="form-group">
+            <label for="code">Шифр (от 4 до 10 символов):</label>
+            <input type="text" class="form-control" th:field="*{codeContract}" id="code"/>
+            <span class="text-danger" th:if="${#fields.hasErrors('codeContract')}"
+                  th:errors="*{codeContract}">CodeContract error</span><br><br>
+        </div>
+        <h3>Дата работ</h3>
+        <div class="form-group">
+            <label for="starting">Дата начала выполнения (не позднее текущей даты):</label>
+            <input type="date" class="form-control" th:field="*{startContract}" id="starting"/>
+            <span class="text-danger" th:if="${#fields.hasErrors('startContract')}"
+                  th:errors="*{startContract}">StartContract error</span><br><br>
+        </div>
+    </div>
+
+    <div id="engineeringSurvey" class="container">
+        <h3> Инженерные изыскания </h3>
+        <div class="form-group">
+            <label for="fieldEngineeringSurvey">Выполняются полевые и камеральные инженерные
+                изыскания: </label>
+            <input type="checkbox" class="form-check-input" th:field="*{fieldEngineeringSurvey}"
+                   id="fieldEngineeringSurvey"/><br>
+
+            <label for="drillingRig">Сколько буровых бригад планируется использовать,
+                шт.: </label>
+            <input type="number" class="form-control" step="any" th:field="*{drillingRig}"
+                   id="drillingRig"/>
+            <span class="text-danger" th:if="${#fields.hasErrors('drillingRig')}" th:errors="*{drillingRig}">drillingRig error</span><br>
+            <label for="engineeringSurveyReport">Выполняются только камеральные инженерные
+                изыскания: </label>
+            <input type="checkbox" class="form-check-input" th:field="*{engineeringSurveyReport}"
+                   id="engineeringSurveyReport"/><br><br>
+        </div>
+    </div>
+</th:block>

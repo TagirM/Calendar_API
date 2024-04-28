@@ -1,0 +1,35 @@
+<th:block lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="stage-calendar-content">
+    <script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            let group = 0;
+            let counter = 1;
+            var engineeringSurvey = [[${fieldEngineeringSurvey}]];
+            var surveyReport = [[${engineeringSurveyReport}]];
+            // Проходимся по каждой строке таблицы
+            document.querySelectorAll('tr').forEach(function (row) {
+                // Проверяем, что строка не является заголовком
+                if (!row.querySelector('th')) {
+                    // Проверяем, содержит ли строка текст "Этап проектирования"
+                    if (!row.textContent.includes('Этап строительства')) {
+                        // Проверяем, не пустая ли строка
+                        if (row.querySelectorAll('td').length > 0) {
+                            let numbering = document.createElement('td');
+                            numbering.textContent = group + '.' + counter;
+                            row.insertBefore(numbering, row.firstElementChild);
+                            counter++;
+                        } else {
+                            group++;
+                            counter = 1;
+                        }
+                    } else {
+                        group++;
+                        counter = 1;
+                        if (!engineeringSurvey && !surveyReport) {
+                            group--;
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</th:block>

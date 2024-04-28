@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.group.GroupSequenceProvider;
 import ru.tomsknipineft.entities.EntityProject;
+import ru.tomsknipineft.entities.enumEntities.ComplexityOfGeology;
 import ru.tomsknipineft.entities.enumEntities.ObjectType;
 import ru.tomsknipineft.entities.oilPad.OilPad;
 import ru.tomsknipineft.utils.entityValidator.CableRackGroupSequenceProvider;
@@ -41,6 +42,12 @@ public class CableRack implements OilPad, EntityProject, Serializable {
     @NotNull(message = "Длина не заполнена", groups = OnActiveCheck.class)
     @Positive(message = "Длина не может быть 0 или отрицательной", groups = OnActiveCheck.class)
     private Integer length;
+
+    //    сложность геологии
+    @NotNull(message = "Сложность прокладки не указана", groups = OnActiveCheck.class)
+    @Column(name = "complexity_of_geology")
+    @Enumerated(EnumType.STRING)
+    private ComplexityOfGeology complexityOfGeology;
 
     //    этап строительства
     @Min(value = 1, message = "Не может быть меньше 1", groups = OnActiveCheck.class)

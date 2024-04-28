@@ -5,71 +5,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="108fdcc3-8238-4bae-87b0-e06e39f6ceb1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/services/BackfillWellGroupCalendarServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/services/LinearPipelineGroupCalendarServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DownloadsCalendar/Calendar_8322.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/DownloadsCalendar/Calendar_8322.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dataFormProjectSave/recover.ser" beforeDir="false" afterPath="$PROJECT_DIR$/dataFormProjectSave/recover.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dataFormProjectSave/save.ser" beforeDir="false" afterPath="$PROJECT_DIR$/dataFormProjectSave/save.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log-service/2024-04/log-service--06-апреля-2024-1.log" beforeDir="false" afterPath="$PROJECT_DIR$/log-service/2024-04/log-service--06-апреля-2024-1.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log-service/2024-04/log-service--07-апреля-2024-4.log" beforeDir="false" afterPath="$PROJECT_DIR$/log-service/2024-04/log-service--07-апреля-2024-4.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log-service/2024-04/log-service--07-апреля-2024-6.log" beforeDir="false" afterPath="$PROJECT_DIR$/log-service/2024-04/log-service--07-апреля-2024-6.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log-service/2024-04/log-service--08-апреля-2024-1.log" beforeDir="false" afterPath="$PROJECT_DIR$/log-service/2024-04/log-service--08-апреля-2024-1.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log-service/2024-04/log-service--09-апреля-2024-1.log" beforeDir="false" afterPath="$PROJECT_DIR$/log-service/2024-04/log-service--09-апреля-2024-1.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log-service/2024-04/log-service--09-апреля-2024-2.log" beforeDir="false" afterPath="$PROJECT_DIR$/log-service/2024-04/log-service--09-апреля-2024-2.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log-service/2024-04/log-service--09-апреля-2024-3.log" beforeDir="false" afterPath="$PROJECT_DIR$/log-service/2024-04/log-service--09-апреля-2024-3.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log-service/2024-04/log-service--09-апреля-2024-4.log" beforeDir="false" afterPath="$PROJECT_DIR$/log-service/2024-04/log-service--09-апреля-2024-4.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log-service/2024-04/log-service--09-апреля-2024-5.log" beforeDir="false" afterPath="$PROJECT_DIR$/log-service/2024-04/log-service--09-апреля-2024-5.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log-service/2024-04/log-service--09-апреля-2024-6.log" beforeDir="false" afterPath="$PROJECT_DIR$/log-service/2024-04/log-service--09-апреля-2024-6.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log-service/2024-04/log-service--11-апреля-2024-1.log" beforeDir="false" afterPath="$PROJECT_DIR$/log-service/2024-04/log-service--11-апреля-2024-1.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log-service/2024-04/log-service--12-апреля-2024-1.log" beforeDir="false" afterPath="$PROJECT_DIR$/log-service/2024-04/log-service--12-апреля-2024-1.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log-service/2024-04/log-service--13-апреля-2024-3.log" beforeDir="false" afterPath="$PROJECT_DIR$/log-service/2024-04/log-service--13-апреля-2024-3.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log-service/2024-04/log-service--13-апреля-2024-4.log" beforeDir="false" afterPath="$PROJECT_DIR$/log-service/2024-04/log-service--13-апреля-2024-4.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log-service/2024-04/log-service--14-апреля-2024-1.log" beforeDir="false" afterPath="$PROJECT_DIR$/log-service/2024-04/log-service--14-апреля-2024-1.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log-service/log-service.log" beforeDir="false" afterPath="$PROJECT_DIR$/log-service/log-service.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/controllers/BackfillWellCalendarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/controllers/BackfillWellCalendarController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/controllers/LinearPipelineCalendarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/controllers/LinearPipelineCalendarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/controllers/MainM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/controllers/MainTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/controllers/OilWellPadCalendarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/controllers/OilPadCalendarController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/controllers/StartCalendarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/controllers/StartCalendarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/controllers/rest/CalendarRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/controllers/rest/CalendarRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/areaObjects/BackfillSite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/areaObjects/BackfillSite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/areaObjects/Mps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/areaObjects/Mps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/areaObjects/Vvp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/areaObjects/Vvp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/oilPad/DataFormOilPad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/oilPad/DataFormOilPad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/oilPad/Mupn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/repositories/MupnRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/services/BackfillSiteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/services/BackfillSiteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/enumEntities/ComplexityOfLaying.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/enumEntities/ComplexityOfGeology.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/linearObjects/CableRack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/linearObjects/CableRack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/linearObjects/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/linearObjects/Line.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/linearObjects/Pipeline.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/entities/linearObjects/Pipeline.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/services/CalendarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/services/CalendarService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/services/GroupObjectCalendarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/services/GroupObjectCalendarService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/services/LineObjectCalendarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/services/LinearLineGroupCalendarServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/services/LinearObjectGroupCalendarServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/services/MupnService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/services/OilPadGroupCalendarServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/utils/entityValidator/MupnGroupSequenceProvider.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/services/DateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/tomsknipineft/services/DateService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/backfill-well.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/backfill-well.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/linear-object.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/linear-object.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/result-calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/result-calendar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ru/tomsknipineft/OilPadGroupCalendarServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ru/tomsknipineft/BackfillWellGroupCalendarServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/blocks/calendar-block.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/blocks/calendar-block.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/linear-pipeline.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/linear-pipeline.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/result-calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/oil-pad-result-calendar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/controllers/MainM.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/entities/areaObjects/BackfillSite.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/entities/areaObjects/BackfillSite.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/entities/areaObjects/Mps.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/entities/areaObjects/Mps.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/entities/areaObjects/Vvp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/entities/areaObjects/Vvp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/entities/oilPad/DataFormOilPad.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/entities/oilPad/DataFormOilPad.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/entities/oilPad/Mupn.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/repositories/MupnRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/services/BackfillSiteService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/services/BackfillSiteService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/services/LineObjectCalendarService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/services/MupnService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/utils/entityValidator/MupnGroupSequenceProvider.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/controllers/BackfillWellCalendarController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/controllers/BackfillWellCalendarController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/controllers/LinearPipelineCalendarController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/controllers/LinearPipelineCalendarController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/controllers/StartCalendarController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/controllers/StartCalendarController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/entities/enumEntities/ComplexityOfLaying.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/entities/linearObjects/CableRack.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/entities/linearObjects/CableRack.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/entities/linearObjects/Line.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/entities/linearObjects/Line.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/entities/linearObjects/Pipeline.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/entities/linearObjects/Pipeline.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/services/CalendarService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/services/CalendarService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/services/DateService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/tomsknipineft/services/DateService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/backfill-well.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/backfill-well.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/linear-object.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/linear-object.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/result-calendar.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/result-calendar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/ru/tomsknipineft/BackFillWellCalendarServiceTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/blocks/calendar-block.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/blocks/calendar-block.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/linear-pipeline.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/linear-pipeline.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/result-calendar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/ru/tomsknipineft/BackfillWellGroupCalendarServiceImplTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/ru/tomsknipineft/BackfillWellGroupCalendarServiceImplTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -248,7 +218,7 @@
       <workItem from="1713712057689" duration="41000" />
       <workItem from="1713798000648" duration="10771000" />
       <workItem from="1713969920218" duration="21833000" />
-      <workItem from="1714272244070" duration="11151000" />
+      <workItem from="1714272244070" duration="35587000" />
     </task>
     <servers />
   </component>

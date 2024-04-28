@@ -13,12 +13,12 @@
     <a class="btn btn-outline-secondary" href="/areaObject"><h4>Инфраструктурный объект</h4></a><br><br>
     <a class="btn btn-outline-secondary" href="/energy_facility"><h4>Объект энергетики</h4></a><br><br>
 
-    <form class="mt-4" action="/code" method="POST">
+    <form class="mt-4" action="/codeContract" method="GET">
         <div id="contractClass" class="container">
             <h4>Найти календарь ПИР по шифру договора</h4>
             <div class="form-group">
-                <label for="code">Шифр (от 4 до 10 символов):</label>
-                <input type="text" class="form-control" name="code" id="code" required pattern="[0-9]{4,10}"/>
+                <label for="codeContract">Шифр (от 4 до 10 символов):</label>
+                <input type="text" class="form-control" name="codeContract" id="codeContract" required pattern="[0-9]{4,10}"/>
                 <br><br>
             </div>
         </div>

@@ -37,13 +37,7 @@
             <p class="fst-italic" th:if="${dataFormOilPad.backfillSites[3].active}">Площадка под модульную подстанцию
                 площадью [[${dataFormOilPad.backfillSites[3].square}]] га</p>
             <hr class="my-4">
-<!--            <div layout:insert="~{blocks/calendar-block.html :: calendar-content}">-->
-<!--                :: calendar-content-->
-<!--                th:remove="tag"-->
-            <div th:insert="~{blocks/calendar-block.html :: calendar-content}">
-<!--                <th:block layout:fragment="calendar-content">-->
-<!--                </th:block>-->
-            </div>
+            <div th:insert="~{blocks/calendar-block.html :: calendar-content}"></div>
         </div>
     </div>
     <br>
@@ -71,39 +65,7 @@
             document.getElementById('goToBackfillWell3').style.display = 'none';
         }
     </script>
-    <script th:inline="javascript">
-        document.addEventListener('DOMContentLoaded', function () {
-            let group = 0;
-            let counter = 1;
-            var engineeringSurvey = [[${fieldEngineeringSurvey}]];
-            var surveyReport = [[${engineeringSurveyReport}]];
-            // Проходимся по каждой строке таблицы
-            document.querySelectorAll('tr').forEach(function (row) {
-                // Проверяем, что строка не является заголовком
-                if (!row.querySelector('th')) {
-                    // Проверяем, содержит ли строка текст "Этап проектирования"
-                    if (!row.textContent.includes('Этап строительства')) {
-                        // Проверяем, не пустая ли строка
-                        if (row.querySelectorAll('td').length > 0) {
-                            let numbering = document.createElement('td');
-                            numbering.textContent = group + '.' + counter;
-                            row.insertBefore(numbering, row.firstElementChild);
-                            counter++;
-                        } else {
-                            group++;
-                            counter = 1;
-                        }
-                    } else {
-                        group++;
-                        counter = 1;
-                        if (!engineeringSurvey && !surveyReport) {
-                            group--;
-                        }
-                    }
-                }
-            });
-        });
-    </script>
+    <div th:insert="~{blocks/stage-calendar-block.html :: stage-calendar-content}"></div>
     <hr class="my-4">
 </th:block>
 </html>

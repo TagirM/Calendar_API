@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.group.GroupSequenceProvider;
 import ru.tomsknipineft.entities.EntityProject;
-import ru.tomsknipineft.entities.enumEntities.ComplexityOfLaying;
+import ru.tomsknipineft.entities.enumEntities.ComplexityOfGeology;
 import ru.tomsknipineft.entities.enumEntities.ObjectType;
 import ru.tomsknipineft.entities.enumEntities.PipelineLayingMethod;
 import ru.tomsknipineft.entities.oilPad.OilPad;
@@ -51,11 +51,11 @@ public class Pipeline  implements OilPad, EntityProject, Serializable {
     @Positive(message = "Длина не может быть 0 или отрицательной", groups = OnActiveCheck.class)
     private Double length;
 
-//    сложность прокладки
+//    сложность геологии
     @NotNull(message = "Сложность прокладки не указана", groups = OnActiveCheck.class)
-    @Column(name = "complexity_of_laying")
+    @Column(name = "complexity_of_geology")
     @Enumerated(EnumType.STRING)
-    private ComplexityOfLaying complexityOfLaying;
+    private ComplexityOfGeology complexityOfGeology;
 
     // Количество узлов запорной арматуры
     @Min(value = 0, message = "Не может быть меньше 0", groups = OnActiveCheck.class)

@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.group.GroupSequenceProvider;
 import ru.tomsknipineft.entities.EntityProject;
+import ru.tomsknipineft.entities.enumEntities.ComplexityOfGeology;
 import ru.tomsknipineft.entities.enumEntities.ObjectType;
 import ru.tomsknipineft.entities.oilPad.OilPad;
 import ru.tomsknipineft.utils.entityValidator.LineGroupSequenceProvider;
@@ -46,6 +47,12 @@ public class Line implements OilPad, EntityProject, Serializable {
     @NotNull(message = "Длина не заполнена", groups = OnActiveCheck.class)
     @Positive(message = "Сan not be 0 or less than 0", groups = OnActiveCheck.class)
     private Double length;
+
+    //    сложность геологии
+    @NotNull(message = "Сложность геологии не указана", groups = OnActiveCheck.class)
+    @Column(name = "complexity_of_geology")
+    @Enumerated(EnumType.STRING)
+    private ComplexityOfGeology complexityOfGeology;
 
     //    этап строительства
     @Min(value = 1, message = "Сan not be less than 1", groups = OnActiveCheck.class)

@@ -54,6 +54,8 @@
                         <input type="number" class="form-control" step="any" th:field="*{backfillWell.well}" id="well"/>
                         <span class="text-danger" th:if="${#fields.hasErrors('backfillWell.well')}"
                               th:errors="*{backfillWell.well}">Well error</span><br>
+                    </div>
+                    <div class="form-group">
                         <label for="stageBackfillWell">Этап строительства: </label>
                         <input type="number" class="form-control" step="any" th:field="*{backfillWell.stage}"
                                id="stageBackfillWell"/>
@@ -67,7 +69,8 @@
                     <div class="form-group">
                         <label for="activeRoad">Наличие:</label>
                         <input type="checkbox" class="form-check-input" th:field="*{road.active}" id="activeRoad"><br><br>
-
+                    </div>
+                    <div class="form-group">
                         <label for="category">Категория дороги (3 или 4):</label>
                         <input type="number" class="form-control" th:field="*{road.category}" id="category">
                         <span class="text-danger" th:if="${#fields.hasErrors('road.category')}"

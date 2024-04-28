@@ -1,5 +1,6 @@
 package ru.tomsknipineft.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.tomsknipineft.entities.Calendar;
 import ru.tomsknipineft.entities.EntityProject;
 import ru.tomsknipineft.entities.oilPad.DataFormOilPad;
-import ru.tomsknipineft.services.CalendarService;
 import ru.tomsknipineft.services.BackfillWellGroupCalendarServiceImpl;
+import ru.tomsknipineft.services.CalendarService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,10 +32,6 @@ public class BackfillWellCalendarController {
     private final CalendarService calendarService;
 
     private String codeContract;
-
-    private boolean fieldEngineeringSurvey;
-
-    private boolean engineeringSurveyReport;
 
     private DataFormOilPad dataFormOilPad;
 
@@ -69,14 +66,11 @@ public class BackfillWellCalendarController {
         List<Integer> durationsProject = backFillWellCalendarServiceImpl.getDuration(entityProjects);
         LocalDate date = dataFormOilPad.getStartContract();
         this.codeContract = dataFormOilPad.getCodeContract();
-        this.fieldEngineeringSurvey = dataFormOilPad.isFieldEngineeringSurvey();
-        this.engineeringSurveyReport = dataFormOilPad.isEngineeringSurveyReport();
-
-        if (fieldEngineeringSurvey){
-            engineeringSurveyReport = true;
+        if (dataFormOilPad.isFieldEngineeringSurvey()){
+            dataFormOilPad.setEngineeringSurveyReport(true);
         }
-        calendarService.createCalendar(durationsProject, codeContract, date, dataFormOilPad.getHumanFactor(),
-                fieldEngineeringSurvey, engineeringSurveyReport, dataFormOilPad.getDrillingRig(), dataFormOilPad);
+        calendars = calendarService.createCalendar(durationsProject, codeContract, date, dataFormOilPad.getHumanFactor(),
+                dataFormOilPad.isFieldEngineeringSurvey(), dataFormOilPad.isEngineeringSurveyReport(), dataFormOilPad.getDrillingRig(), dataFormOilPad);
         this.dataFormOilPad = dataFormOilPad;
 
         return "redirect:/oil_pad_object/backfill_well/calendar";
@@ -86,17 +80,20 @@ public class BackfillWellCalendarController {
      * Страница с выводом календарного плана договора
      */
     @GetMapping("/calendar")
-    public String resultCalendar(Model model){
-        if (calendars == null){
+    public String resultCalendar(Model model, HttpServletRequest request){
+        String codeFromRequest = (String) request.getAttribute("codeContract");
+        if (codeFromRequest != null){
+            codeContract = codeFromRequest;
             calendars = calendarService.getCalendarByCode(codeContract);
-            logger.info("Календарь найденный по шифру " + codeContract + " - " + calendars);
+            dataFormOilPad = (DataFormOilPad) calendarService.getDataFormProject(calendars);
         }
+        logger.info("Календарь по шифру " + codeContract + " выведен - " + calendars);
         model.addAttribute("calendars", calendars);
         model.addAttribute("codeContract", codeContract);
         model.addAttribute("dataFormOilPad", dataFormOilPad);
-        model.addAttribute("fieldEngineeringSurvey", fieldEngineeringSurvey);
-        model.addAttribute("engineeringSurveyReport", engineeringSurveyReport);
-        return "result-calendar";
+        model.addAttribute("fieldEngineeringSurvey", dataFormOilPad.isFieldEngineeringSurvey());
+        model.addAttribute("engineeringSurveyReport", dataFormOilPad.isEngineeringSurveyReport());
+        return "oil-pad-result-calendar";
     }
 }
 

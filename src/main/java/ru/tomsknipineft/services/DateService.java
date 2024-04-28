@@ -5,10 +5,7 @@ import org.springframework.stereotype.Service;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * Класс с методами по обработке дат календарного плана
@@ -18,6 +15,7 @@ public class DateService {
 
     /**
      * Метод, учитывающий выходные и праздничные дни. При попадании даты на выходной, производится перенос на будний день
+     *
      * @param date исходная дата
      * @return будний день
      */
@@ -49,17 +47,13 @@ public class DateService {
      * Метод, учитывающий крайний день календаря 10е число в декабре и 20е число в остальных месяцах для актирования.
      * Так как сроки актирования этапа работ с 1 по 10 число в декабре, с 1 по 20 - в другие месяцы.
      * Если дата выходит за рамка указанных дат, то перенос даты на следующий месяц (например, если 22 марта - то на 7 апреля)
+     *
      * @param date исходная дата
      * @return валидный день для актирования
      */
     public LocalDate checkDeadlineForActivation(LocalDate date) {
-        if (date.getMonth()!= Month.DECEMBER&&date.getDayOfMonth()>20){
-            int deltaDays = date.getDayOfMonth()-20;
-            date = workDay(date.plusDays(18-deltaDays));
-        }
-        else if (date.getMonth()== Month.DECEMBER&&date.getDayOfMonth()>10){
-            int deltaDays = date.getDayOfMonth()-10;
-            date = workDay(date.plusDays(30-deltaDays));
+        if ((date.getMonth() != Month.DECEMBER && date.getDayOfMonth() > 20) || (date.getMonth() == Month.DECEMBER && date.getDayOfMonth() > 10)) {
+            date = workDay(LocalDate.of(date.getYear(), date.getMonth(), 3).plusMonths(1));
         }
         return date;
     }
