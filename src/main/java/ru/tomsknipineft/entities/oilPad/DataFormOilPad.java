@@ -10,7 +10,7 @@ import ru.tomsknipineft.entities.areaObjects.Vvp;
 import ru.tomsknipineft.entities.linearObjects.CableRack;
 import ru.tomsknipineft.entities.linearObjects.Line;
 import ru.tomsknipineft.entities.linearObjects.Road;
-import ru.tomsknipineft.utils.entityValidator.EngineeringSurveyGroupSequenceProvider;
+import ru.tomsknipineft.utils.entityValidator.EngineeringSurveyOilPadGroupSequenceProvider;
 import ru.tomsknipineft.utils.entityValidator.OnActiveEngineeringSurvey;
 
 import java.io.Serial;
@@ -22,14 +22,14 @@ import java.util.List;
 /**
 Объект, который включает в себя все сооружения инженерной подготовки кустовой площадки
  */
-@GroupSequenceProvider(EngineeringSurveyGroupSequenceProvider.class)
+@GroupSequenceProvider(EngineeringSurveyOilPadGroupSequenceProvider.class)
 @Data
 public class DataFormOilPad implements DataFormProject, Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @NotNull(message = "ифр не может быть пустым")
+    @NotNull(message = "Шифр не может быть пустым")
     @Size(min = 4, max = 10, message = "Шифр должен иметь количество символов от 4 до 10")
     String codeContract;
 

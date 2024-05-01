@@ -5,5 +5,15 @@ package ru.tomsknipineft.entities.enumEntities;
  */
 public enum PipelineLayingMethod {
 
-    UNDERGROUND, GROUND, ABOVEGROUND
+    UNDERGROUND("подземный"), GROUND("наземный"), ABOVEGROUND("надземный на эстакаде");
+
+    private final String title;
+
+    PipelineLayingMethod(String title){
+        this.title = title;
+    }
+
+    public String getTitle(){
+        return title;
+    }
 }

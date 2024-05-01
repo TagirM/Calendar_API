@@ -21,8 +21,7 @@
                 [[${dataFormOilPad.road.bridgeRoadCount}]] шт.,
                 общей протяженностью [[${dataFormOilPad.road.bridgeRoadLength}]] м</p>
             <p class="fst-italic" th:if="${dataFormOilPad.line.active}">ВЛ напряжением [[${dataFormOilPad.line.power}]]
-                кВ протяженностью
-                [[${dataFormOilPad.line.length}]] км</p>
+                кВ протяженностью [[${dataFormOilPad.line.length}]] км, [[${dataFormOilPad.line.complexityOfGeology.title}]] в месте прокладки ВЛ</p>
             <p class="fst-italic" th:if="${dataFormOilPad.backfillSites[0].active}">Площадка под МУПН площадью
                 [[${dataFormOilPad.backfillSites[0].square}]] га</p>
             <p class="fst-italic" th:if="${dataFormOilPad.backfillSites[1].active}">Площадка под ВЭЦ площадью
@@ -31,7 +30,7 @@
                 [[${dataFormOilPad.vvp.helicopterModel}]] площадью [[${dataFormOilPad.vvp.square}]] га</p>
             <p class="fst-italic" th:if="${dataFormOilPad.vvp.hallExist}">с залом ожидания</p>
             <p class="fst-italic" th:if="${dataFormOilPad.cableRack.active}">Кабельная эстакада протяженностью
-                [[${dataFormOilPad.cableRack.length}]] м</p>
+                [[${dataFormOilPad.cableRack.length}]] м, [[${dataFormOilPad.line.complexityOfGeology.title}]] в месте прокладки ВЛ</p>
             <p class="fst-italic" th:if="${dataFormOilPad.backfillSites[2].active}">Площадка под ВЖК площадью
                 [[${dataFormOilPad.backfillSites[2].square}]] га</p>
             <p class="fst-italic" th:if="${dataFormOilPad.backfillSites[3].active}">Площадка под модульную подстанцию
@@ -51,7 +50,7 @@
         <br>
         <a class="btn btn-outline-secondary fw-bolder " href="../index.html" th:href="@{/}">
             Вернуться на начальную страницу</a><br>
-        <a id="goToBackfillWell3" class="btn btn-outline-secondary fw-bolder" href="../backfill-well.html"
+        <a id="goToBackfillWell" class="btn btn-outline-secondary fw-bolder" href="../backfill-well.html"
            th:href="@{/oil_pad_object/backfill_well}">Перейти
             на страницу ввода данных нового проекта</a>
     </div>
@@ -60,9 +59,9 @@
         if (document.referrer && document.referrer.endsWith('/oil_pad_object/backfill_well') ||
             document.referrer && document.referrer.endsWith('/oil_pad_object/backfill_well/calendar') ||
             document.referrer && document.referrer.endsWith('/oil_pad_object/backfill_well/create')) {
-            document.getElementById('goToBackfillWell3').style.display = 'block';
+            document.getElementById('goToBackfillWell').style.display = 'block';
         } else {
-            document.getElementById('goToBackfillWell3').style.display = 'none';
+            document.getElementById('goToBackfillWell').style.display = 'none';
         }
     </script>
     <div th:insert="~{blocks/stage-calendar-block.html :: stage-calendar-content}"></div>

@@ -26,14 +26,14 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "pipeline")
+@Table(name = "pipelines")
 public class Pipeline  implements OilPad, EntityProject, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private boolean active;
+    private boolean active  = true;
 
     // тип объекта проектирования
     @Column(name = "object_type")
@@ -59,10 +59,12 @@ public class Pipeline  implements OilPad, EntityProject, Serializable {
 
     // Количество узлов запорной арматуры
     @Min(value = 0, message = "Не может быть меньше 0", groups = OnActiveCheck.class)
+    @Column(name = "units_valve")
     private Integer unitsValve;
 
     // Количество узлов средств очистки и диагностики (СОД)
     @Min(value = 0, message = "Не может быть меньше 0", groups = OnActiveCheck.class)
+    @Column(name = "units_SOD")
     private Integer unitsSOD;
 
     //    этап строительства

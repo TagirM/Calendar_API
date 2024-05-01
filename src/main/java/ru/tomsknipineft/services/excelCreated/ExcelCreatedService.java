@@ -68,7 +68,7 @@ public class ExcelCreatedService {
      */
     private Sheet createSheet(XSSFWorkbook workbook) {
         Sheet sheet = workbook.createSheet("Календарный план");
-        sheet.setColumnWidth(1, 2000);
+        sheet.setColumnWidth(1, 2800);
         sheet.setColumnWidth(2, 10000);
         sheet.setColumnWidth(3, 6000);
         sheet.setColumnWidth(4, 6000);
@@ -94,7 +94,7 @@ public class ExcelCreatedService {
 
         XSSFFont font = workbook.createFont();
         font.setFontName("Arial");
-        font.setFontHeightInPoints((short) 14);
+        font.setFontHeightInPoints((short) 12);
         font.setBold(true);
         headerStyle.setFont(font);
 

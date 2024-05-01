@@ -8,21 +8,21 @@ import ru.tomsknipineft.entities.DataFormProject;
 import ru.tomsknipineft.entities.areaObjects.Mps;
 import ru.tomsknipineft.entities.areaObjects.Sikn;
 import ru.tomsknipineft.entities.areaObjects.Vvp;
-import ru.tomsknipineft.utils.entityValidator.EngineeringSurveyGroupSequenceProvider;
+import ru.tomsknipineft.utils.entityValidator.EngineeringSurveyLinearObjectsGroupSequenceProvider;
 import ru.tomsknipineft.utils.entityValidator.OnActiveEngineeringSurvey;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@GroupSequenceProvider(EngineeringSurveyGroupSequenceProvider.class)
+@GroupSequenceProvider(EngineeringSurveyLinearObjectsGroupSequenceProvider.class)
 @Data
 public class DataFormLinearObjects implements DataFormProject, Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @NotNull(message = "ифр не может быть пустым")
+    @NotNull(message = "Шифр не может быть пустым")
     @Size(min = 4, max = 10, message = "Шифр должен иметь количество символов от 4 до 10")
     String codeContract;
 

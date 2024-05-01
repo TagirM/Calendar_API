@@ -109,3 +109,20 @@ INSERT INTO vjks (id, active, object_type, capacity, square, stage, resource)
 VALUES (3, 'true', 'AREA', 150, 3, 1, 9);
 INSERT INTO vjks (id, active, object_type, capacity, square, stage, resource)
 VALUES (4, 'true', 'AREA', 200, 4, 1, 11);
+
+INSERT INTO pipelines (id, active, object_type, pipeline_laying_method, length, complexity_of_geology, units_valve, units_SOD, stage, resource)
+VALUES (1, 'true', 'LINEAR', 'UNDERGROUND', 1, 'EASY', 0, 0, 1, 10);
+INSERT INTO pipelines (id, active, object_type, pipeline_laying_method, length, complexity_of_geology, units_valve, units_SOD, stage, resource)
+VALUES (2, 'true', 'LINEAR', 'UNDERGROUND', 1, 'EASY', 0, 2, 1, 20);
+INSERT INTO pipelines (id, active, object_type, pipeline_laying_method, length, complexity_of_geology, units_valve, units_SOD, stage, resource)
+VALUES (3, 'true', 'LINEAR', 'UNDERGROUND', 1, 'DIFFICULT', 0, 0, 1, 12);
+INSERT INTO pipelines (id, active, object_type, pipeline_laying_method, length, complexity_of_geology, units_valve, units_SOD, stage, resource)
+VALUES (4, 'true', 'LINEAR', 'UNDERGROUND', 1, 'DIFFICULT', 0, 2, 1, 24);
+INSERT INTO pipelines (id, active, object_type, pipeline_laying_method, length, complexity_of_geology, units_valve, units_SOD, stage, resource)
+VALUES (5, 'true', 'LINEAR', 'ABOVEGROUND', 1, 'EASY', 0, 0, 1, 20);
+INSERT INTO pipelines (id, active, object_type, pipeline_laying_method, length, complexity_of_geology, units_valve, units_SOD, stage, resource)
+VALUES (6, 'true', 'LINEAR', 'ABOVEGROUND', 1, 'EASY', 0, 2, 1, 30);
+INSERT INTO pipelines (id, active, object_type, pipeline_laying_method, length, complexity_of_geology, units_valve, units_SOD, stage, resource)
+VALUES (7, 'true', 'LINEAR', 'ABOVEGROUND', 1, 'DIFFICULT', 0, 0, 1, 24);
+INSERT INTO pipelines (id, active, object_type, pipeline_laying_method, length, complexity_of_geology, units_valve, units_SOD, stage, resource)
+VALUES (8, 'true', 'LINEAR', 'ABOVEGROUND', 1, 'DIFFICULT', 0, 2, 1, 36);

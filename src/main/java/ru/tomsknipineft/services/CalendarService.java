@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.tomsknipineft.entities.Calendar;
 import ru.tomsknipineft.entities.DataFormProject;
 import ru.tomsknipineft.entities.EntityProject;
+import ru.tomsknipineft.entities.enumEntities.ObjectType;
 import ru.tomsknipineft.repositories.CalendarRepository;
 import ru.tomsknipineft.utils.exceptions.NoSuchCalendarException;
 
@@ -16,8 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -61,7 +61,7 @@ public class CalendarService {
 
     /**
      * Создание календарного плана договора с учетом всех этапов строительства
-     * @param getDurationsProject список продолжительности проектирования всех этапов строительтсва по договору
+     * @param durationsProject список продолжительности проектирования всех этапов строительтсва по договору
      * @param codeContract шифр договора
      * @param startContract дата начала работ
      * @param humanFactor человеческий фактор
@@ -70,7 +70,7 @@ public class CalendarService {
      * @param drillingRig количество буровых бригад
      * @param dataFormProject исходные данные проекта
      */
-    public List<Calendar> createCalendar(List<Integer> getDurationsProject, String codeContract, LocalDate startContract, Integer humanFactor,
+    public List<Calendar> createCalendar(Map<Integer, Integer> durationsProject, String codeContract, LocalDate startContract, Integer humanFactor,
                                boolean fieldEngineeringSurvey, boolean engineeringSurveyReport, Integer drillingRig, DataFormProject dataFormProject) {
         List<Calendar> calendars =new ArrayList<>();
         //  запись в файл данных о проекте
@@ -101,9 +101,14 @@ public class CalendarService {
             agreementEngineeringSurveyDuration = 60;
         }
 
-        for (int i = 0; i < getDurationsProject.size(); i++) {
+        for (int i = 0; i < durationsProject.size(); i++) {
+            // определяем номер этапа строительства, если идут не по порядку или не с 1го
+            int stageNumber = i + 1;
+            while (durationsProject.get(stageNumber)==null){
+                stageNumber++;
+            }
             // расчет количества рабочих дней РД с учетом человеческого фактора
-            int durationsProjectWithHumanFactor = (getDurationsProject.get(i) * (humanFactor + 100)) / 100 + projectOfficeDays;
+            int durationsProjectWithHumanFactor = (durationsProject.get(stageNumber) * (humanFactor + 100)) / 100 + projectOfficeDays;
 
             // перерасчет рабочих дней в календарные дни РД в каждом этапе строительства
             int calendarDaysDurationsProject = durationsProjectWithHumanFactor + (durationsProjectWithHumanFactor / 5) * 2;
@@ -174,7 +179,7 @@ public class CalendarService {
             // формирование календаря проекта с проверкой попадания даты позже 10го числа в декабре и 20го числа - в остальных месяцах
             try {
                 calendar.setCodeContract(codeContract).setStartContract(startContract)
-                        .setStage(i + 1)
+                        .setStage(stageNumber)
                         .setEngineeringSurvey(dateService.checkDeadlineForActivation(finishEngineeringSurvey))
                         .setEngineeringSurveyReport(dateService.checkDeadlineForActivation(finishEngineeringSurveyReport))
                         .setAgreementEngineeringSurvey(dateService.checkDeadlineForActivation(finishAgreementEngineeringSurveyReport))
@@ -222,14 +227,58 @@ public class CalendarService {
      * @return общее количество этапов строительства объекта
      */
     public Integer defineStageProject(List<EntityProject> entityProjects) {
-        int stage = 0;
+//        int stage = 0;
+        List<Integer> listStages = new ArrayList<>();
         for (EntityProject entity :
                 entityProjects) {
-            if (entity.getStage() > stage) {
-                stage = entity.getStage();
+            listStages.add(entity.getStage());
+//            if (entity.getStage() > stage) {
+//                stage = entity.getStage();
+//            }
+        }
+        Set<Integer> stages = new HashSet<>(listStages);
+        logger.info("Количество этапов строительства в проекте определено и равно " + stages.size());
+        return stages.size();
+    }
+
+    public Map<Integer, Integer> getDuration(List<EntityProject> entityProjectsBackfillWell, GroupObjectCalendarService objectCalendarService) {
+
+        List<EntityProject> objects = objectCalendarService.listActiveEntityProject(entityProjectsBackfillWell);
+
+//        List<Integer> durationsProject = new ArrayList<>();
+
+        int stages = defineStageProject(objects);
+        Map<Integer, Integer> divisionDurationByStage = new HashMap<>();
+        for (EntityProject backfillWell :
+                objects) {
+            if (backfillWell.getObjectType().equals(ObjectType.AREA)) {
+                if (divisionDurationByStage.containsKey(backfillWell.getStage())) {
+                    divisionDurationByStage.put(backfillWell.getStage(), divisionDurationByStage.get(backfillWell.getStage()) + objectCalendarService.resourceStage(backfillWell));
+                } else {
+                    divisionDurationByStage.put(backfillWell.getStage(), objectCalendarService.resourceStage(backfillWell));
+                }
             }
         }
-        logger.info("Количество этапов строительства в проекте определено и равно " + stage);
-        return stage;
+        for (EntityProject oilPad :
+                objects) {
+            if (oilPad.getObjectType().equals(ObjectType.LINEAR)) {
+                if (!divisionDurationByStage.containsKey(oilPad.getStage())) {
+                    divisionDurationByStage.put(oilPad.getStage(), objectCalendarService.resourceStage(oilPad));
+                } else {
+                    if (divisionDurationByStage.get(oilPad.getStage()) < objectCalendarService.resourceStage(oilPad)) {
+                        divisionDurationByStage.put(oilPad.getStage(), objectCalendarService.resourceStage(oilPad));
+                    }
+                }
+            }
+        }
+//        for (int i = 1; i <= stages; i++) {
+//            int stageNumber = i;
+//            while (divisionDurationByStage.get(stageNumber).describeConstable().isEmpty()){
+//                stageNumber++;
+//            }
+//            durationsProject.add(divisionDurationByStage.get(stageNumber));
+//        }
+//        return durationsProject;
+        return divisionDurationByStage;
     }
 }

@@ -1,0 +1,43 @@
+2024-05-01T11:39:55.462+0700 INFO info message
+2024-05-01T11:39:55.462+0700 ERROR info message
+2024-05-01T11:39:55.556+0700 INFO info message
+2024-05-01T11:39:55.556+0700 ERROR info message
+2024-05-01T11:39:55.777+0700 INFO HV000001: Hibernate Validator 8.0.1.Final
+2024-05-01T11:39:55.812+0700 INFO Starting Main using Java 19.0.1 with PID 7456 (E:\MyJob\calendar_api\target\classes started by Тагир in E:\MyJob\calendar_api)
+2024-05-01T11:39:55.812+0700 INFO No active profile set, falling back to 1 default profile: "default"
+2024-05-01T11:39:56.006+0700 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-05-01T11:39:56.006+0700 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-05-01T11:39:56.502+0700 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-01T11:39:56.596+0700 INFO Finished Spring Data repository scanning in 85 ms. Found 10 JPA repository interfaces.
+2024-05-01T11:39:56.955+0700 INFO Tomcat initialized with port 8080 (http)
+2024-05-01T11:39:56.955+0700 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2024-05-01T11:39:56.955+0700 INFO Starting service [Tomcat]
+2024-05-01T11:39:56.955+0700 INFO Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-05-01T11:39:57.002+0700 INFO Initializing Spring embedded WebApplicationContext
+2024-05-01T11:39:57.002+0700 INFO Root WebApplicationContext: initialization completed in 996 ms
+2024-05-01T11:39:57.033+0700 INFO HikariPool-1 - Starting...
+2024-05-01T11:39:57.112+0700 INFO HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2024-05-01T11:39:57.112+0700 INFO HikariPool-1 - Start completed.
+2024-05-01T11:39:57.112+0700 INFO H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2024-05-01T11:39:57.205+0700 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-01T11:39:57.252+0700 INFO HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-05-01T11:39:57.268+0700 INFO HHH000026: Second-level cache disabled
+2024-05-01T11:39:57.377+0700 INFO No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-01T11:39:57.393+0700 WARN HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-05-01T11:39:58.190+0700 INFO HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-05-01T11:39:58.236+0700 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-01T11:39:58.768+0700 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-05-01T11:39:58.783+0700 INFO Adding welcome page template: index
+2024-05-01T11:39:59.096+0700 INFO LiveReload server is running on port 35729
+2024-05-01T11:39:59.111+0700 INFO Starting ProtocolHandler ["http-nio-8080"]
+2024-05-01T11:39:59.127+0700 INFO Tomcat started on port 8080 (http) with context path ''
+2024-05-01T11:39:59.143+0700 INFO Started Main in 3.587 seconds (process running for 5.279)
+2024-05-01T11:40:04.850+0700 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-05-01T11:40:04.850+0700 INFO Initializing Servlet 'dispatcherServlet'
+2024-05-01T11:40:04.850+0700 INFO Completed initialization in 0 ms
+2024-05-01T11:40:27.514+0700 WARN Resolved [jakarta.validation.GroupDefinitionException: HV000055: The default group sequence provider defined for ru.tomsknipineft.entities.linearObjects.DataFormLinearObjects has the wrong type]
+2024-05-01T11:40:41.173+0700 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-01T11:40:41.189+0700 WARN Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: База данных уже закрыта (чтобы отключить автоматическое закрытие базы данных при останове JVM, добавьте ";DB_CLOSE_ON_EXIT=FALSE" в URL)
+Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-224]
+2024-05-01T11:40:41.189+0700 INFO HikariPool-1 - Shutdown initiated...
+2024-05-01T11:40:41.189+0700 INFO HikariPool-1 - Shutdown completed.

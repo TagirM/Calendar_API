@@ -18,9 +18,9 @@ import ru.tomsknipineft.entities.oilPad.DataFormOilPad;
 import ru.tomsknipineft.services.BackfillWellGroupCalendarServiceImpl;
 import ru.tomsknipineft.services.CalendarService;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -63,15 +63,16 @@ public class BackfillWellCalendarController {
         List<EntityProject> entityProjects = new ArrayList<>(List.of(dataFormOilPad.getBackfillWell(), dataFormOilPad.getRoad(), dataFormOilPad.getLine(),
                 dataFormOilPad.getVvp(), dataFormOilPad.getCableRack()));
         entityProjects.addAll(dataFormOilPad.getBackfillSites());
-        List<Integer> durationsProject = backFillWellCalendarServiceImpl.getDuration(entityProjects);
-        LocalDate date = dataFormOilPad.getStartContract();
-        this.codeContract = dataFormOilPad.getCodeContract();
+        Map<Integer, Integer> durationsProject = calendarService.getDuration(entityProjects, backFillWellCalendarServiceImpl);
+
         if (dataFormOilPad.isFieldEngineeringSurvey()){
             dataFormOilPad.setEngineeringSurveyReport(true);
         }
-        calendars = calendarService.createCalendar(durationsProject, codeContract, date, dataFormOilPad.getHumanFactor(),
-                dataFormOilPad.isFieldEngineeringSurvey(), dataFormOilPad.isEngineeringSurveyReport(), dataFormOilPad.getDrillingRig(), dataFormOilPad);
+        this.codeContract = dataFormOilPad.getCodeContract();
         this.dataFormOilPad = dataFormOilPad;
+
+        calendars = calendarService.createCalendar(durationsProject, codeContract, dataFormOilPad.getStartContract(), dataFormOilPad.getHumanFactor(),
+                dataFormOilPad.isFieldEngineeringSurvey(), dataFormOilPad.isEngineeringSurveyReport(), dataFormOilPad.getDrillingRig(), dataFormOilPad);
 
         return "redirect:/oil_pad_object/backfill_well/calendar";
     }

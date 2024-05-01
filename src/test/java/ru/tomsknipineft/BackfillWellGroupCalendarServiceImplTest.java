@@ -14,6 +14,7 @@ import ru.tomsknipineft.services.DateService;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -53,7 +54,7 @@ class BackfillWellGroupCalendarServiceImplTest {
 
   @Test
   void testCreateCalendar() {
-    List<Integer> durations = List.of(10, 20, 30);
+    Map<Integer, Integer> durations = Map.of(1,10, 2, 20, 3,30);
     String code = "DEF456";
     LocalDate start = LocalDate.now();
     Integer humanFactor = 10;

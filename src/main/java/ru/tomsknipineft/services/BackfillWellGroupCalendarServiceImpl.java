@@ -7,16 +7,13 @@ import org.springframework.stereotype.Service;
 import ru.tomsknipineft.entities.EntityProject;
 import ru.tomsknipineft.entities.areaObjects.BackfillSite;
 import ru.tomsknipineft.entities.areaObjects.Vvp;
-import ru.tomsknipineft.entities.enumEntities.ObjectType;
 import ru.tomsknipineft.entities.linearObjects.CableRack;
 import ru.tomsknipineft.entities.linearObjects.Line;
 import ru.tomsknipineft.entities.linearObjects.Road;
 import ru.tomsknipineft.entities.oilPad.BackfillWell;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Класс с бизнес-логикой расчета сроков календарного плана договора из входных данных
@@ -25,8 +22,6 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class BackfillWellGroupCalendarServiceImpl implements GroupObjectCalendarService{
-
-    private final CalendarService calendarService;
 
     private final BackfillWellService backfillWellService;
 
@@ -42,65 +37,29 @@ public class BackfillWellGroupCalendarServiceImpl implements GroupObjectCalendar
 
     private static final Logger logger = LogManager.getLogger(BackfillWellGroupCalendarServiceImpl.class);
 
-
-    public List<Integer> getDuration(List<EntityProject> entityProjects) {
-        List<EntityProject> objects = listActiveEntityProject(entityProjects);
-
-        List<Integer> durationsProject = new ArrayList<>();
-
-        int stage = calendarService.defineStageProject(objects);
-        Map<Integer, Integer> divisionDurationByStage = new HashMap<>();
-        for (EntityProject oilPad :
-                objects) {
-            if (oilPad.getObjectType().equals(ObjectType.AREA)) {
-                if (divisionDurationByStage.containsKey(oilPad.getStage())) {
-                    divisionDurationByStage.put(oilPad.getStage(), divisionDurationByStage.get(oilPad.getStage()) + resourceStage(oilPad));
-                } else {
-                    divisionDurationByStage.put(oilPad.getStage(), resourceStage(oilPad));
-                }
-            }
-        }
-        for (EntityProject oilPad :
-                objects) {
-            if (oilPad.getObjectType().equals(ObjectType.LINEAR)) {
-                if (!divisionDurationByStage.containsKey(oilPad.getStage())) {
-                    divisionDurationByStage.put(oilPad.getStage(), resourceStage(oilPad));
-                } else {
-                    if (divisionDurationByStage.get(oilPad.getStage()) < resourceStage(oilPad)) {
-                        divisionDurationByStage.put(oilPad.getStage(), resourceStage(oilPad));
-                    }
-                }
-            }
-        }
-        for (int i = 1; i <= stage; i++) {
-            durationsProject.add(divisionDurationByStage.get(i));
-        }
-        return durationsProject;
-    }
-
-    public Integer resourceStage(EntityProject oilPad) {
+    public Integer resourceStage(EntityProject entityProjectBackfillWell) {
         int durationStage = 0;
-        if (oilPad.getClass() == BackfillWell.class) {
-            durationStage += backfillWellService.getResourceBackfillWell((BackfillWell) oilPad);
+        if (entityProjectBackfillWell.getClass() == BackfillWell.class) {
+            durationStage += backfillWellService.getResourceBackfillWell((BackfillWell) entityProjectBackfillWell);
 
-        } else if (oilPad.getClass() == Road.class) {
-            durationStage += roadService.getResourceRoad((Road) oilPad);
+        } else if (entityProjectBackfillWell.getClass() == Road.class) {
+            durationStage += roadService.getResourceRoad((Road) entityProjectBackfillWell);
 
-        } else if (oilPad.getClass() == Line.class) {
-            durationStage += lineService.getResourceLine((Line) oilPad);
+        } else if (entityProjectBackfillWell.getClass() == Line.class) {
+            durationStage += lineService.getResourceLine((Line) entityProjectBackfillWell);
 
-        } else if (oilPad.getClass() == BackfillSite.class) {
-            durationStage += backfillSiteService.getResourceBackfillSite((BackfillSite) oilPad);
-        } else if (oilPad.getClass() == Vvp.class) {
-            durationStage += vvpService.getResourceVvp((Vvp) oilPad);
+        } else if (entityProjectBackfillWell.getClass() == BackfillSite.class) {
+            durationStage += backfillSiteService.getResourceBackfillSite((BackfillSite) entityProjectBackfillWell);
+        } else if (entityProjectBackfillWell.getClass() == Vvp.class) {
+            durationStage += vvpService.getResourceVvp((Vvp) entityProjectBackfillWell);
         }
         return durationStage;
     }
 
-    public List<EntityProject> listActiveEntityProject(List<EntityProject> entityProjects) {
+    public List<EntityProject> listActiveEntityProject(List<EntityProject> entityProjectsBackfillWell) {
         List<EntityProject> objects = new ArrayList<>();
         for (EntityProject entity :
-                entityProjects) {
+                entityProjectsBackfillWell) {
             if (entity.isActive()) {
                 if (entity.getStage() == null) {
                     entity.setStage(1);

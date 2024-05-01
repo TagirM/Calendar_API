@@ -22,7 +22,8 @@ public class PipelineService {
             return pipelineRepository.findFirstByPipelineLayingMethodAndUnitsValveAndUnitsSODAndLengthGreaterThanEqual
                     (pipeline.getPipelineLayingMethod(), pipeline.getUnitsValve(), pipeline.getUnitsSOD(), pipeline.getLength())
                     .orElseThrow(()-> new NoSuchEntityException("Введены некорректные значения параметров линейного трубопровода "
-                            + pipeline.getUnitsValve() + pipeline.getUnitsSOD() + pipeline.getLength())).getResource();
+                            + ", количество УЗА - " + pipeline.getUnitsValve() + ", количество узлов СОД - " + pipeline.getUnitsSOD()
+                            + ", длина - " + pipeline.getLength())).getResource();
         }
         return 0;
     }

@@ -39,7 +39,7 @@ public class DataFormProjectService {
         try {
             FileInputStream fileInputStream = new FileInputStream(filePathRecover);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            dataFormProject = (DataFormOilPad) objectInputStream.readObject();
+            dataFormProject = (DataFormProject) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

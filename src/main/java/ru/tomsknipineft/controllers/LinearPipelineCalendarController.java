@@ -18,8 +18,8 @@ import ru.tomsknipineft.entities.linearObjects.DataFormLinearObjects;
 import ru.tomsknipineft.services.CalendarService;
 import ru.tomsknipineft.services.LinearPipelineGroupCalendarServiceImpl;
 
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -56,21 +56,22 @@ public class LinearPipelineCalendarController {
         if (bindingResult.hasErrors()){
             return "linear-pipeline";
         }
+
         List<EntityProject> entityProjects = List.of(dataFormLinearObjects.getPipeline(),
                 dataFormLinearObjects.getRoad(), dataFormLinearObjects.getBridge(), dataFormLinearObjects.getLine(),
                 dataFormLinearObjects.getSikn(), dataFormLinearObjects.getMps(), dataFormLinearObjects.getKtplp(),
                 dataFormLinearObjects.getVvp(), dataFormLinearObjects.getCableRack());
-        List<Integer> durationsProject = linearObjectGroupCalendarService.getDuration(entityProjects);
+        Map<Integer, Integer> durationsProject = calendarService.getDuration(entityProjects, linearObjectGroupCalendarService);
 
-        LocalDate date = dataFormLinearObjects.getStartContract();
-        this.codeContract = dataFormLinearObjects.getCodeContract();
         if (dataFormLinearObjects.isFieldEngineeringSurvey()){
             dataFormLinearObjects.setEngineeringSurveyReport(true);
         }
-        calendars = calendarService.createCalendar(durationsProject, codeContract, date, dataFormLinearObjects.getHumanFactor(),
+        this.codeContract = dataFormLinearObjects.getCodeContract();
+        this.dataFormLinearObjects = dataFormLinearObjects;
+
+        calendars = calendarService.createCalendar(durationsProject, codeContract, dataFormLinearObjects.getStartContract(), dataFormLinearObjects.getHumanFactor(),
                 dataFormLinearObjects.isFieldEngineeringSurvey(), dataFormLinearObjects.isEngineeringSurveyReport(),
                 dataFormLinearObjects.getDrillingRig(), dataFormLinearObjects);
-        this.dataFormLinearObjects = dataFormLinearObjects;
 
         return "redirect:/linear_object/linear_pipeline/calendar";
     }
@@ -92,6 +93,6 @@ public class LinearPipelineCalendarController {
         model.addAttribute("dataFormLinearObjects", dataFormLinearObjects);
         model.addAttribute("fieldEngineeringSurvey", dataFormLinearObjects.isFieldEngineeringSurvey());
         model.addAttribute("engineeringSurveyReport", dataFormLinearObjects.isEngineeringSurveyReport());
-        return "result-calendar";
+        return "linear-object-result-calendar";
     }
 }

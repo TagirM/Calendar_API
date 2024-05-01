@@ -10,42 +10,7 @@
             <form class="mt-4" action="#" method="POST" th:action="@{/oil_pad_object/backfill_well/create}"
                   th:object="${dataFormOilPad}">
 
-                <div id="contractClass" class="container">
-                    <h3>Договор</h3>
-                    <div class="form-group">
-                        <label for="code">Шифр (от 4 до 10 символов):</label>
-                        <input type="text" class="form-control" th:field="*{codeContract}" id="code"/>
-                        <span class="text-danger" th:if="${#fields.hasErrors('codeContract')}"
-                              th:errors="*{codeContract}">CodeContract error</span><br><br>
-                    </div>
-                    <h3>Дата работ</h3>
-                    <div class="form-group">
-                        <label for="starting">Дата начала выполнения (не позднее текущей даты):</label>
-                        <input type="date" class="form-control" th:field="*{startContract}" id="starting"/>
-                        <span class="text-danger" th:if="${#fields.hasErrors('startContract')}"
-                              th:errors="*{startContract}">StartContract error</span><br><br>
-                    </div>
-                </div>
-
-                <div id="engineeringSurvey" class="container">
-                    <h3> Инженерные изыскания </h3>
-                    <div class="form-group">
-                        <label for="fieldEngineeringSurvey">Выполняются полевые и камеральные инженерные
-                            изыскания: </label>
-                        <input type="checkbox" class="form-check-input" th:field="*{fieldEngineeringSurvey}"
-                               id="fieldEngineeringSurvey"/><br>
-
-                        <label for="drillingRig">Сколько буровых бригад планируется использовать,
-                            шт.: </label>
-                        <input type="number" class="form-control" step="any" th:field="*{drillingRig}"
-                               id="drillingRig"/>
-                        <span class="text-danger" th:if="${#fields.hasErrors('drillingRig')}" th:errors="*{drillingRig}">drillingRig error</span><br>
-                        <label for="engineeringSurveyReport">Выполняются только камеральные инженерные
-                            изыскания: </label>
-                        <input type="checkbox" class="form-check-input" th:field="*{engineeringSurveyReport}"
-                               id="engineeringSurveyReport"/><br><br>
-                    </div>
-                </div>
+                <div th:insert="~{blocks/input-block.html :: input-content}"></div>
 
                 <div id="backfillWellClass" class="container">
                     <h3> Инженерная подготовка кустовой площадки </h3>
@@ -125,6 +90,20 @@
                         <input type="number" step="any" class="form-control" th:field="*{line.length}" id="lengthLine"/>
                         <span class="text-danger" th:if="${#fields.hasErrors('line.length')}"
                               th:errors="*{line.length}">Well error</span><br>
+                    </div>
+                    <div class="form-group">
+                        <label>Сложность геологии в месте прохождения ВЛ</label><br>
+                        <input type="radio" class="form-check-input me-1" step="any" th:field="*{line.complexityOfGeology}"
+                               id="complexityOfGeologyLine1" value="EASY" checked>
+                        <label class="form-check-label" for="complexityOfGeologyLine1">Простая</label><br>
+                        <input type="radio" class="form-check-input me-1" step="any" th:field="*{line.complexityOfGeology}"
+                               id="complexityOfGeologyLine2" value="MEDIUM">
+                        <label class="form-check-label" for="complexityOfGeologyLine2">Средней сложности</label><br>
+                        <input type="radio" class="form-check-input me-1" step="any" th:field="*{line.complexityOfGeology}"
+                               id="complexityOfGeologyLine3" value="DIFFICULT">
+                        <label class="form-check-label" for="complexityOfGeologyLine3">Сложная</label><br>
+                        <span class="text-danger" th:if="${#fields.hasErrors('line.complexityOfGeology')}"
+                              th:errors="*{line.complexityOfGeology}">Line error</span><br>
                     </div>
                     <div class="form-group">
                         <label for="stageLine">Этап строительства: </label>
@@ -215,6 +194,20 @@
                                id="lengthCableRack"/>
                         <span class="text-danger" th:if="${#fields.hasErrors('cableRack.length')}"
                               th:errors="*{cableRack.length}">Well error</span><br>
+                    </div>
+                    <div class="form-group">
+                        <label>Сложность геологии в месте прохождения кабельной эстакады</label><br>
+                        <input type="radio" class="form-check-input me-1" step="any" th:field="*{cableRack.complexityOfGeology}"
+                               id="complexityOfGeologyСableRack1" value="EASY" checked>
+                        <label class="form-check-label" for="complexityOfGeologyСableRack1">Простая</label><br>
+                        <input type="radio" class="form-check-input me-1" step="any" th:field="*{cableRack.complexityOfGeology}"
+                               id="complexityOfGeologyСableRack2" value="MEDIUM">
+                        <label class="form-check-label" for="complexityOfGeologyСableRack2">Средней сложности</label><br>
+                        <input type="radio" class="form-check-input me-1" step="any" th:field="*{cableRack.complexityOfGeology}"
+                               id="complexityOfGeologyСableRack3" value="DIFFICULT">
+                        <label class="form-check-label" for="complexityOfGeologyСableRack3">Сложная</label><br>
+                        <span class="text-danger" th:if="${#fields.hasErrors('cableRack.complexityOfGeology')}"
+                              th:errors="*{cableRack.complexityOfGeology}">Line error</span><br>
                     </div>
                     <div class="form-group">
                         <label for="stageCableRack">Этап строительства: </label>
