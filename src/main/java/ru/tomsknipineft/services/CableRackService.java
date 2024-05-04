@@ -20,7 +20,7 @@ public class CableRackService implements EntityProjectService{
     public Integer getResourceLine(CableRack cableRack){
         if (cableRack.isActive()){
             return cableRackRepository.findFirstByLengthGreaterThanEqual(cableRack.getLength()).orElseThrow(()->
-                    new NoSuchEntityException("Введены некорректные значения параметров кабельной эстакады " + cableRack.getLength())).getResource();
+                    new NoSuchEntityException("Введены некорректные значения параметров кабельной эстакады " + cableRack.getLength())).getResourceForWorkDoc();
         }
 
         return 0;

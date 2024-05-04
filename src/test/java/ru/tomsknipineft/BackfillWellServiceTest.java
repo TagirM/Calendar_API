@@ -33,7 +33,7 @@ public class BackfillWellServiceTest {
         testBackfillWell.setId(1L);
         testBackfillWell.setActive(true);
         testBackfillWell.setWell(5);
-        testBackfillWell.setResource(100);
+        testBackfillWell.setResourceForWorkDoc(100);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class BackfillWellServiceTest {
         when(backfillWellRepository.findFirstByWellGreaterThanEqual(testBackfillWell.getWell())).thenReturn(Optional.of(testBackfillWell));
 
         // Вызов тестируемого метода
-        Integer result = backfillWellService.getResourceBackfillWell(testBackfillWell);
+        Integer result = backfillWellService.getResourceForWorkDocBackfillWell(testBackfillWell);
 
         // Проверка результата
         assertEquals(100, result);

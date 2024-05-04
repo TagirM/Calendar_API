@@ -1,0 +1,92 @@
+2024-05-03T07:15:20.292+0700 INFO info message
+2024-05-03T07:15:20.292+0700 ERROR info message
+2024-05-03T07:15:20.385+0700 INFO info message
+2024-05-03T07:15:20.385+0700 ERROR info message
+2024-05-03T07:15:20.642+0700 INFO HV000001: Hibernate Validator 8.0.1.Final
+2024-05-03T07:15:20.653+0700 INFO Starting Main using Java 19.0.1 with PID 8068 (E:\MyJob\calendar_api\target\classes started by Тагир in E:\MyJob\calendar_api)
+2024-05-03T07:15:20.669+0700 INFO No active profile set, falling back to 1 default profile: "default"
+2024-05-03T07:15:20.876+0700 INFO Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-05-03T07:15:20.876+0700 INFO For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-05-03T07:15:21.339+0700 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-03T07:15:21.402+0700 INFO Finished Spring Data repository scanning in 54 ms. Found 10 JPA repository interfaces.
+2024-05-03T07:15:21.714+0700 INFO Tomcat initialized with port 8080 (http)
+2024-05-03T07:15:21.730+0700 INFO Initializing ProtocolHandler ["http-nio-8080"]
+2024-05-03T07:15:21.730+0700 INFO Starting service [Tomcat]
+2024-05-03T07:15:21.730+0700 INFO Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-05-03T07:15:21.761+0700 INFO Initializing Spring embedded WebApplicationContext
+2024-05-03T07:15:21.761+0700 INFO Root WebApplicationContext: initialization completed in 885 ms
+2024-05-03T07:15:21.808+0700 INFO HikariPool-1 - Starting...
+2024-05-03T07:15:21.855+0700 INFO HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2024-05-03T07:15:21.855+0700 INFO HikariPool-1 - Start completed.
+2024-05-03T07:15:21.871+0700 INFO H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2024-05-03T07:15:21.933+0700 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-03T07:15:21.949+0700 INFO HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-05-03T07:15:21.980+0700 INFO HHH000026: Second-level cache disabled
+2024-05-03T07:15:22.074+0700 INFO No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-03T07:15:22.105+0700 WARN HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-05-03T07:15:23.011+0700 INFO HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-05-03T07:15:23.058+0700 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-03T07:15:23.074+0700 WARN Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'backfillWellCalendarController': Lookup method resolution failed
+2024-05-03T07:15:23.074+0700 INFO Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-05-03T07:15:23.089+0700 WARN Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: База данных уже закрыта (чтобы отключить автоматическое закрытие базы данных при останове JVM, добавьте ";DB_CLOSE_ON_EXIT=FALSE" в URL)
+Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-224]
+2024-05-03T07:15:23.089+0700 INFO HikariPool-1 - Shutdown initiated...
+2024-05-03T07:15:23.089+0700 INFO HikariPool-1 - Shutdown completed.
+2024-05-03T07:15:23.089+0700 INFO Stopping service [Tomcat]
+2024-05-03T07:15:23.105+0700 INFO 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-05-03T07:15:23.105+0700 ERROR Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'backfillWellCalendarController': Lookup method resolution failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:497) ~[spring-beans-6.1.3.jar:6.1.3]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:367) ~[spring-beans-6.1.3.jar:6.1.3]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1293) ~[spring-beans-6.1.3.jar:6.1.3]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1188) ~[spring-beans-6.1.3.jar:6.1.3]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:561) ~[spring-beans-6.1.3.jar:6.1.3]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521) ~[spring-beans-6.1.3.jar:6.1.3]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:325) ~[spring-beans-6.1.3.jar:6.1.3]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.3.jar:6.1.3]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:323) ~[spring-beans-6.1.3.jar:6.1.3]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-6.1.3.jar:6.1.3]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975) ~[spring-beans-6.1.3.jar:6.1.3]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:959) ~[spring-context-6.1.3.jar:6.1.3]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:624) ~[spring-context-6.1.3.jar:6.1.3]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.2.2.jar:3.2.2]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) [spring-boot-3.2.2.jar:3.2.2]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) [spring-boot-3.2.2.jar:3.2.2]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334) [spring-boot-3.2.2.jar:3.2.2]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) [spring-boot-3.2.2.jar:3.2.2]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) [spring-boot-3.2.2.jar:3.2.2]
+	at ru.tomsknipineft.Main.main(Main.java:20) [classes/:?]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) [spring-boot-devtools-3.2.2.jar:3.2.2]
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [ru.tomsknipineft.controllers.BackfillWellCalendarController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@4b235549]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:483) ~[spring-core-6.1.3.jar:6.1.3]
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320) ~[spring-core-6.1.3.jar:6.1.3]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:475) ~[spring-beans-6.1.3.jar:6.1.3]
+	... 22 more
+Caused by: java.lang.NoClassDefFoundError: ru/tomsknipineft/entities/oilPad/DataFormOilPad
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method) ~[?:?]
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3458) ~[?:?]
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2557) ~[?:?]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465) ~[spring-core-6.1.3.jar:6.1.3]
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320) ~[spring-core-6.1.3.jar:6.1.3]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:475) ~[spring-beans-6.1.3.jar:6.1.3]
+	... 22 more
+Caused by: java.lang.ClassNotFoundException: ru.tomsknipineft.entities.oilPad.DataFormOilPad
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641) ~[?:?]
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188) ~[?:?]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521) ~[?:?]
+	at java.base/java.lang.Class.forName0(Native Method) ~[?:?]
+	at java.base/java.lang.Class.forName(Class.java:495) ~[?:?]
+	at java.base/java.lang.Class.forName(Class.java:474) ~[?:?]
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:121) ~[spring-boot-devtools-3.2.2.jar:3.2.2]
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521) ~[?:?]
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method) ~[?:?]
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3458) ~[?:?]
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2557) ~[?:?]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465) ~[spring-core-6.1.3.jar:6.1.3]
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:320) ~[spring-core-6.1.3.jar:6.1.3]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.checkLookupMethods(AutowiredAnnotationBeanPostProcessor.java:475) ~[spring-beans-6.1.3.jar:6.1.3]
+	... 22 more

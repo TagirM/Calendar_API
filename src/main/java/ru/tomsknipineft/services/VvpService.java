@@ -22,7 +22,7 @@ public class VvpService implements EntityProjectService{
             return vvpRepository.findFirstBySquareGreaterThanEqualAndHelicopterModel(vvp.getSquare(),
                     vvp.getHelicopterModel()).orElseThrow(()->
                     new NoSuchEntityException("Введено некорректное значение площади " + vvp.getSquare() +
-                            " и/или модель вертолета " + vvp.getHelicopterModel())).getResource();
+                            " и/или модель вертолета " + vvp.getHelicopterModel())).getResourceForWorkDoc();
         }
         return 0;
     }

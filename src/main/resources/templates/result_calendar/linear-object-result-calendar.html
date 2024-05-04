@@ -1,0 +1,64 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{blocks/template.html}">
+<th:block layout:fragment="alert-content">
+    <hr class="my-4">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="text-center">КАЛЕНДАРНЫЕ СРОКИ ПРОЕКТА</h2><br>
+            <h5 class="fst-italic">Шифр договора: [[${codeContract}]]</h5>
+            <h5 class="fst-italic">Основные характеристики проекта</h5>
+            <p class="fst-italic" th:if="${fieldEngineeringSurvey}">Комплексные инженерные изыскания: Да</p>
+            <p class="fst-italic" th:if="${!fieldEngineeringSurvey}">Полевые инженерные изыскания: Нет</p>
+            <p class="fst-italic" th:if="${engineeringSurveyReport}">Камеральные инженерные изыскания: Да</p>
+            <p class="fst-italic" th:if="${!engineeringSurveyReport}">Камеральные инженерные изыскания: Нет</p>
+            <p class="fst-italic">Линейный трубопровод:
+                способ прокладки - [[${dataFormLinearObjects.pipeline.pipelineLayingMethod.title}]], протяженность - [[${dataFormLinearObjects.pipeline.length}]] км,
+                [[${dataFormLinearObjects.pipeline.complexityOfGeology.title}]] в месте прокладки трубопровода,
+                количество УЗА - [[${dataFormLinearObjects.pipeline.unitsValve}]] шт., количество узлов СОД - [[${dataFormLinearObjects.pipeline.unitsSOD}]] шт.</p>
+            <p class="fst-italic" th:if="${dataFormLinearObjects.road.active}">Автомобильная дорога категории
+                [[${dataFormLinearObjects.road.category}]]
+                протяженностью [[${dataFormLinearObjects.road.length}]] км</p>
+            <p class="fst-italic" th:if="${dataFormLinearObjects.road.bridgeExist}">Дорожные мосты в количестве:
+                [[${dataFormLinearObjects.road.bridgeRoadCount}]] шт.,
+                общей протяженностью [[${dataFormLinearObjects.road.bridgeRoadLength}]] м</p>
+            <p class="fst-italic" th:if="${dataFormLinearObjects.line.active}">ВЛ напряжением [[${dataFormLinearObjects.line.power}]]
+                кВ протяженностью [[${dataFormLinearObjects.line.length}]] км, [[${dataFormLinearObjects.line.complexityOfGeology.title}]] в месте прокладки ВЛ</p>
+            <p class="fst-italic" th:if="${dataFormLinearObjects.vvp.active}">Временная вертолетная площадка для
+                [[${dataFormLinearObjects.vvp.helicopterModel}]] площадью [[${dataFormLinearObjects.vvp.square}]] га</p>
+            <p class="fst-italic" th:if="${dataFormLinearObjects.vvp.hallExist}">с залом ожидания</p>
+            <p class="fst-italic" th:if="${dataFormLinearObjects.cableRack.active}">Кабельная эстакада протяженностью
+                [[${dataFormLinearObjects.cableRack.length}]] м, [[${dataFormLinearObjects.line.complexityOfGeology.title}]] в месте прокладки ВЛ</p>
+            <hr class="my-4">
+            <div th:insert="~{blocks/calendar-block.html :: calendar-content}"></div>
+        </div>
+    </div>
+    <br>
+    <div class="card text-center">
+        <form class="card" id="goToBackfillWell1" method="GET" th:action="@{/calendar/to_desktop}">
+            <div class="card text-center">
+                <input type="hidden" name="codeContract" th:value="${codeContract}"/>
+                <button type="submit" class="btn btn-outline-secondary fw-bolder">Выгрузить в Excel</button>
+            </div>
+        </form>
+        <br>
+        <a class="btn btn-outline-secondary fw-bolder " href="../index.html" th:href="@{/static}">
+            Вернуться на начальную страницу</a><br>
+        <a id="goToLinearPipeline" class="btn btn-outline-secondary fw-bolder" href="../input_page/linear-pipeline.html"
+           th:href="@{/linear_object/linear_pipeline}">Перейти
+            на страницу ввода данных нового проекта</a>
+    </div>
+    <script>
+        // Проверка, откуда пришел пользователь для формирования кнопок
+        if (document.referrer && document.referrer.endsWith('/linear_object/linear_pipeline') ||
+            document.referrer && document.referrer.endsWith('/linear_object/linear_pipeline/calendar') ||
+            document.referrer && document.referrer.endsWith('/linear_object/linear_pipeline/create')) {
+            document.getElementById('goToLinearPipeline').style.display = 'block';
+        } else {
+            document.getElementById('goToLinearPipeline').style.display = 'none';
+        }
+    </script>
+    <div th:insert="~{blocks/stage-calendar-block.html :: stage-calendar-content}"></div>
+    <hr class="my-4">
+</th:block>
+</html>

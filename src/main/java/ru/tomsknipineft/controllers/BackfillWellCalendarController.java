@@ -47,7 +47,7 @@ public class BackfillWellCalendarController {
     public String backfillWellPage(Model model){
         calendars =null;
         model.addAttribute("dataFormOilPad", new DataFormOilPad());
-        return "backfill-well";
+        return "input_page/backfill-well";
     }
 
     /**
@@ -58,12 +58,12 @@ public class BackfillWellCalendarController {
     @PostMapping("/create")
     public String createCalendar(@Valid @ModelAttribute("dataFormOilPad") DataFormOilPad dataFormOilPad, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
-            return "backfill-well";
+            return "input_page/backfill-well";
         }
         List<EntityProject> entityProjects = new ArrayList<>(List.of(dataFormOilPad.getBackfillWell(), dataFormOilPad.getRoad(), dataFormOilPad.getLine(),
                 dataFormOilPad.getVvp(), dataFormOilPad.getCableRack()));
         entityProjects.addAll(dataFormOilPad.getBackfillSites());
-        Map<Integer, Integer> durationsProject = calendarService.getDuration(entityProjects, backFillWellCalendarServiceImpl);
+        Map<Integer, Integer> durationsWorkDoc = calendarService.getDurationWorkDoc(entityProjects, backFillWellCalendarServiceImpl);
 
         if (dataFormOilPad.isFieldEngineeringSurvey()){
             dataFormOilPad.setEngineeringSurveyReport(true);
@@ -71,7 +71,7 @@ public class BackfillWellCalendarController {
         this.codeContract = dataFormOilPad.getCodeContract();
         this.dataFormOilPad = dataFormOilPad;
 
-        calendars = calendarService.createCalendar(durationsProject, codeContract, dataFormOilPad.getStartContract(), dataFormOilPad.getHumanFactor(),
+        calendars = calendarService.createCalendar(durationsWorkDoc, codeContract, dataFormOilPad.getStartContract(), dataFormOilPad.getHumanFactor(),
                 dataFormOilPad.isFieldEngineeringSurvey(), dataFormOilPad.isEngineeringSurveyReport(), dataFormOilPad.getDrillingRig(), dataFormOilPad);
 
         return "redirect:/oil_pad_object/backfill_well/calendar";
@@ -94,7 +94,7 @@ public class BackfillWellCalendarController {
         model.addAttribute("dataFormOilPad", dataFormOilPad);
         model.addAttribute("fieldEngineeringSurvey", dataFormOilPad.isFieldEngineeringSurvey());
         model.addAttribute("engineeringSurveyReport", dataFormOilPad.isEngineeringSurveyReport());
-        return "oil-pad-result-calendar";
+        return "result_calendar/oil-pad-result-calendar";
     }
 }
 

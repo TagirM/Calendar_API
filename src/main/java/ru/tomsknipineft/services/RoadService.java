@@ -20,7 +20,7 @@ public class RoadService implements EntityProjectService{
     public Integer getResourceRoad(Road road){
         if (road.isActive()){
             Integer durationRoad = roadRepository.findFirstByCategoryAndLengthGreaterThanEqual(road.getCategory(), road.getLength()).orElseThrow(()->
-                    new NoSuchEntityException("Введены некорректные значения параметров автодороги " + road.getCategory() + " и " + road.getLength())).getResource();
+                    new NoSuchEntityException("Введены некорректные значения параметров автодороги " + road.getCategory() + " и " + road.getLength())).getResourceForWorkDoc();
             if (road.isBridgeExist()){
                 return durationRoad + road.getResourceBridge();
             }

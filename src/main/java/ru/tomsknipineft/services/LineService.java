@@ -20,7 +20,7 @@ public class LineService implements EntityProjectService{
     public Integer getResourceLine(Line line){
         if (line.isActive()){
             return lineRepository.findFirstByPowerAndLengthGreaterThanEqual(line.getPower(), line.getLength()).orElseThrow(()->
-                    new NoSuchEntityException("Введены некорректные значения параметров ВЛ " + line.getPower() + " и " + line.getLength())).getResource();
+                    new NoSuchEntityException("Введены некорректные значения параметров ВЛ " + line.getPower() + " и " + line.getLength())).getResourceForWorkDoc();
         }
 
         return 0;

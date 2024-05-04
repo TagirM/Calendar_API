@@ -40,7 +40,7 @@ public class BackfillWellGroupCalendarServiceImpl implements GroupObjectCalendar
     public Integer resourceStage(EntityProject entityProjectBackfillWell) {
         int durationStage = 0;
         if (entityProjectBackfillWell.getClass() == BackfillWell.class) {
-            durationStage += backfillWellService.getResourceBackfillWell((BackfillWell) entityProjectBackfillWell);
+            durationStage += backfillWellService.getResourceForWorkDocBackfillWell((BackfillWell) entityProjectBackfillWell);
 
         } else if (entityProjectBackfillWell.getClass() == Road.class) {
             durationStage += roadService.getResourceRoad((Road) entityProjectBackfillWell);
@@ -49,7 +49,7 @@ public class BackfillWellGroupCalendarServiceImpl implements GroupObjectCalendar
             durationStage += lineService.getResourceLine((Line) entityProjectBackfillWell);
 
         } else if (entityProjectBackfillWell.getClass() == BackfillSite.class) {
-            durationStage += backfillSiteService.getResourceBackfillSite((BackfillSite) entityProjectBackfillWell);
+            durationStage += backfillSiteService.getResourceForWorkDocBackfillSite((BackfillSite) entityProjectBackfillWell);
         } else if (entityProjectBackfillWell.getClass() == Vvp.class) {
             durationStage += vvpService.getResourceVvp((Vvp) entityProjectBackfillWell);
         }

@@ -33,6 +33,7 @@ public class CalendarService {
 
     /**
      * Получение всего списка календарных планов (различных этапов строительства) по шифру договора
+     *
      * @param code шифр договора
      * @return список календарных планов по различным этапам строительства
      */
@@ -43,10 +44,11 @@ public class CalendarService {
 
     /**
      * Метод получения данных проекта из базы данных
+     *
      * @param calendars календарь проекта
      * @return данные проекта
      */
-    public DataFormProject getDataFormProject(List<Calendar> calendars){
+    public DataFormProject getDataFormProject(List<Calendar> calendars) {
         DataFormProject dataFormProject;
         try {
             FileOutputStream f = new FileOutputStream(dataFormProjectService.getFilePathRecover());
@@ -61,18 +63,19 @@ public class CalendarService {
 
     /**
      * Создание календарного плана договора с учетом всех этапов строительства
-     * @param durationsProject список продолжительности проектирования всех этапов строительтсва по договору
-     * @param codeContract шифр договора
-     * @param startContract дата начала работ
-     * @param humanFactor человеческий фактор
-     * @param fieldEngineeringSurvey наличие полевых ИИ
+     *
+     * @param durationsWorkDoc        список продолжительности проектирования всех этапов строительтсва по договору
+     * @param codeContract            шифр договора
+     * @param startContract           дата начала работ
+     * @param humanFactor             человеческий фактор
+     * @param fieldEngineeringSurvey  наличие полевых ИИ
      * @param engineeringSurveyReport наличие камеральных ИИ
-     * @param drillingRig количество буровых бригад
-     * @param dataFormProject исходные данные проекта
+     * @param drillingRig             количество буровых бригад
+     * @param dataFormProject         исходные данные проекта
      */
-    public List<Calendar> createCalendar(Map<Integer, Integer> durationsProject, String codeContract, LocalDate startContract, Integer humanFactor,
-                               boolean fieldEngineeringSurvey, boolean engineeringSurveyReport, Integer drillingRig, DataFormProject dataFormProject) {
-        List<Calendar> calendars =new ArrayList<>();
+    public List<Calendar> createCalendar(Map<Integer, Integer> durationsWorkDoc, String codeContract, LocalDate startContract, Integer humanFactor,
+                                         boolean fieldEngineeringSurvey, boolean engineeringSurveyReport, Integer drillingRig, DataFormProject dataFormProject) {
+        List<Calendar> calendars = new ArrayList<>();
         //  запись в файл данных о проекте
         this.dataFormProjectService.dataFormProjectSave(dataFormProject);
         // переменные метода
@@ -101,14 +104,14 @@ public class CalendarService {
             agreementEngineeringSurveyDuration = 60;
         }
 
-        for (int i = 0; i < durationsProject.size(); i++) {
+        for (int i = 0; i < durationsWorkDoc.size(); i++) {
             // определяем номер этапа строительства, если идут не по порядку или не с 1го
             int stageNumber = i + 1;
-            while (durationsProject.get(stageNumber)==null){
+            while (durationsWorkDoc.get(stageNumber) == null) {
                 stageNumber++;
             }
             // расчет количества рабочих дней РД с учетом человеческого фактора
-            int durationsProjectWithHumanFactor = (durationsProject.get(stageNumber) * (humanFactor + 100)) / 100 + projectOfficeDays;
+            int durationsProjectWithHumanFactor = (durationsWorkDoc.get(stageNumber) * (humanFactor + 100)) / 100 + projectOfficeDays;
 
             // перерасчет рабочих дней в календарные дни РД в каждом этапе строительства
             int calendarDaysDurationsProject = durationsProjectWithHumanFactor + (durationsProjectWithHumanFactor / 5) * 2;
@@ -172,7 +175,7 @@ public class CalendarService {
             // дата окончания согласования ПД текущего этапа строительства
             LocalDate agreementProjectFinish = dateService.workDay(projectFinish.plusDays(agreementProjectDuration));
             // дата окончания разработки ЗУР текущего этапа строительства
-            LocalDate landFinish =  dateService.workDay(projectFinish.plusDays(landDuration));
+            LocalDate landFinish = dateService.workDay(projectFinish.plusDays(landDuration));
             // дата окончания ГГЭ ПД текущего этапа строительства
             LocalDate examinationProjectFinish = dateService.workDay(agreementProjectFinish.plusDays(examinationProjectDuration));
 
@@ -221,64 +224,105 @@ public class CalendarService {
         return calendars;
     }
 
-        /**
-     * Получение общего количества этапов строительства всего объекта проектирования по договору
-     * @param entityProjects сооружение (сущность) объекта проектирования
-     * @return общее количество этапов строительства объекта
+//        /**
+//     * Получение общего количества этапов строительства всего объекта проектирования по договору
+//     * @param entityProjects сооружение (сущность) объекта проектирования
+//     * @return общее количество этапов строительства объекта
+//     */
+//    public Integer defineStageProject(List<EntityProject> entityProjects) {
+////        int stage = 0;
+//        List<Integer> listStages = new ArrayList<>();
+//        for (EntityProject entity :
+//                entityProjects) {
+//            listStages.add(entity.getStage());
+//        }
+//        Set<Integer> stages = new HashSet<>(listStages);
+//        logger.info("Количество этапов строительства в проекте определено и равно " + stages.size());
+//        return stages.size();
+//    }
+
+    /**
+     * Получение map с ресурсами необходиммыми для полевых ИИ по каждому этапу строительства (ключ - этап строительства, значение - необходимый ресурс в ч/дн)
+     *
+     * @param entityProjects        список сооружений объекта проектирования
+     * @param objectCalendarService класс-сервис объекта проектирования
+     * @return ресурсы необходиммые для полевых ИИ по каждому этапу строительства
      */
-    public Integer defineStageProject(List<EntityProject> entityProjects) {
-//        int stage = 0;
-        List<Integer> listStages = new ArrayList<>();
+    public Map<Integer, Integer> getDurationEngSurvey(List<EntityProject> entityProjects, GroupObjectCalendarService objectCalendarService) {
+
+        List<EntityProject> objects = objectCalendarService.listActiveEntityProject(entityProjects);
+
+        Map<Integer, Integer> divisionDurationEngSurveyByStage = new HashMap<>();
         for (EntityProject entity :
-                entityProjects) {
-            listStages.add(entity.getStage());
-//            if (entity.getStage() > stage) {
-//                stage = entity.getStage();
-//            }
+                objects) {
+            if (divisionDurationEngSurveyByStage.containsKey(entity.getStage())) {
+                divisionDurationEngSurveyByStage.put(entity.getStage(), divisionDurationEngSurveyByStage.get(entity.getStage()) + objectCalendarService.resourceStage(entity));
+            } else {
+                divisionDurationEngSurveyByStage.put(entity.getStage(), objectCalendarService.resourceStage(entity));
+            }
         }
-        Set<Integer> stages = new HashSet<>(listStages);
-        logger.info("Количество этапов строительства в проекте определено и равно " + stages.size());
-        return stages.size();
+        return divisionDurationEngSurveyByStage;
     }
 
-    public Map<Integer, Integer> getDuration(List<EntityProject> entityProjectsBackfillWell, GroupObjectCalendarService objectCalendarService) {
+    /**
+     * Получение map с ресурсами необходиммыми для РД по каждому этапу строительства (ключ - этап строительства, значение - необходимый ресурс в ч/дн)
+     *
+     * @param entityProjects        список сооружений объекта проектирования
+     * @param objectCalendarService класс-сервис объекта проектирования
+     * @return ресурсы необходиммые для РД по каждому этапу строительства
+     */
+    public Map<Integer, Integer> getDurationWorkDoc(List<EntityProject> entityProjects, GroupObjectCalendarService objectCalendarService) {
 
-        List<EntityProject> objects = objectCalendarService.listActiveEntityProject(entityProjectsBackfillWell);
+        List<EntityProject> objects = objectCalendarService.listActiveEntityProject(entityProjects);
 
-//        List<Integer> durationsProject = new ArrayList<>();
-
-        int stages = defineStageProject(objects);
-        Map<Integer, Integer> divisionDurationByStage = new HashMap<>();
-        for (EntityProject backfillWell :
+        Map<Integer, Integer> divisionDurationWorkDocByStage = new HashMap<>();
+        for (EntityProject entity :
                 objects) {
-            if (backfillWell.getObjectType().equals(ObjectType.AREA)) {
-                if (divisionDurationByStage.containsKey(backfillWell.getStage())) {
-                    divisionDurationByStage.put(backfillWell.getStage(), divisionDurationByStage.get(backfillWell.getStage()) + objectCalendarService.resourceStage(backfillWell));
+            if (entity.getObjectType().equals(ObjectType.AREA)) {
+                if (divisionDurationWorkDocByStage.containsKey(entity.getStage())) {
+                    divisionDurationWorkDocByStage.put(entity.getStage(), divisionDurationWorkDocByStage.get(entity.getStage()) + objectCalendarService.resourceStage(entity));
                 } else {
-                    divisionDurationByStage.put(backfillWell.getStage(), objectCalendarService.resourceStage(backfillWell));
+                    divisionDurationWorkDocByStage.put(entity.getStage(), objectCalendarService.resourceStage(entity));
                 }
             }
         }
-        for (EntityProject oilPad :
+        for (EntityProject entity :
                 objects) {
-            if (oilPad.getObjectType().equals(ObjectType.LINEAR)) {
-                if (!divisionDurationByStage.containsKey(oilPad.getStage())) {
-                    divisionDurationByStage.put(oilPad.getStage(), objectCalendarService.resourceStage(oilPad));
+            if (entity.getObjectType().equals(ObjectType.LINEAR)) {
+                if (!divisionDurationWorkDocByStage.containsKey(entity.getStage())) {
+                    divisionDurationWorkDocByStage.put(entity.getStage(), objectCalendarService.resourceStage(entity));
                 } else {
-                    if (divisionDurationByStage.get(oilPad.getStage()) < objectCalendarService.resourceStage(oilPad)) {
-                        divisionDurationByStage.put(oilPad.getStage(), objectCalendarService.resourceStage(oilPad));
+                    if (divisionDurationWorkDocByStage.get(entity.getStage()) < objectCalendarService.resourceStage(entity)) {
+                        divisionDurationWorkDocByStage.put(entity.getStage(), objectCalendarService.resourceStage(entity));
                     }
                 }
             }
         }
-//        for (int i = 1; i <= stages; i++) {
-//            int stageNumber = i;
-//            while (divisionDurationByStage.get(stageNumber).describeConstable().isEmpty()){
-//                stageNumber++;
-//            }
-//            durationsProject.add(divisionDurationByStage.get(stageNumber));
-//        }
-//        return durationsProject;
-        return divisionDurationByStage;
+        return divisionDurationWorkDocByStage;
+    }
+
+    /**
+     * Получение map с ресурсами необходиммыми для GД по каждому этапу строительства (ключ - этап строительства, значение - необходимый ресурс в ч/дн)
+     *
+     * @param entityProjects        список сооружений объекта проектирования
+     * @param objectCalendarService класс-сервис объекта проектирования
+     * @return ресурсы необходиммые для ПД по каждому этапу строительства
+     */
+    public Map<Integer, Integer> getDurationProjDoc(List<EntityProject> entityProjects, GroupObjectCalendarService objectCalendarService) {
+
+        List<EntityProject> objects = objectCalendarService.listActiveEntityProject(entityProjects);
+
+        Map<Integer, Integer> divisionDurationProjDocByStage = new HashMap<>();
+        for (EntityProject entity :
+                objects) {
+            if (!divisionDurationProjDocByStage.containsKey(entity.getStage())) {
+                divisionDurationProjDocByStage.put(entity.getStage(), objectCalendarService.resourceStage(entity));
+            } else {
+                if (divisionDurationProjDocByStage.get(entity.getStage()) < objectCalendarService.resourceStage(entity)) {
+                    divisionDurationProjDocByStage.put(entity.getStage(), objectCalendarService.resourceStage(entity));
+                }
+            }
+        }
+        return divisionDurationProjDocByStage;
     }
 }
